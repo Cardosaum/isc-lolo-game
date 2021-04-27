@@ -43,27 +43,30 @@ PRINT_SPRITE:
     # a1: y
     # a3: sprite address
     lw t1,0(a3) # t1 = image_width
-    lw t3,4(a3) # t2 = image_height
+    lw t2,4(a3) # t2 = image_height
     mul t3,t1,t2 # t3 = t1*t2 (image area)
-    #srli t3,t3,2 # t3 /= 4
-    li t4,0 # counter
+    srli t3,t3,2 # t3 /= 4
+    li t4,0 # actual_column
     addi t5,a3,8 # t5 = first 4 pixels
     mv t0,s0 # frame address copy
 
 PRINT_SPRITE_LOOP:
     lw t6,(t5) # load pixel from HD
     sw t6,(t0) # print pixel to frame
+    addi t4,t4,1
     addi t5,t5,4 # pixel_address += 4
     addi t0,t0,4 # frame_address += 4
-    addi t4,t4,1 # counter += 1
+    addi t3,t3,-1 # image_area -= 1
+    bge t4,t1,PRINT_SPRITE_NEXT_LINE # if a0 >= t1: goto PRINT_SPRITE_NEXT_LINE
+    beqz t3,PRINT_SPRITE_LOOP_EXIT # if thereis no more pixel to print, exit.
     addi a0,a0,1 # x += 1
-    beq a0,t1,PRINT_SPRITE_NEXT_LINE # if a0 == t1: goto PRINT_SPRITE_NEXT_LINE
-    bge t4,t3,PRINT_SPRITE_LOOP_EXIT # if t4 == t3: goto PRINT_SPRITE_LOOP_EXIT
     j PRINT_SPRITE_LOOP
 
 PRINT_SPRITE_NEXT_LINE:
     li a0,0
+    li t4,0
     addi a1,a1,1
+    j PRINT_SPRITE_LOOP
 
 PRINT_SPRITE_LOOP_EXIT:
     ret
