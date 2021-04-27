@@ -65,6 +65,6 @@ def p(cwidth, cheight, iwidth, iheight, position):
     img.save('lolo.png')
     return img
 
-# lolo = p(320, 240, 16, 16, 0)
-lolo = p(320, 240, 320, 240, 0)
+lolo = p(320, 240, 16, 16, 0)
+# lolo = p(320, 240, 320, 240, 0)
 # lolo.show()
