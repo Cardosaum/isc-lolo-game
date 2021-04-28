@@ -45,9 +45,8 @@ PRINT_SPRITE_LOOP:
     addi t3,t3,-1 # image_area -= 1
     addi t5,t5,4 # pixel_address += 4
     beqz t3,PRINT_SPRITE_LOOP_EXIT # if thereis no more pixel to print, exit.
-    bge t4,t1,PRINT_SPRITE_NEXT_LINE # if a0 >= t1: goto PRINT_SPRITE_NEXT_LINE
+    bge t4,t1,PRINT_SPRITE_NEXT_LINE # if actual_column >= image_width: goto PRINT_SPRITE_NEXT_LINE
     addi t0,t0,4 # frame_address += 4
-    addi a0,a0,1 # x += 1
     j PRINT_SPRITE_LOOP
 
 PRINT_SPRITE_NEXT_LINE:
@@ -56,7 +55,6 @@ PRINT_SPRITE_NEXT_LINE:
     mv t4,t1 # t4 = t1
     addi t4,t4,-4 # t4 -= 4 (we ignore the last printed address)
     sub t0,t0,t4 # t0 -= t4
-    li a0,0 # x_base_pixel = 0
     li t4,0 # actual_column = 0
     j PRINT_SPRITE_LOOP
 
