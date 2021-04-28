@@ -28,3 +28,9 @@
     la a3,%sprite_address
     jal PRINT_SPRITE
 .end_macro
+
+.macro sleep(%time_ms)
+    li a7,32
+    li a0,%time_ms
+    ecall
+.end_macro

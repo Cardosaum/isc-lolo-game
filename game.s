@@ -1,62 +1,34 @@
+.include "macros.s"
+
 .data
-    .include "lolo.data"
-    .include "lolo_front.data"
+    .include "LOLO16x16.data"
+    .include "LOLOU16x16.data"
+    .include "LOLOR16x16.data"
+    .include "LOLOL16x16.data"
     .include "map.data"
-    .include "macros.s"
 
 .text
 MAIN:
     init()
     print_sprite(0, 0, map)
-    print_sprite(100, 100, lolo)
-    print_sprite(200, 200, lolo_front)
+    print_sprite(150, 100, LOLO16x16)
+    print_sprite(166, 100, LOLOU16x16)
+    print_sprite(182, 100, LOLOR16x16)
+    print_sprite(198, 100, LOLOL16x16)
+    #sleep(1000)
+
+.eqv MMIO_set 0xff200000
+.eqv MMIO_add 0xff200004
+
+    li t0,MMIO_set
+LOOP_POOL:
+    lb t1,(t0)
+    beqz t1,LOOP_POOL
+    li a0,MMIO_add
+    lw a0,(a0)
+    li a7, 11
+    ecall
+    j LOOP_POOL
     exit()
 
-PRINT_PIXEL:
-    # (base_pixel := 0) + y*width + x
-    # a0: x
-    # a1: y
-    # a2: color
-    mul t1,s1,a1
-    add t1,t1,a0
-    add t1,t1,s0
-    sw a2,(t1)
-    ret
-
-PRINT_SPRITE:
-    # a0: x_base_pixel
-    # a1: y_base_pixel
-    # a3: sprite address
-    lw t1,0(a3) # t1 = image_width
-    lw t2,4(a3) # t2 = image_height
-    mul t3,t1,t2 # t3 = t1*t2 (image area)
-    srli t3,t3,2 # t3 /= 4
-    addi t5,a3,8 # t5 = first 4 pixels
-    mv t0,s0 # frame address copy
-    add t0,t0,a0 # frame_address + x_base_pixel
-    mul t4,s1,a1 # t4 = canvas_width * y_base_pixel
-    add t0,t0,t4 # frame_address += t4
-    li t4,0 # (t4) actual_column = 0
-
-PRINT_SPRITE_LOOP:
-    lw t6,(t5) # load pixel from HD
-    sw t6,(t0) # print pixel to frame
-    addi t4,t4,4 # actual_column += 4
-    addi t3,t3,-1 # image_area -= 1
-    addi t5,t5,4 # pixel_address += 4
-    beqz t3,PRINT_SPRITE_LOOP_EXIT # if thereis no more pixel to print, exit.
-    bge t4,t1,PRINT_SPRITE_NEXT_LINE # if actual_column >= image_width: goto PRINT_SPRITE_NEXT_LINE
-    addi t0,t0,4 # frame_address += 4
-    j PRINT_SPRITE_LOOP
-
-PRINT_SPRITE_NEXT_LINE:
-    addi a1,a1,1 # y_base_pixel += 1
-    add t0,t0,s1 # frame_address += canvas_width
-    mv t4,t1 # t4 = t1
-    addi t4,t4,-4 # t4 -= 4 (we ignore the last printed address)
-    sub t0,t0,t4 # t0 -= t4
-    li t4,0 # actual_column = 0
-    j PRINT_SPRITE_LOOP
-
-PRINT_SPRITE_LOOP_EXIT:
-    ret
+.include "ui.s"
