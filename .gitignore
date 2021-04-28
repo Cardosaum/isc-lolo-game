@@ -9,4 +9,5 @@ build
 htmlcov
 
 rars/
+fpgrars/
 sample_projects/
