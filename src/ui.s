@@ -1,18 +1,18 @@
-PRINT_PIXEL:
-    # (base_pixel := 0) + y*width + x
-    # a0: x
-    # a1: y
-    # a2: color
-    mul t1,s1,a1
-    add t1,t1,a0
-    add t1,t1,s0
-    sw a2,(t1)
-    ret
+ #.eqv STC_BLOCK 0
+ #.eqv DYN_BLOCK 1
 
 PRINT_SPRITE:
     # a0: x_base_pixel
     # a1: y_base_pixel
     # a3: sprite address
+    # a4: is_dynamic
+
+    # first of all, we need to get the
+    # canvas width and the frame that
+    # need to be used to print the pixels
+    load_word(s0,SELECTED_FRAME)
+    load_half(s1,CANVAS_WIDTH )
+
     lw t1,0(a3) # t1 = image_width
     lw t2,4(a3) # t2 = image_height
     mul t3,t1,t2 # t3 = t1*t2 (image area)
@@ -45,4 +45,10 @@ PRINT_SPRITE_NEXT_LINE:
     j PRINT_SPRITE_LOOP
 
 PRINT_SPRITE_LOOP_EXIT:
+    ret
+
+GENERATE_MAP_MATRIX:
+    # a0: map_matrix_address
+    lh t0,0(a0) # t0 = map_width
+    lh t1,2(a0) # t0 = map_height
     ret
