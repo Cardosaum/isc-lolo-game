@@ -74,3 +74,13 @@
     la a0,%map_matrix_address
     jal GENERATE_MAP_MATRIX
 .end_macro
+
+
+.macro save_current_pixels_to_var(%x,%y,%width,%height,%variable_address)
+    mv a0,%x
+    mv a1,%y
+    li a2,%width
+    li a3,%height
+    la a4,%variable_address
+    jal SAVE_CURRENT_PIXELS_TO_VAR
+.end_macro

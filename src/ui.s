@@ -109,3 +109,92 @@ GENERATE_MAP_MATRIX:
     lh t0,0(a0) # t0 = map_width
     lh t1,2(a0) # t0 = map_height
     ret
+
+RELATIVE_MOVE_DYN_BLOCK:
+    # a0: x_current
+    # a1: y_current
+    # a2: x_next
+    # a3: y_next
+    # a4: sprite_address
+    mv s10,ra
+
+    store_half(t0,a2,DYN_BLOCK_SPRITE_NEXT_X)
+    store_half(t0,a3,DYN_BLOCK_SPRITE_NEXT_Y)
+    store_half(t0,a0,DYN_BLOCK_SPRITE_CURR_X)
+    store_half(t0,a1,DYN_BLOCK_SPRITE_CURR_Y)
+    store_half(t0,a4,DYN_BLOCK_SPRITE_ADDRESS)
+
+    load_half(a0,DYN_BLOCK_SPRITE_CURR_X)
+    load_half(a1,DYN_BLOCK_SPRITE_CURR_Y)
+    la a3,DYN_BLOCK_SPRITE
+    li a4,STC_BLOCK
+    jal PRINT_SPRITE
+
+    load_half(a0,DYN_BLOCK_SPRITE_NEXT_X)
+    load_half(a1,DYN_BLOCK_SPRITE_NEXT_Y)
+    save_current_pixels_to_var(a0,a1,16,16,DYN_BLOCK_SPRITE)
+
+    load_half(a0,DYN_BLOCK_SPRITE_NEXT_X)
+    load_half(a1,DYN_BLOCK_SPRITE_NEXT_Y)
+    load_half(a3,DYN_BLOCK_SPRITE_ADDRESS)
+    li a4,DYN_BLOCK
+    jal PRINT_SPRITE
+    mv ra,s10
+    ret
+
+#####
+# store all the pixels in coordinates (x,y) with size (width,height)
+# in the variable 'variable_address (a4)'
+SAVE_CURRENT_PIXELS_TO_VAR:
+    # a0: x
+    # a1: y
+    # a2: width
+    # a3: height
+    # a4: variable_address
+
+    load_word(s0,SELECTED_FRAME)
+    load_half(s1,CANVAS_WIDTH)
+
+    mul t0,a2,a3 # (t0) total pixels to store
+    srli t0,t0,2 # (t0) total words to store
+
+    # now we get the first pixel that we need
+    # to store
+    # we are basically applying this rule:
+    # first_pixel = base_pixel + y*width + x
+    add s0,s0,a0
+    mul t1,a1,a2
+    add s0,s0,t1
+
+    # we initialize the column_counter to 0
+    li t1,0
+
+    # now we save width and height to the variable_address
+    # and set variable_address to the address of the first
+    # actual pixel to store
+    sw a2,(a4)
+    sw a3,4(a4)
+    addi a4,a4,8
+
+SAVE_CURRENT_PIXELS_TO_VAR_LOOP:
+    lw t2,(s0) # load pixel from RAM
+    sw t2,(a4) # save pixel to variable_address
+    addi t0,t0,-1 # image_area -= 1
+    addi t1,t1,4 # actual_column += 4
+    addi a4,a4,4 # variable_address += 4
+    beqz t0,SAVE_CURRENT_PIXELS_TO_VAR_EXIT # if thereis no more pixel to save, exit.
+    bge t1,a2,SAVE_CURRENT_PIXELS_TO_VAR_NEXT_LINE # if actual_column >= image_width: goto SAVE_CURRENT_PIXELS_TO_VAR_NEXT_LINE
+    addi s0,s0,4 # pixel_address += 4
+    j SAVE_CURRENT_PIXELS_TO_VAR_LOOP
+
+SAVE_CURRENT_PIXELS_TO_VAR_NEXT_LINE:
+    addi a1,a1,1 # y_base_pixel += 1
+    add s0,s0,s1 # frame_address += canvas_width
+    mv t1,a2 # actual_column = image_width
+    addi t1,t1,-4 # t1 -= 4 (we ignore the last printed address)
+    sub s0,s0,t1 # s0 -= t1
+    li t1,0 # actual_column = 0
+    j SAVE_CURRENT_PIXELS_TO_VAR_LOOP
+
+SAVE_CURRENT_PIXELS_TO_VAR_EXIT:
+    ret

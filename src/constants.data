@@ -68,3 +68,17 @@ LOLO_HIDDED_BLOCK:
 HIDDEN_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
+
+DYN_BLOCK_SPRITE_CURR_X:
+    .space 16
+DYN_BLOCK_SPRITE_CURR_Y:
+    .space 16
+DYN_BLOCK_SPRITE_NEXT_X:
+    .space 16
+DYN_BLOCK_SPRITE_NEXT_Y:
+    .space 16
+DYN_BLOCK_SPRITE_ADDRESS:
+    .space 32
+DYN_BLOCK_SPRITE:
+    .word 16, 16
+    .space 256 # 256 = 16*16 (the size in bytes for one sprite)
