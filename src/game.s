@@ -11,9 +11,14 @@
 
 .text
 MAIN:
+    la a0,MAP_1_MATRIX_CURRENT
+    la a1,MAP_1_MATRIX_LAST
+    li a2,300
+    jal COPY_VECTOR
+
     #init()
-    print_sprite(0, 0, map, STC_BLOCK)
-    print_sprite(68, 32, lolo_n, DYN_BLOCK)
+    #print_sprite(0, 0, map, STC_BLOCK)
+    #print_sprite(68, 32, lolo_n, DYN_BLOCK)
     #sleep(1000)
     #li a0,68
     #li a1,32
@@ -34,23 +39,24 @@ MAIN:
     # a2: x_next
     # a3: y_next
     # a4: sprite_address
-    sleep(1000)
-    move_lolo(80,80)
-    sleep(1000)
-    move_lolo(160,80)
-    sleep(1000)
-    move_lolo(52,96)
-    sleep(1000)
-    move_lolo(120,120)
+    #sleep(1000)
+    #move_lolo(80,80)
+    #sleep(1000)
+    #move_lolo(160,80)
+    #sleep(1000)
+    #move_lolo(52,96)
+    #sleep(1000)
+    #move_lolo(120,120)
     #print_sprite(68, 32, ground)
     #print_sprite(72, 48, lolo_u)
     #print_sprite(76, 64, lolo_u)
     #print_sprite(80, 80, lolo_u)
     #generate_map_matrix(MAP_1_MATRIX)
     #print_lolo()
-    sleep(1000000)
+    #sleep(1000000)
     #keyboard_input()
     exit()
 
 .include "ui.s"
 .include "keyboard.s"
+.include "utils.s"
