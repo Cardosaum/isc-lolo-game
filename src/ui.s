@@ -11,7 +11,7 @@ PRINT_SPRITE:
     # canvas width and the frame that
     # need to be used to print the pixels
     load_word(s0,SELECTED_FRAME)
-    load_half(s1,CANVAS_WIDTH )
+    load_half(s1,CANVAS_WIDTH)
 
     lw t1,0(a3) # t1 = image_width
     lw t2,4(a3) # t2 = image_height
