@@ -14,17 +14,17 @@
 
 .macro load_word(%register,%var_address)
     la %register,%var_address # get the address of memory that we want to read
-    lw %register,(%register) # actualy read the value stored in this memory address
+    lwu %register,(%register) # actualy read the value stored in this memory address
 .end_macro
 
 .macro load_half(%register,%var_address)
     la %register,%var_address # get the address of memory that we want to read
-    lh %register,(%register) # actualy read the value stored in this memory address
+    lhu %register,(%register) # actualy read the value stored in this memory address
 .end_macro
 
 .macro load_byte(%register,%var_address)
     la %register,%var_address # get the address of memory that we want to read
-    lh %register,(%register) # actualy read the value stored in this memory address
+    lbu %register,(%register) # actualy read the value stored in this memory address
 .end_macro
 
 .macro print_sprite(%x, %y, %sprite_address)
