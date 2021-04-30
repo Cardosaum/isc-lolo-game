@@ -14,7 +14,7 @@
 
 .macro load_word(%register,%var_address)
     la %register,%var_address # get the address of memory that we want to read
-    lwu %register,(%register) # actualy read the value stored in this memory address
+    lw %register,(%register) # actualy read the value stored in this memory address
 .end_macro
 
 .macro load_half(%register,%var_address)
@@ -27,11 +27,37 @@
     lbu %register,(%register) # actualy read the value stored in this memory address
 .end_macro
 
-.macro print_sprite(%x, %y, %sprite_address)
+.macro store_word(%reg_tmp,%reg_data,%var_address)
+    la %reg_tmp,%var_address # get the address of memory that we want to write
+    sw %reg_data,(%reg_tmp) # actualy write the value stored in this memory address
+.end_macro
+
+.macro store_half(%reg_tmp,%reg_data,%var_address)
+    la %reg_tmp,%var_address # get the address of memory that we want to write
+    sh %reg_data,(%reg_tmp) # actualy write the value stored in this memory address
+.end_macro
+
+.macro store_byte(%reg_tmp,%reg_data,%var_address)
+    la %reg_tmp,%var_address # get the address of memory that we want to write
+    sbu %reg_data,(%reg_tmp) # actualy write the value stored in this memory address
+.end_macro
+
+.macro print_sprite(%x, %y, %sprite_address, %is_dynamic)
     li a0,%x
     li a1,%y
     la a3,%sprite_address
+    li a4,%is_dynamic
     jal PRINT_SPRITE
+.end_macro
+
+.macro move_lolo(%x,%y)
+    li a0,%x
+    li a1,%y
+    jal MOVE_LOLO
+.end_macro
+
+.macro print_lolo()
+    jal PRINT_LOLO
 .end_macro
 
 .macro sleep(%time_ms)

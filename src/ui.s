@@ -1,5 +1,10 @@
- #.eqv STC_BLOCK 0
- #.eqv DYN_BLOCK 1
+########################################################################################################################
+#######################################                                         ########################################
+#######################################          PRINT_SPRITE function          ########################################
+#######################################                                         ########################################
+########################################################################################################################
+    # used registers:
+    # a0, a1, a3, a4, t0, t1, t2, t3, t4, t5, t6, s0, s1, s8, s9
 
 PRINT_SPRITE:
     # a0: x_base_pixel
@@ -13,6 +18,7 @@ PRINT_SPRITE:
     load_word(s0,SELECTED_FRAME)
     load_half(s1,CANVAS_WIDTH)
 
+    # now we initialize some variables
     lw t1,0(a3) # t1 = image_width
     lw t2,4(a3) # t2 = image_height
     mul t3,t1,t2 # t3 = t1*t2 (image area)
@@ -23,9 +29,12 @@ PRINT_SPRITE:
     mul t4,s1,a1 # t4 = canvas_width * y_base_pixel
     add t0,t0,t4 # frame_address += t4
     li t4,0 # (t4) actual_column = 0
+    bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT
 
 PRINT_SPRITE_LOOP:
-    lw t6,(t5) # load pixel from HD
+    bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP
+PROCEED_SPRITE_LOOP:
+    lw t6,(t5) # load pixel from RAM
     sw t6,(t0) # print pixel to frame
     addi t4,t4,4 # actual_column += 4
     addi t3,t3,-1 # image_area -= 1
@@ -44,7 +53,55 @@ PRINT_SPRITE_NEXT_LINE:
     li t4,0 # actual_column = 0
     j PRINT_SPRITE_LOOP
 
+STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT:
+    la s8,HIDDEN_SPRITE
+    addi s8,s8,4
+    j PRINT_SPRITE_LOOP
+
+STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP:
+    addi s8,s8,4
+    lw s9,(t0)
+    sw s9,(s8)
+    j PROCEED_SPRITE_LOOP
+
 PRINT_SPRITE_LOOP_EXIT:
+    ret
+
+########################################################################################################################
+#######################################                                         ########################################
+#######################################          PRINT_SPRITE function          ########################################
+#######################################                                         ########################################
+########################################################################################################################
+
+INITIALIZE_LOLO:
+    mv s10,ra
+    load_half(a0,LOLO_POSITION_CURRENT_X)
+    load_half(a1,LOLO_POSITION_CURRENT_Y)
+    la a3,lolo_n
+    jal PRINT_SPRITE
+    mv ra,s10
+    ret
+
+MOVE_LOLO:
+    # a0: x_base_pixel
+    # a1: y_base_pixel
+    mv s10,ra
+
+    store_half(t0,a0,LOLO_POSITION_CURRENT_X)
+    store_half(t0,a1,LOLO_POSITION_CURRENT_Y)
+    load_half(a0,LOLO_POSITION_LAST_X)
+    load_half(a1,LOLO_POSITION_LAST_Y)
+    la a3,HIDDEN_SPRITE
+    li a4,STC_BLOCK
+    jal PRINT_SPRITE
+    load_half(a0,LOLO_POSITION_CURRENT_X)
+    load_half(a1,LOLO_POSITION_CURRENT_Y)
+    store_half(t0,a0,LOLO_POSITION_LAST_X)
+    store_half(t0,a1,LOLO_POSITION_LAST_Y)
+    la a3,lolo_n
+    li a4,DYN_BLOCK
+    jal PRINT_SPRITE
+    mv ra,s10
     ret
 
 GENERATE_MAP_MATRIX:

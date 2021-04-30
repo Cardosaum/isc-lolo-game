@@ -1,15 +1,19 @@
 # 'variables' for user interface
-SELECTED_FRAME: .word 0xFF000000
-CANVAS_WIDTH: .half 320
-CANVAS_HEIGHT: .half 240
+SELECTED_FRAME:
+    .word 0xFF000000
+CANVAS_WIDTH:
+    .half 320
+CANVAS_HEIGHT:
+    .half 240
 
 # 'variables'
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
 
-MAP_MATRIX_SIZE: .half 300 # area of the map: width * height (20 * 15)
+MAP_MATRIX_SIZE:
+    .half 300 # area of the map in sprites: width * height (20 * 15)
 
-MAP_1_MATRIX_WALK:
+MAP_1_MATRIX_CURRENT:
     .byte ,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -26,3 +30,41 @@ MAP_1_MATRIX_WALK:
     0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
     0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+
+MAP_1_MATRIX_LAST:
+    .byte ,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+
+
+# we use this two variables to correctly
+# assess which sprites need to be re-rendered
+LOLO_POSITION_CURRENT_X:
+    .half 200
+LOLO_POSITION_CURRENT_Y:
+    .half 200
+LOLO_POSITION_LAST_X:
+    .half 68
+LOLO_POSITION_LAST_Y:
+    .half 32
+LOLO_HIDDED_BLOCK:
+    .word ground
+
+# we will use this variable to store the sprite that was
+# hidden by lolo when it moved
+HIDDEN_SPRITE:
+    .word 16, 16
+    .space 256 # 256 = 16*16 (the size in bytes for one sprite)
