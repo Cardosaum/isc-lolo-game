@@ -5,6 +5,7 @@
     li s0,0xFF000000
     li s1,320
     li s2,240
+    create_struct_vector(20,DYN_VECT_STRUCT)
 .end_macro
 
 .macro exit()

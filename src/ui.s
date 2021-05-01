@@ -73,14 +73,33 @@ PRINT_SPRITE_LOOP_EXIT:
 #######################################                                         ########################################
 ########################################################################################################################
 
+#====================================================================================================
 INITIALIZE_LOLO:
-    mv s10,ra
+    la t0,INITIALIZE_LOLO_RETURN_ADDRESS
+    sw ra,(t0)
+
+    # we will use the function ADD_STRUCT_TO_VECTOR
+    # to add lolo into the array of structs, but
+    # the coordinates X and Y must be in the same
+    # 32bits memory addres, where X is in the first 2 bytes
+    # and Y on the last 2. So we need to make those shifts and
+    # masks.
     load_half(a0,LOLO_POSITION_CURRENT_X)
     load_half(a1,LOLO_POSITION_CURRENT_Y)
-    la a3,lolo_n
-    jal PRINT_SPRITE
-    mv ra,s10
+    slli a0,a0,16 # send X to the first 2 bytes
+    add a0,a0,a1 # merge X and Y
+
+    la a5,lolo_n
+    addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
+
+    add_struct_to_vector(DYN_VECT_STRUCT,0,0,64,a5)
+    #la a3,lolo_n
+    #jal PRINT_SPRITE
+
+    la t0,INITIALIZE_LOLO_RETURN_ADDRESS
+    lw ra,(t0)
     ret
+#====================================================================================================
 
 MOVE_LOLO:
     # a0: x_base_pixel

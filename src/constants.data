@@ -95,3 +95,7 @@ DYN_VECT_STRUCT:
     .space 4 # pointer to struct_array
     .space 4 # length
     .space 4 # capacity
+
+#==============================
+INITIALIZE_LOLO_RETURN_ADDRESS:
+    .space 4
