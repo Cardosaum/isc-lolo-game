@@ -17,11 +17,7 @@ MAIN:
     #jal COPY_VECTOR
 
     init()
-    # create struct vector
-    li a0,2
-    la a1,DYN_VECT_STRUCT
-    jal CREATE_STRUCT_VECTOR
-
+    create_struct_vector(2,DYN_VECT_STRUCT)
     # update struct vector
     # a0: array_address // array of structs' address
     # a1: struct_position // goes from 0 to (how_many_structs - 1)
@@ -29,15 +25,18 @@ MAIN:
     # a3: current_position
     # a4: next_position
     # a5: sprite_image
-    la a0,DYN_VECT_STRUCT
-    lw a0,(a0)
-    li a1,0
-    li a2,0
-    li a3,0
-    li a4,1024
+    #la a0,DYN_VECT_STRUCT
+    #lw a0,(a0)
+    #li a1,0
+    #li a2,0
+    #li a3,0
+    #li a4,1024
+    #la a5,lolo_n
+    #addi a5,a5,64 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
+    #jal UPDATE_STRUCT_VECTOR
     la a5,lolo_n
-    addi a5,a5,64 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
-    jal UPDATE_STRUCT_VECTOR
+    addi a5,a5,64
+    update_struct_vector(DYN_VECT_STRUCT,0,16,64,1024,a5)
 
     exit()
     print_sprite(0, 0, map, STC_BLOCK)

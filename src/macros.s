@@ -84,3 +84,20 @@
     la a4,%variable_address
     jal SAVE_CURRENT_PIXELS_TO_VAR
 .end_macro
+
+.macro create_struct_vector(%how_many_structs,%dest_var)
+    li a0,%how_many_structs
+    la a1,%dest_var
+    jal CREATE_STRUCT_VECTOR
+.end_macro
+
+.macro update_struct_vector(%array_address,%struct_position,%sprite_id,%current_position,%next_position,%sprite_image)
+    la a0,%array_address
+    lw a0,(a0)
+    li a1,%struct_position
+    li a2,%sprite_id
+    li a3,%current_position
+    li a4,%next_position
+    mv a5,%sprite_image
+    jal UPDATE_STRUCT_VECTOR
+.end_macro
