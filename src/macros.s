@@ -93,11 +93,19 @@
 
 .macro update_struct_vector(%array_address,%struct_position,%sprite_id,%current_position,%next_position,%sprite_image)
     la a0,%array_address
-    lw a0,(a0)
     li a1,%struct_position
     li a2,%sprite_id
     li a3,%current_position
     li a4,%next_position
     mv a5,%sprite_image
     jal UPDATE_STRUCT_VECTOR
+.end_macro
+
+.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%sprite_image)
+    la a0,%array_address
+    li a1,%sprite_id
+    li a2,%current_position
+    li a3,%next_position
+    mv a4,%sprite_image
+    jal ADD_STRUCT_TO_VECTOR
 .end_macro

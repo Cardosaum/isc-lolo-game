@@ -18,6 +18,9 @@ MAIN:
 
     init()
     create_struct_vector(2,DYN_VECT_STRUCT)
+    la a5,lolo_n
+    addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
+    add_struct_to_vector(DYN_VECT_STRUCT,1024,2048,4096,a5)
     # update struct vector
     # a0: array_address // array of structs' address
     # a1: struct_position // goes from 0 to (how_many_structs - 1)
@@ -34,8 +37,8 @@ MAIN:
     #la a5,lolo_n
     #addi a5,a5,64 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
     #jal UPDATE_STRUCT_VECTOR
-    la a5,lolo_n
-    addi a5,a5,64
+    la a5,lolo_u
+    addi a5,a5,8
     update_struct_vector(DYN_VECT_STRUCT,0,16,64,1024,a5)
 
     exit()

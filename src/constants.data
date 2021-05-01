@@ -9,7 +9,7 @@ CANVAS_HEIGHT:
 # 'variables'
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
-.eqv SPRITE_STRUCT_SIZE 396
+.eqv SPRITE_STRUCT_SIZE 312
 .eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
 
 MAP_MATRIX_SIZE:
@@ -85,5 +85,13 @@ DYN_BLOCK_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
 
+# this variable is responsible to store the pointer to the
+# struct_array, struct_array's lenght and also it's capacity
+# a similar aproach is used by Rust, and is the reference used
+# to this implementation
+# see this link for a diagram representation of the data:
+# https://i.imgur.com/OaNWzRN.png
 DYN_VECT_STRUCT:
-    .space 32
+    .space 4 # pointer to struct_array
+    .space 4 # length
+    .space 4 # capacity
