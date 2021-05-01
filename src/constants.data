@@ -9,6 +9,8 @@ CANVAS_HEIGHT:
 # 'variables'
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
+.eqv SPRITE_STRUCT_SIZE 396
+.eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
 
 MAP_MATRIX_SIZE:
     .half 300 # area of the map in sprites: width * height (20 * 15)
@@ -82,3 +84,6 @@ DYN_BLOCK_SPRITE_ADDRESS:
 DYN_BLOCK_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
+
+DYN_VECT_STRUCT:
+    .space 32
