@@ -1,3 +1,4 @@
+=====================================================================================================
 COPY_VECTOR:
     # a0: source vector
     # a1: dest vector
@@ -13,7 +14,10 @@ COPY_VECTOR_EXIT_LOOP:
     j COPY_VECTOR_EXIT_LOOP
 COPY_VECTOR_EXIT:
     ret
+=====================================================================================================
 
+
+=====================================================================================================
 ALLOCATE_STRUCT_VECTOR:
     # in this function we create an array to store structs in order to save information
     # needed to move dynamic sprites
@@ -30,7 +34,9 @@ ALLOCATE_STRUCT_VECTOR:
     # now we store the pointer to allocated memory in variable passed by user
     sw a0,(a1)
     ret
+=====================================================================================================
 
+=====================================================================================================
 CREATE_STRUCT_VECTOR:
     # in this function we calculate how many bytes will be needed to store N
     # sprite structs in a vector
@@ -54,7 +60,9 @@ CREATE_STRUCT_VECTOR:
     jal ALLOCATE_STRUCT_VECTOR
     mv ra,s10
     ret
+=====================================================================================================
 
+=====================================================================================================
 UPDATE_STRUCT_VECTOR:
     # in this function we update a single struct inside the array of structs
 
@@ -91,3 +99,4 @@ UPDATE_STRUCT_VECTOR_LOOP:
 
 UPDATE_STRUCT_VECTOR_EXIT:
     ret
+=====================================================================================================
