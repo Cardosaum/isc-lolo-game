@@ -103,11 +103,11 @@
     jal UPDATE_STRUCT_VECTOR
 .end_macro
 
-.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%hidden_sprite)
+.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%next_dyn_sprite)
     li a1,%sprite_id
     mv a2,%current_position
     mv a3,%next_position
-    mv a4,%hidden_sprite
+    mv a5,%next_dyn_sprite
     la a0,%array_address
     jal ADD_STRUCT_TO_VECTOR
 .end_macro
@@ -116,4 +116,11 @@
     mv a0,%x
     mv a1,%y
     jal INITIALIZE_LOLO
+.end_macro
+
+.macro copy_vector(%src,%dest,%size)
+    mv a0,%src
+    mv a1,%dest
+    li a2,%size
+    jal COPY_VECTOR
 .end_macro

@@ -99,3 +99,27 @@ DYN_VECT_STRUCT:
 #==============================
 INITIALIZE_LOLO_RETURN_ADDRESS:
     .space 4
+
+#==============================
+MOVE_DYNAMIC_SPRITE_ARG_A0: .space 4
+MOVE_DYNAMIC_SPRITE_ARG_A1: .space 4
+MOVE_DYNAMIC_SPRITE_ARG_A2: .space 4
+MOVE_DYNAMIC_SPRITE_ARG_A3: .space 4
+RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE: .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE:  .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE:  .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION:  .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_NEXT_POSITION:  .space 4
+#==============================

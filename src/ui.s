@@ -1,85 +1,3 @@
-########################################################################################################################
-#######################################                                         ########################################
-#######################################          PRINT_SPRITE function          ########################################
-#######################################                                         ########################################
-########################################################################################################################
-    # used registers:
-    # a0, a1, a3, a4, t0, t1, t2, t3, t4, t5, t6, s0, s1, s7, s8, s9
-
-PRINT_SPRITE:
-    # a0: x_base_pixel
-    # a1: y_base_pixel
-    # a3: sprite address
-    # a4: is_dynamic
-    # a5: array_struct index // if block is dynamic, we need to know it's index to update the array
-
-    # first of all, we need to get the
-    # canvas width and the frame that
-    # need to be used to print the pixels
-    load_word(s0,SELECTED_FRAME)
-    load_half(s1,CANVAS_WIDTH)
-
-    # now we initialize some variables
-    lw t1,0(a3) # t1 = image_width
-    lw t2,4(a3) # t2 = image_height
-    mul t3,t1,t2 # t3 = t1*t2 (image area)
-    srli t3,t3,2 # t3 /= 4
-    addi t5,a3,8 # t5 = first 4 pixels
-    mv t0,s0 # frame address copy
-    add t0,t0,a0 # frame_address + x_base_pixel
-    mul t4,s1,a1 # t4 = canvas_width * y_base_pixel
-    add t0,t0,t4 # frame_address += t4
-    li t4,0 # (t4) actual_column = 0
-    bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT
-
-PRINT_SPRITE_LOOP:
-    bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP
-PROCEED_SPRITE_LOOP:
-    lw t6,(t5) # load pixel from RAM
-    sw t6,(t0) # print pixel to frame
-    addi t4,t4,4 # actual_column += 4
-    addi t3,t3,-1 # image_area -= 1
-    addi t5,t5,4 # pixel_address += 4
-    beqz t3,PRINT_SPRITE_LOOP_EXIT # if thereis no more pixel to print, exit.
-    bge t4,t1,PRINT_SPRITE_NEXT_LINE # if actual_column >= image_width: goto PRINT_SPRITE_NEXT_LINE
-    addi t0,t0,4 # frame_address += 4
-    j PRINT_SPRITE_LOOP
-
-PRINT_SPRITE_NEXT_LINE:
-    addi a1,a1,1 # y_base_pixel += 1
-    add t0,t0,s1 # frame_address += canvas_width
-    mv t4,t1 # t4 = t1
-    addi t4,t4,-4 # t4 -= 4 (we ignore the last printed address)
-    sub t0,t0,t4 # t0 -= t4
-    li t4,0 # actual_column = 0
-    j PRINT_SPRITE_LOOP
-
-STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT:
-    la s8,DYN_VECT_STRUCT #HIDDEN_SPRITE
-    lw s8,(s8) # go to actual address where array is stored
-    li s7,SPRITE_STRUCT_SIZE
-    mul s7,s7,a5
-    add s8,s8,s7 # go to I'th struct in array
-    # note that in this line we add only 8 rather than the expected 12 because
-    # right in the first iteration we already add 4
-    addi s8,s8,8 # go to 'hidden_sprite' field in struct
-    j PRINT_SPRITE_LOOP
-
-STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP:
-    addi s8,s8,4
-    lw s9,(t0)
-    sw s9,(s8)
-    j PROCEED_SPRITE_LOOP
-
-PRINT_SPRITE_LOOP_EXIT:
-    ret
-
-########################################################################################################################
-#######################################                                         ########################################
-#######################################          PRINT_SPRITE function          ########################################
-#######################################                                         ########################################
-########################################################################################################################
-
 #====================================================================================================
 INITIALIZE_LOLO:
     # add lolo to array of struct and print it to map
@@ -106,6 +24,10 @@ INITIALIZE_LOLO:
     # and Y on the last 2. So we need to make those shifts and
     # masks.
     slli a0,a0,16 # send X to the first 2 bytes
+    li t0,0xFFFF0000
+    and a0,a0,t0 # mask X
+    li t0,0x0000FFFF
+    and a1,a1,t0 # mask Y
     add a0,a0,a1 # merge X and Y
 
     la a5,lolo_n
@@ -119,8 +41,7 @@ INITIALIZE_LOLO:
     lhu a1,(t0)
     li a5,0
     print_sprite(a0,a1,lolo_n,DYN_BLOCK,a5)
-    #la a3,lolo_n
-    #jal PRINT_SPRITE
+
 
     la t0,INITIALIZE_LOLO_RETURN_ADDRESS
     lw ra,(t0)
@@ -137,8 +58,237 @@ MOVE_DYNAMIC_SPRITE:
     # a1: y_new
     # a2: array_struct_index
 
+    # save arguments for later use
+    la t0,MOVE_DYNAMIC_SPRITE_ARG_A0
+    sw a0,(t0)
+    la t0,MOVE_DYNAMIC_SPRITE_ARG_A1
+    sw a1,(t0)
+    la t0,MOVE_DYNAMIC_SPRITE_ARG_A2
+    sw a2,(t0)
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
+    sw ra,(t0)
+
+    # TODO: update next_position
+    load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A0)
+    load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A1)
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    jal DYNAMIC_SPRITE_UPDATE_NEXT_POSITION
+
+    # TODO: save next_dyn_sprite
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    jal DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
+
+    # TODO: print hidden_sprite
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
+
+    # TODO: update current_position
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    jal DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION
+
+    # get return address
+    la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
+    lw ra,(t0)
+    ret
 
 #====================================================================================================
+
+#====================================================================================================
+DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION:
+    # a0: array_struct_index
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION
+    sw ra,(t0)
+
+    # go to I'th position in array
+    jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
+    la t0,DYN_VECT_STRUCT
+    add t0,t0,a0
+
+    # get next_position and make it current_position
+    lw t1,8(t0)
+    # save current_position
+    sw t1,4(t0)
+
+    # get return address
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION
+    lw ra,(t0)
+    ret
+#====================================================================================================
+
+#====================================================================================================
+DYNAMIC_SPRITE_UPDATE_NEXT_POSITION:
+    # a0: array_struct_index
+    # a1: x
+    # a2: y
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_NEXT_POSITION
+    sw ra,(t0)
+
+    # go to I'th position in array
+    jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
+    la t0,DYN_VECT_STRUCT
+    lw t0,(t0)
+    add t0,t0,a0
+
+    # merge X and Y
+    slli a1,a1,16
+    li t1,0xFFFF0000
+    and a1,a1,t1 # mask X
+    li t1,0x0000FFFF
+    and a2,a2,t1 # mask Y
+    add a1,a1,a2
+
+    # save next_position
+    sw a1,8(t0)
+
+    # get return address
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_NEXT_POSITION
+    lw ra,(t0)
+    ret
+#====================================================================================================
+
+#====================================================================================================
+DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE:
+    # a0: array_struct_index
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
+    sw ra,(t0)
+
+    # go to I'th position in array
+    jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
+    la t0,DYN_VECT_STRUCT
+    lw t0,(t0)
+    add t0,t0,a0
+
+    # save X and Y current coordinates for later
+    li t2,0xFFFF0000
+    lw s2,4(t0)
+    and s2,s2,t2 # mask (X,Y) to get X value
+    srli s2,s2,16 # return X to a half word
+    li t2,0x0000FFFF
+    lw s3,8(t0)
+    and s3,s3,t2 # mask (X,Y) to get Y value
+
+    # skip the first 4 struct fields in order to reach hidden_sprite
+    addi t0,t0,312
+
+    # print sprite
+    load_word(s0,SELECTED_FRAME)
+    load_half(s1,CANVAS_WIDTH)
+    li t1,16 # (t0) image_width
+    mul t2,t1,t1 # (t2) image_area
+    srli t2,t2,2 # t2 /= 4
+    li t5,0 # (t0) actual_column
+
+    # go to (X,Y) position in canvas
+    add s0,s0,s2
+    mul t3,s3,s1
+    add s0,s0,t3
+
+DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP:
+    lw t3,(s0) # load pixel from canvas struct field
+    sw t3,(t0) # print it to next_dyn_sprite
+    addi t5,t5,4
+    addi t0,t0,4
+    addi t2,t2,-1
+    bgez t2,DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_EXIT
+    bge t5,t1,DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_NEXT_LINE
+    addi s0,s0,4
+    j DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP
+
+DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_NEXT_LINE:
+    addi s3,s3,1
+    add s0,s0,s1
+    mv t5,t1
+    addi t5,t5,-4
+    sub s0,s0,t5
+    li t5,0
+    j DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP
+
+DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_EXIT:
+    # get return address
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
+    lw ra,(t0)
+    ret
+
+#====================================================================================================
+
+
+#====================================================================================================
+DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE:
+    # a0: array_struct_index
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
+    sw ra,(t0)
+
+    # go to I'th position in array
+    jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
+    la t0,DYN_VECT_STRUCT
+    add t0,t0,a0
+
+    # save X and Y current coordinates for later
+    li t2,0xFFFF0000
+    lw s2,4(t0)
+    and s2,s2,t2 # mask (X,Y) to get X value
+    srli s2,s2,16 # return X to a half word
+    li t2,0x0000FFFF
+    lw s3,8(t0)
+    and s3,s3,t2 # mask (X,Y) to get Y value
+
+    # skip the first 3 struct fields in order to reach hidden_sprite
+    addi t0,t0,12
+
+    # print sprite
+    load_word(s0,SELECTED_FRAME)
+    load_half(s1,CANVAS_WIDTH)
+    li t1,16 # (t0) image_width
+    mul t2,t1,t1 # (t2) image_area
+    srli t2,t2,2 # t2 /= 4
+    li t5,0 # (t0) actual_column
+
+    # go to (X,Y) position in canvas
+    add s0,s0,s2
+    mul t3,s3,s1
+    add s0,s0,t3
+
+DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP:
+    lw t3,(t0) # load pixel from hidden_sprite struct field
+    sw t3,(s0) # print it to canvas
+    addi t5,t5,4
+    addi t0,t0,4
+    addi t2,t2,-1
+    bgez t2,DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_EXIT
+    bge t5,t1,DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_NEXT_LINE
+    addi s0,s0,4
+    j DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP
+
+DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_NEXT_LINE:
+    addi s3,s3,1
+    add s0,s0,s1
+    mv t5,t1
+    addi t5,t5,-4
+    sub s0,s0,t5
+    li t5,0
+    j DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP
+
+DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_EXIT:
+    # get return address
+    la t0,RETURN_ADDRESS_DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
+    lw ra,(t0)
+    ret
+
+#====================================================================================================
+
+
+
+
 
 
 

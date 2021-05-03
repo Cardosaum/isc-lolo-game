@@ -21,11 +21,24 @@ MAIN:
     li a1,0
     li a5,0
     print_sprite(a0, a1, map, STC_BLOCK, a5)
-    li a0,0
-    li a1,0
+
+    #li a0,0
+    #la a5,lolo_n
+    #addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
+    #add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5)
+
+    li a0,64
+    li a1,30
     initialize_lolo(a0,a1)
-    sleep(100000)
+    sleep(2000)
+
+    li a0,200
+    li a1,200
+    li a2,0
+    jal MOVE_DYNAMIC_SPRITE
+    sleep(1000)
     exit()
+
     # update struct vector
     # a0: array_address // array of structs' address
     # a1: struct_position // goes from 0 to (how_many_structs - 1)
@@ -90,3 +103,4 @@ MAIN:
 .include "ui.s"
 .include "keyboard.s"
 .include "utils.s"
+.include "print_sprites.s"
