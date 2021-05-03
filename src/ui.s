@@ -4,13 +4,14 @@
 #######################################                                         ########################################
 ########################################################################################################################
     # used registers:
-    # a0, a1, a3, a4, t0, t1, t2, t3, t4, t5, t6, s0, s1, s8, s9
+    # a0, a1, a3, a4, t0, t1, t2, t3, t4, t5, t6, s0, s1, s7, s8, s9
 
 PRINT_SPRITE:
     # a0: x_base_pixel
     # a1: y_base_pixel
     # a3: sprite address
     # a4: is_dynamic
+    # a5: array_struct index // if block is dynamic, we need to know it's index to update the array
 
     # first of all, we need to get the
     # canvas width and the frame that
@@ -54,8 +55,14 @@ PRINT_SPRITE_NEXT_LINE:
     j PRINT_SPRITE_LOOP
 
 STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT:
-    la s8,HIDDEN_SPRITE
-    addi s8,s8,4
+    la s8,DYN_VECT_STRUCT #HIDDEN_SPRITE
+    lw s8,(s8) # go to actual address where array is stored
+    li s7,SPRITE_STRUCT_SIZE
+    mul s7,s7,a5
+    add s8,s8,s7 # go to I'th struct in array
+    # note that in this line we add only 8 rather than the expected 12 because
+    # right in the first iteration we already add 4
+    addi s8,s8,8 # go to 'hidden_sprite' field in struct
     j PRINT_SPRITE_LOOP
 
 STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP:
@@ -75,8 +82,22 @@ PRINT_SPRITE_LOOP_EXIT:
 
 #====================================================================================================
 INITIALIZE_LOLO:
+    # add lolo to array of struct and print it to map
+    # a0: lolo_x
+    # a1: lolo_y
+
     la t0,INITIALIZE_LOLO_RETURN_ADDRESS
     sw ra,(t0)
+
+    # save variables to later use
+    la t0,LOLO_POSITION_CURRENT_X
+    sh a0,(t0)
+    la t0,LOLO_POSITION_LAST_X
+    sh a0,(t0)
+    la t0,LOLO_POSITION_CURRENT_Y
+    sh a1,(t0)
+    la t0,LOLO_POSITION_LAST_Y
+    sh a1,(t0)
 
     # we will use the function ADD_STRUCT_TO_VECTOR
     # to add lolo into the array of structs, but
@@ -84,15 +105,20 @@ INITIALIZE_LOLO:
     # 32bits memory addres, where X is in the first 2 bytes
     # and Y on the last 2. So we need to make those shifts and
     # masks.
-    load_half(a0,LOLO_POSITION_CURRENT_X)
-    load_half(a1,LOLO_POSITION_CURRENT_Y)
     slli a0,a0,16 # send X to the first 2 bytes
     add a0,a0,a1 # merge X and Y
 
     la a5,lolo_n
     addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
 
-    add_struct_to_vector(DYN_VECT_STRUCT,0,0,64,a5)
+    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5)
+
+    la t0,LOLO_POSITION_CURRENT_X
+    lhu a0,(t0)
+    la t0,LOLO_POSITION_CURRENT_Y
+    lhu a1,(t0)
+    li a5,0
+    print_sprite(a0,a1,lolo_n,DYN_BLOCK,a5)
     #la a3,lolo_n
     #jal PRINT_SPRITE
 
@@ -100,6 +126,23 @@ INITIALIZE_LOLO:
     lw ra,(t0)
     ret
 #====================================================================================================
+
+#====================================================================================================
+MOVE_DYNAMIC_SPRITE:
+    # this function takes one sprite that already is present in array_struct and move it to a new
+    # location, performing all the necessary steps to update array_struct and restore the hidden
+    # pixels when it move out.
+
+    # a0: x_new
+    # a1: y_new
+    # a2: array_struct_index
+
+
+#====================================================================================================
+
+
+
+
 
 MOVE_LOLO:
     # a0: x_base_pixel

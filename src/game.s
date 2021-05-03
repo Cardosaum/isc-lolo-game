@@ -17,10 +17,14 @@ MAIN:
     #jal COPY_VECTOR
 
     init()
-    #la a5,lolo_n
-    #addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
-    #add_struct_to_vector(DYN_VECT_STRUCT,1024,2048,4096,a5)
-    jal INITIALIZE_LOLO
+    li a0,0
+    li a1,0
+    li a5,0
+    print_sprite(a0, a1, map, STC_BLOCK, a5)
+    li a0,0
+    li a1,0
+    initialize_lolo(a0,a1)
+    sleep(100000)
     exit()
     # update struct vector
     # a0: array_address // array of structs' address
@@ -28,7 +32,7 @@ MAIN:
     # a2: sprite_id
     # a3: current_position
     # a4: next_position
-    # a5: sprite_image
+    # a5: hidden_sprite
     #la a0,DYN_VECT_STRUCT
     #lw a0,(a0)
     #li a1,0
@@ -38,14 +42,14 @@ MAIN:
     #la a5,lolo_n
     #addi a5,a5,64 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
     #jal UPDATE_STRUCT_VECTOR
-    la a5,lolo_u
-    addi a5,a5,8
-    update_struct_vector(DYN_VECT_STRUCT,0,16,64,1024,a5)
+    #la a5,lolo_u
+    #addi a5,a5,8
+    #update_struct_vector(DYN_VECT_STRUCT,0,16,64,1024,a5)
 
-    exit()
-    print_sprite(0, 0, map, STC_BLOCK)
-    print_sprite(68, 32, lolo_n, DYN_BLOCK)
-    sleep(1000)
+    #exit()
+    #print_sprite(0, 0, map, STC_BLOCK)
+    #print_sprite(68, 32, lolo_n, DYN_BLOCK)
+    #sleep(1000)
     #li a0,68
     #li a1,32
     #li a2,80
@@ -66,20 +70,20 @@ MAIN:
     # a3: y_next
     # a4: sprite_address
     #sleep(1000)
-    move_lolo(80,80)
-    sleep(1000)
-    move_lolo(160,80)
-    sleep(1000)
-    move_lolo(52,96)
-    sleep(1000)
-    move_lolo(120,120)
+    #move_lolo(80,80)
+    #sleep(1000)
+    #move_lolo(160,80)
+    #sleep(1000)
+    #move_lolo(52,96)
+    #sleep(1000)
+    #move_lolo(120,120)
     #print_sprite(68, 32, ground, STC_BLOCK)
     #print_sprite(72, 48, lolo_u, DYN_BLOCK)
     #print_sprite(76, 64, lolo_u, DYN_BLOCK)
     #print_sprite(80, 80, lolo_u, DYN_BLOCK)
     #generate_map_matrix(MAP_1_MATRIX)
     #print_lolo()
-    sleep(1000000)
+    #sleep(1000000)
     #keyboard_input()
     exit()
 

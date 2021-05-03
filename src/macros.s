@@ -43,11 +43,12 @@
     sbu %reg_data,(%reg_tmp) # actualy write the value stored in this memory address
 .end_macro
 
-.macro print_sprite(%x, %y, %sprite_address, %is_dynamic)
-    li a0,%x
-    li a1,%y
+.macro print_sprite(%x, %y, %sprite_address, %is_dynamic, %array_struct_index)
+    mv a0,%x
+    mv a1,%y
     la a3,%sprite_address
     li a4,%is_dynamic
+    mv a5,%array_struct_index
     jal PRINT_SPRITE
 .end_macro
 
@@ -92,21 +93,27 @@
     jal CREATE_STRUCT_VECTOR
 .end_macro
 
-.macro update_struct_vector(%array_address,%struct_position,%sprite_id,%current_position,%next_position,%sprite_image)
+.macro update_struct_vector(%array_address,%struct_position,%sprite_id,%current_position,%next_position,%hidden_sprite)
     la a0,%array_address
     li a1,%struct_position
     li a2,%sprite_id
     li a3,%current_position
     li a4,%next_position
-    mv a5,%sprite_image
+    mv a5,%hidden_sprite
     jal UPDATE_STRUCT_VECTOR
 .end_macro
 
-.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%sprite_image)
-    la a0,%array_address
+.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%hidden_sprite)
     li a1,%sprite_id
-    li a2,%current_position
-    li a3,%next_position
-    mv a4,%sprite_image
+    mv a2,%current_position
+    mv a3,%next_position
+    mv a4,%hidden_sprite
+    la a0,%array_address
     jal ADD_STRUCT_TO_VECTOR
+.end_macro
+
+.macro initialize_lolo(%x,%y)
+    mv a0,%x
+    mv a1,%y
+    jal INITIALIZE_LOLO
 .end_macro
