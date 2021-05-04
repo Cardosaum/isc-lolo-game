@@ -20,7 +20,8 @@ MAIN:
     li a0,0
     li a1,0
     la a2,map
-    print_sprite(a0, a1, a2)
+    li a5,0
+    print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
     #li a0,0
     #la a5,lolo_n
@@ -35,11 +36,29 @@ MAIN:
     sleep(1000)
 
     li a0,200
-    li a1,200
+    li a1,100
     li a2,0
-    la a3,lolo_l
+    la a3,lolo_r
     jal MOVE_DYNAMIC_SPRITE
-    sleep(1000)
+    sleep(4000)
+    li a0,204
+    li a1,100
+    li a2,0
+    la a3,lolo_r
+    jal MOVE_DYNAMIC_SPRITE
+    sleep(4000)
+    li a0,208
+    li a1,100
+    li a2,0
+    la a3,lolo_r
+    jal MOVE_DYNAMIC_SPRITE
+    sleep(2000)
+    li a0,216
+    li a1,100
+    li a2,0
+    la a3,lolo_r
+    jal MOVE_DYNAMIC_SPRITE
+    sleep(2000)
     exit()
 
     # update struct vector

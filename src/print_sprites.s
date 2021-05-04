@@ -1,11 +1,13 @@
 #====================================================================================================
 PRINT_SPRITE:
     # used registers:
-    # a0, a1, a3, t0, t1, t2, t3, t4, t5, t6, s0, s1, s7
+    # a0, a1, a3, a4, t0, t1, t2, t3, t4, t5, t6, s0, s1, s7, s8, s9
 
     # a0: x_base_pixel
     # a1: y_base_pixel
     # a3: sprite address
+    # a4: is_dynamic
+    # a5: array_struct index // if block is dynamic, we need to know it's index to update the array
 
     # first of all, we need to get the
     # canvas width and the frame that
@@ -24,8 +26,11 @@ PRINT_SPRITE:
     mul t4,s1,a1 # t4 = canvas_width * y_base_pixel
     add t0,t0,t4 # frame_address += t4
     li t4,0 # (t4) actual_column = 0
+    bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT
 
 PRINT_SPRITE_LOOP:
+    bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP
+PROCEED_SPRITE_LOOP:
     lw t6,(t5) # load pixel from RAM
     sw t6,(t0) # print pixel to frame
     addi t4,t4,4 # actual_column += 4
@@ -44,6 +49,23 @@ PRINT_SPRITE_NEXT_LINE:
     sub t0,t0,t4 # t0 -= t4
     li t4,0 # actual_column = 0
     j PRINT_SPRITE_LOOP
+
+STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT:
+    la s8,DYN_VECT_STRUCT #HIDDEN_SPRITE
+    lw s8,(s8) # go to actual address where array is stored
+    li s7,SPRITE_STRUCT_SIZE
+    mul s7,s7,a5
+    add s8,s8,s7 # go to I'th struct in array
+    # note that in this line we add only 8 rather than the expected 12 because
+    # right in the first iteration we already add 4
+    addi s8,s8,8 # go to 'hidden_sprite' field in struct
+    j PRINT_SPRITE_LOOP
+
+STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP:
+    addi s8,s8,4
+    lw s9,(t0)
+    sw s9,(s8)
+    j PROCEED_SPRITE_LOOP
 
 PRINT_SPRITE_LOOP_EXIT:
     ret

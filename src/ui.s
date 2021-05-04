@@ -40,7 +40,8 @@ INITIALIZE_LOLO:
     la t0,LOLO_POSITION_CURRENT_Y
     lhu a1,(t0)
     la a2,lolo_n
-    print_sprite(a0,a1,a2)
+    li a5,0
+    print_sprite(a0,a1,a2,DYN_BLOCK,a5)
 
 
     la t0,RETURN_ADDRESS_INITIALIZE_LOLO
@@ -85,6 +86,8 @@ MOVE_DYNAMIC_SPRITE:
     jal DYNAMIC_SPRITE_UPDATE_NEXT_POSITION
 
     # TODO: save next_dyn_sprite
+    # there seems to be an error, we are not
+    # saving dyn sprite correctly
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
 
@@ -96,7 +99,8 @@ MOVE_DYNAMIC_SPRITE:
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A0)
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A3)
-    print_sprite(a0,a1,a2)
+    load_word(a5,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    print_sprite(a0,a1,a2,DYN_BLOCK,a5)
 
     # get return address
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
