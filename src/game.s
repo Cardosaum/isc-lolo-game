@@ -19,22 +19,25 @@ MAIN:
     init()
     li a0,0
     li a1,0
-    li a5,0
-    print_sprite(a0, a1, map, STC_BLOCK, a5)
+    la a2,map
+    print_sprite(a0, a1, a2)
 
     #li a0,0
     #la a5,lolo_n
     #addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
     #add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5)
 
-    li a0,64
-    li a1,30
+    #li a0,64
+    #li a1,30
+    li a0,0
+    li a1,0
     initialize_lolo(a0,a1)
-    sleep(2000)
+    sleep(1000)
 
     li a0,200
     li a1,200
     li a2,0
+    la a3,lolo_l
     jal MOVE_DYNAMIC_SPRITE
     sleep(1000)
     exit()

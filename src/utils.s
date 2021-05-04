@@ -188,7 +188,7 @@ ADD_STRUCT_TO_VECTOR_HIDDEN_SPRITE_LOOP_NEXT_LINE:
     add s0,s0,s1 # go to new line
     mv t5,t2
     addi t5,t5,-4 # (we ignore the last printed address)
-    sub s0,s0,t4
+    sub s0,s0,t5
     li t5,0
     j ADD_STRUCT_TO_VECTOR_HIDDEN_SPRITE_LOOP
 
@@ -202,7 +202,7 @@ ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP:
     lw t0,(a5) # read 4 pixels from next_dyn_sprite
     sw t0,(a0) # store it in next_dyn_sprite struct field
     addi a5,a5,4
-    addi a5,a0,4
+    addi a0,a0,4
     addi t5,t5,-4
     j ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP
 

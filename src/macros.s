@@ -43,12 +43,10 @@
     sbu %reg_data,(%reg_tmp) # actualy write the value stored in this memory address
 .end_macro
 
-.macro print_sprite(%x, %y, %sprite_address, %is_dynamic, %array_struct_index)
+.macro print_sprite(%x, %y, %sprite_address)
     mv a0,%x
     mv a1,%y
-    la a3,%sprite_address
-    li a4,%is_dynamic
-    mv a5,%array_struct_index
+    mv a3,%sprite_address
     jal PRINT_SPRITE
 .end_macro
 

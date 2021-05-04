@@ -97,7 +97,7 @@ DYN_VECT_STRUCT:
     .space 4 # capacity
 
 #==============================
-INITIALIZE_LOLO_RETURN_ADDRESS:
+RETURN_ADDRESS_INITIALIZE_LOLO:
     .space 4
 
 #==============================

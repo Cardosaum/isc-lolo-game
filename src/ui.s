@@ -4,7 +4,7 @@ INITIALIZE_LOLO:
     # a0: lolo_x
     # a1: lolo_y
 
-    la t0,INITIALIZE_LOLO_RETURN_ADDRESS
+    la t0,RETURN_ADDRESS_INITIALIZE_LOLO
     sw ra,(t0)
 
     # save variables to later use
@@ -39,11 +39,11 @@ INITIALIZE_LOLO:
     lhu a0,(t0)
     la t0,LOLO_POSITION_CURRENT_Y
     lhu a1,(t0)
-    li a5,0
-    print_sprite(a0,a1,lolo_n,DYN_BLOCK,a5)
+    la a2,lolo_n
+    print_sprite(a0,a1,a2)
 
 
-    la t0,INITIALIZE_LOLO_RETURN_ADDRESS
+    la t0,RETURN_ADDRESS_INITIALIZE_LOLO
     lw ra,(t0)
     ret
 #====================================================================================================
@@ -57,6 +57,7 @@ MOVE_DYNAMIC_SPRITE:
     # a0: x_new
     # a1: y_new
     # a2: array_struct_index
+    # a3: address_to_.data
 
     # save arguments for later use
     la t0,MOVE_DYNAMIC_SPRITE_ARG_A0
@@ -65,10 +66,17 @@ MOVE_DYNAMIC_SPRITE:
     sw a1,(t0)
     la t0,MOVE_DYNAMIC_SPRITE_ARG_A2
     sw a2,(t0)
+    la t0,MOVE_DYNAMIC_SPRITE_ARG_A3
+    sw a3,(t0)
 
     # save return address for later use
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
     sw ra,(t0)
+
+
+    # TODO: print hidden_sprite
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
 
     # TODO: update next_position
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A0)
@@ -80,13 +88,15 @@ MOVE_DYNAMIC_SPRITE:
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
 
-    # TODO: print hidden_sprite
-    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
-    jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
-
     # TODO: update current_position
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION
+
+    # TODO: print dynamic_sprite in new position
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A0)
+    load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
+    load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A3)
+    print_sprite(a0,a1,a2)
 
     # get return address
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
@@ -197,7 +207,7 @@ DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP:
     addi t5,t5,4
     addi t0,t0,4
     addi t2,t2,-1
-    bgez t2,DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_EXIT
+    blez t2,DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_EXIT
     bge t5,t1,DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP_NEXT_LINE
     addi s0,s0,4
     j DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE_LOOP
@@ -231,6 +241,7 @@ DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE:
     # go to I'th position in array
     jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
     la t0,DYN_VECT_STRUCT
+    lw t0,(t0)
     add t0,t0,a0
 
     # save X and Y current coordinates for later
@@ -264,7 +275,7 @@ DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP:
     addi t5,t5,4
     addi t0,t0,4
     addi t2,t2,-1
-    bgez t2,DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_EXIT
+    blez t2,DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_EXIT
     bge t5,t1,DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_NEXT_LINE
     addi s0,s0,4
     j DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP
