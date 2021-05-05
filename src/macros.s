@@ -124,3 +124,11 @@
     li a2,%size
     jal COPY_VECTOR
 .end_macro
+
+.macro move_dynamic_sprite(%x,%y,%array_struct_index,%sprite)
+    li a0,%x
+    li a1,%y
+    li a2,%array_struct_index
+    la a3,%sprite
+    jal MOVE_DYNAMIC_SPRITE
+.end_macro

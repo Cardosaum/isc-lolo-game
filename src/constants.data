@@ -123,3 +123,12 @@ RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION:  .space 4
 #==============================
 RETURN_ADDRESS_DYNAMIC_SPRITE_UPDATE_NEXT_POSITION:  .space 4
 #==============================
+
+#==============================
+RETURN_ADDRESS_CONVERT_RELATIVE_TO_ABSOLUTE_MOVE:   .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_MOVE_LOLO:   .space 4
+MOVE_LOLO_ADDRESS_TO_DATA:   .space 4
+#==============================

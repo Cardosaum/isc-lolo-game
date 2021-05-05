@@ -17,49 +17,71 @@ MAIN:
     #jal COPY_VECTOR
 
     init()
+
     li a0,0
     li a1,0
     la a2,map
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
-    #li a0,0
-    #la a5,lolo_n
-    #addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
-    #add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5)
-
-    #li a0,64
-    #li a1,30
     li a0,20
     li a1,0
     initialize_lolo(a0,a1)
     sleep(1000)
 
-    li a0,200
-    li a1,100
-    li a2,0
-    la a3,lolo_r
-    jal MOVE_DYNAMIC_SPRITE
-    sleep(2000)
-    li a0,204
-    li a1,100
-    li a2,0
-    la a3,lolo_r
-    jal MOVE_DYNAMIC_SPRITE
-    sleep(2000)
-    li a0,208
-    li a1,100
-    li a2,0
-    la a3,lolo_r
-    jal MOVE_DYNAMIC_SPRITE
-    sleep(2000)
-    li a0,216
-    li a1,100
-    li a2,0
-    la a3,lolo_r
-    jal MOVE_DYNAMIC_SPRITE
-    sleep(2000)
+    #la a0,lolo_r
+    #li a1,4
+    #li a2,0
+    #jal MOVE_LOLO
+    #sleep(1000)
+#
+    #la a0,lolo_r
+    #li a1,4
+    #li a2,0
+    #jal MOVE_LOLO
+    #sleep(1000)
+
+    keyboard_input()
     exit()
+
+    #li a0,0
+    #li a1,0
+    #la a2,map
+    #li a5,0
+    #print_sprite(a0, a1, a2, STC_BLOCK, a5)
+#
+    ##li a0,64
+    ##li a1,30
+    #li a0,20
+    #li a1,0
+    #initialize_lolo(a0,a1)
+    #sleep(1000)
+#
+    #li a0,200
+    #li a1,100
+    #li a2,0
+    #la a3,lolo_r
+    #jal MOVE_DYNAMIC_SPRITE
+    #sleep(2000)
+    #li a0,204
+    #li a1,100
+    #li a2,0
+    #la a3,lolo_r
+    #jal MOVE_DYNAMIC_SPRITE
+    #sleep(2000)
+    #li a0,208
+    #li a1,100
+    #li a2,0
+    #la a3,lolo_r
+    #jal MOVE_DYNAMIC_SPRITE
+    #sleep(2000)
+    #li a0,216
+    #li a1,100
+    #li a2,0
+    #la a3,lolo_r
+    #jal MOVE_DYNAMIC_SPRITE
+    #sleep(2000)
+    #exit()
 
     # update struct vector
     # a0: array_address // array of structs' address

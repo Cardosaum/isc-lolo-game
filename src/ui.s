@@ -50,6 +50,80 @@ INITIALIZE_LOLO:
 #====================================================================================================
 
 #====================================================================================================
+MOVE_LOLO:
+    # this function takes next address_to_.data, x_relative and y_relative and perform all the steps to move lolo to (X,Y)
+
+    # parameters
+    # a0: address_to_.data
+    # a1: x_relative
+    # a2: y_relative
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_MOVE_LOLO
+    sw ra,(t0)
+
+    # save address_to_.data
+    la t0,MOVE_LOLO_ADDRESS_TO_DATA
+    sw a0,(t0)
+
+    li a0,0 # lolo is always index 0
+    jal CONVERT_RELATIVE_TO_ABSOLUTE_MOVE
+
+    mv a0,a1
+    mv a1,a2
+    li a2,0
+    la t0,MOVE_LOLO_ADDRESS_TO_DATA
+    lw a3,(t0)
+    jal MOVE_DYNAMIC_SPRITE
+
+    la t0,RETURN_ADDRESS_MOVE_LOLO
+    lw ra,(t0)
+    ret
+#====================================================================================================
+
+#====================================================================================================
+CONVERT_RELATIVE_TO_ABSOLUTE_MOVE:
+    # this function takes array_struct_index, x_relative and y_relative and convert it to
+    # absolute values of X and Y
+
+    # parameters
+    # a0: array_struct_index
+    # a1: x_relative
+    # a2: y_relative
+
+    # outputs
+    # a1: x_absolute
+    # a2: y_absolute
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_CONVERT_RELATIVE_TO_ABSOLUTE_MOVE
+    sw ra,(t0)
+
+    # go to I'th position in array
+    jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
+    la t0,DYN_VECT_STRUCT
+    lw t0,(t0)
+    add t0,t0,a0
+
+    # get current X and Y values
+    lw t1,4(t0) # read (X,Y)
+    li t2,0xFFFF0000
+    and t3,t1,t2 # mask X
+    srli t3,t1,16 # return X to a half word
+    li t2,0x0000FFFF
+    and t4,t1,t2 # mask Y
+
+    # add relative values to X and Y
+    add a1,a1,t3 # x_absolute
+    add a2,a2,t4 # y_absolute
+
+    # get return address
+    la t0,RETURN_ADDRESS_CONVERT_RELATIVE_TO_ABSOLUTE_MOVE
+    lw ra,(t0)
+    ret
+#====================================================================================================
+
+#====================================================================================================
 MOVE_DYNAMIC_SPRITE:
     # this function takes one sprite that already is present in array_struct and move it to a new
     # location, performing all the necessary steps to update array_struct and restore the hidden
@@ -74,28 +148,34 @@ MOVE_DYNAMIC_SPRITE:
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
     sw ra,(t0)
 
-    # TODO: print hidden_sprite
+    # print hidden_sprite
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
 
-    # TODO: update next_position
+    # update next_position
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A0)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A1)
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_UPDATE_NEXT_POSITION
 
-    # TODO: save next_dyn_sprite
+    # save next_dyn_sprite
     # there seems to be an error, we are not
     # saving dyn sprite correctly
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
 
-    # TODO: print dynamic_sprite in new position
+    # print dynamic_sprite in new position
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A0)
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A3)
     load_word(a5,MOVE_DYNAMIC_SPRITE_ARG_A2)
     print_sprite(a0,a1,a2,DYN_BLOCK,a5)
+
+    # update current_position
+    load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A0)
+    load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A1)
+    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    jal DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION
 
     # get return address
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
@@ -115,6 +195,7 @@ DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION:
     # go to I'th position in array
     jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
     la t0,DYN_VECT_STRUCT
+    lw t0,(t0)
     add t0,t0,a0
 
     # get next_position and make it current_position
@@ -245,7 +326,7 @@ DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE:
 
     # save X and Y current coordinates for later
     li t2,0xFFFF0000
-    lw s2,4(t0)
+    lw s2,8(t0)
     and s2,s2,t2 # mask (X,Y) to get X value
     srli s2,s2,16 # return X to a half word
     li t2,0x0000FFFF
@@ -304,27 +385,27 @@ DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE_LOOP_EXIT:
 
 
 
-MOVE_LOLO:
-    # a0: x_base_pixel
-    # a1: y_base_pixel
-    mv s10,ra
-
-    store_half(t0,a0,LOLO_POSITION_CURRENT_X)
-    store_half(t0,a1,LOLO_POSITION_CURRENT_Y)
-    load_half(a0,LOLO_POSITION_LAST_X)
-    load_half(a1,LOLO_POSITION_LAST_Y)
-    la a3,HIDDEN_SPRITE
-    li a4,STC_BLOCK
-    jal PRINT_SPRITE
-    load_half(a0,LOLO_POSITION_CURRENT_X)
-    load_half(a1,LOLO_POSITION_CURRENT_Y)
-    store_half(t0,a0,LOLO_POSITION_LAST_X)
-    store_half(t0,a1,LOLO_POSITION_LAST_Y)
-    la a3,lolo_n
-    li a4,DYN_BLOCK
-    jal PRINT_SPRITE
-    mv ra,s10
-    ret
+#MOVE_LOLO:
+    ## a0: x_base_pixel
+    ## a1: y_base_pixel
+    #mv s10,ra
+#
+    #store_half(t0,a0,LOLO_POSITION_CURRENT_X)
+    #store_half(t0,a1,LOLO_POSITION_CURRENT_Y)
+    #load_half(a0,LOLO_POSITION_LAST_X)
+    #load_half(a1,LOLO_POSITION_LAST_Y)
+    #la a3,HIDDEN_SPRITE
+    #li a4,STC_BLOCK
+    #jal PRINT_SPRITE
+    #load_half(a0,LOLO_POSITION_CURRENT_X)
+    #load_half(a1,LOLO_POSITION_CURRENT_Y)
+    #store_half(t0,a0,LOLO_POSITION_LAST_X)
+    #store_half(t0,a1,LOLO_POSITION_LAST_Y)
+    #la a3,lolo_n
+    #li a4,DYN_BLOCK
+    #jal PRINT_SPRITE
+    #mv ra,s10
+    #ret
 
 GENERATE_MAP_MATRIX:
     # a0: map_matrix_address
