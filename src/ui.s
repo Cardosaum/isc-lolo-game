@@ -74,7 +74,6 @@ MOVE_DYNAMIC_SPRITE:
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
     sw ra,(t0)
 
-
     # TODO: print hidden_sprite
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
@@ -90,10 +89,6 @@ MOVE_DYNAMIC_SPRITE:
     # saving dyn sprite correctly
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
     jal DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE
-
-    # TODO: update current_position
-    load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A2)
-    jal DYNAMIC_SPRITE_UPDATE_CURRENT_POSITION
 
     # TODO: print dynamic_sprite in new position
     load_word(a0,MOVE_DYNAMIC_SPRITE_ARG_A0)

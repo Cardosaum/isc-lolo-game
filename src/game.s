@@ -30,7 +30,7 @@ MAIN:
 
     #li a0,64
     #li a1,30
-    li a0,0
+    li a0,20
     li a1,0
     initialize_lolo(a0,a1)
     sleep(1000)
@@ -40,13 +40,13 @@ MAIN:
     li a2,0
     la a3,lolo_r
     jal MOVE_DYNAMIC_SPRITE
-    sleep(4000)
+    sleep(2000)
     li a0,204
     li a1,100
     li a2,0
     la a3,lolo_r
     jal MOVE_DYNAMIC_SPRITE
-    sleep(4000)
+    sleep(2000)
     li a0,208
     li a1,100
     li a2,0
