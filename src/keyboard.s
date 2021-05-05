@@ -8,6 +8,9 @@ KEYBOARD_INPUT:
 .eqv KEY_S 115
 .eqv KEY_D 100
 
+    # save return address for later
+    la t0,RETURN_ADDRESS_KEYBOARD_INPUT
+    sw ra,(t0)
 
 KEYBOARD_INPUT_LOOP_POOL:
     li t0,MMIO_set # t0 = keyboard_flag
@@ -32,26 +35,48 @@ KEYBOARD_INPUT_LOOP_POOL:
     j KEYBOARD_INPUT_LOOP_POOL
 
 KEYBOARD_INPUT_EXIT:
+    la t0,RETURN_ADDRESS_KEYBOARD_INPUT
+    lw ra,(t0)
     ret
 KEYBOARD_INPUT_KEY_W:
+    li a1,0
+    li a2,-4
+    jal CAN_LOLO_MOVE
+    beqz a1,KEYBOARD_INPUT_LOOP_POOL
+
     la a0,lolo_u
     li a1,0
     li a2,-4
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_A:
+    li a1,-4
+    li a2,0
+    jal CAN_LOLO_MOVE
+    beqz a1,KEYBOARD_INPUT_LOOP_POOL
+
     la a0,lolo_l
     li a1,-4
     li a2,0
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_S:
+    li a1,0
+    li a2,4
+    jal CAN_LOLO_MOVE
+    beqz a1,KEYBOARD_INPUT_LOOP_POOL
+
     la a0,lolo_n
     li a1,0
     li a2,4
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_D:
+    li a1,4
+    li a2,0
+    jal CAN_LOLO_MOVE
+    beqz a1,KEYBOARD_INPUT_LOOP_POOL
+
     la a0,lolo_r
     li a1,4
     li a2,0
