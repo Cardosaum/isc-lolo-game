@@ -13,8 +13,8 @@
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
-    li a0,68
-    li a1,88
+    li a0,80
+    li a1,120
     initialize_lolo(a0,a1)
 .end_macro
 

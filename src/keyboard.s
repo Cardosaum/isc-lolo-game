@@ -47,11 +47,13 @@ KEYBOARD_INPUT_KEY_W:
     la a0,lolo_u
     li a1,0
     li a2,-4
+    li a3,0
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_A:
     li a1,-4
     li a2,0
+    li a3,0
     jal CAN_LOLO_MOVE
     beqz a1,KEYBOARD_INPUT_LOOP_POOL
 
@@ -63,6 +65,7 @@ KEYBOARD_INPUT_KEY_A:
 KEYBOARD_INPUT_KEY_S:
     li a1,0
     li a2,4
+    li a3,1
     jal CAN_LOLO_MOVE
     beqz a1,KEYBOARD_INPUT_LOOP_POOL
 
@@ -74,6 +77,7 @@ KEYBOARD_INPUT_KEY_S:
 KEYBOARD_INPUT_KEY_D:
     li a1,4
     li a2,0
+    li a3,1
     jal CAN_LOLO_MOVE
     beqz a1,KEYBOARD_INPUT_LOOP_POOL
 

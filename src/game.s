@@ -9,6 +9,7 @@
 .include "../sprites/map_1.data"
 .include "../sprites/blocks/ground.data"
 .include "constants.data"
+.include "map_matrix.data"
 
 .text
 MAIN:
