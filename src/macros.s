@@ -6,6 +6,16 @@
     li s1,320
     li s2,240
     create_struct_vector(20,DYN_VECT_STRUCT)
+
+    li a0,0
+    li a1,0
+    la a2,map_1
+    li a5,0
+    print_sprite(a0, a1, a2, STC_BLOCK, a5)
+
+    li a0,68
+    li a1,88
+    initialize_lolo(a0,a1)
 .end_macro
 
 .macro exit()
