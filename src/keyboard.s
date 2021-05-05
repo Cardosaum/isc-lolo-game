@@ -36,24 +36,24 @@ KEYBOARD_INPUT_EXIT:
 KEYBOARD_INPUT_KEY_W:
     la a0,lolo_u
     li a1,0
-    li a2,-2
+    li a2,-4
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_A:
     la a0,lolo_l
-    li a1,-2
+    li a1,-4
     li a2,0
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_S:
     la a0,lolo_n
     li a1,0
-    li a2,2
+    li a2,4
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 KEYBOARD_INPUT_KEY_D:
     la a0,lolo_r
-    li a1,2
+    li a1,4
     li a2,0
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
