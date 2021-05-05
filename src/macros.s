@@ -142,3 +142,28 @@
     la a3,%sprite
     jal MOVE_DYNAMIC_SPRITE
 .end_macro
+
+.macro can_lolo_move_get_pixel_lower_left(%reg_x,%reg_y,%reg_tmp)
+    mv %reg_x,a1
+    load_half(t0,CANVAS_WIDTH)
+    mul %reg_y,a2,%reg_tmp
+.end_macro
+
+.macro can_lolo_move_get_pixel_lower_right(%reg_x,%reg_y,%reg_tmp)
+    li %reg_tmp,16 # sprite_width
+    add %reg_x,a1,%reg_tmp
+    load_half(%reg_tmp,CANVAS_WIDTH)
+    mul %reg_y,a2,%reg_tmp
+    add %reg_y,%reg_y,a1
+.end_macro
+
+.macro can_lolo_move_get_pixel_upper_right(%reg_x,%reg_y,%reg_tmp)
+    mv %reg_y,a2
+    li %reg_tmp,16 # sprite_width
+    add %reg_x,a1,%reg_tmp
+.end_macro
+
+.macro can_lolo_move_get_pixel_upper_left(%reg_x,%reg_y,%reg_tmp)
+    mv %reg_x,a1
+    mv %reg_y,a2
+.end_macro

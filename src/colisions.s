@@ -3,7 +3,7 @@ CAN_LOLO_MOVE:
     # parameters
     # a1: x_relative
     # a2: y_relative
-    # a3: up_down_left_right // 0 if for up and right, 1 is for down and left
+    # a3: up_down_left_right // up: 0; left: 1; down: 2; right: 3;
 
     # outputs
     # a1: yes_or_no // return 0 if lolo can NOT move, 1 otherwise
@@ -28,43 +28,64 @@ CAN_LOLO_MOVE:
     li t2,0x0000FFFF
     and t4,t1,t2 # mask Y
 
+
     # add relative values to X and Y
     add a1,a1,t3 # x_absolute
     add a2,a2,t4 # y_absolute
 
-    ## divide X and Y by 16 in order to compare with MAP_1_MATRIX
-    #li t0,16
-    #rem t2,a1,t0
-    #div a1,a1,t0
-    #bnez t2,CAN_LOLO_MOVE_ADD_ONE_TO_A1
-#CAN_LOLO_MOVE_CONTINUE_DIVISION:
-    #rem t2,a2,t0
-    #div a2,a2,t0
-    #bnez t2,CAN_LOLO_MOVE_ADD_ONE_TO_A2
-    #j CAN_LOLO_MOVE_PROCEED
-#CAN_LOLO_MOVE_ADD_ONE_TO_A1:
-    #add a1,a1,a3
-    #j CAN_LOLO_MOVE_CONTINUE_DIVISION
-#CAN_LOLO_MOVE_ADD_ONE_TO_A2:
-    #add a2,a2,a3
+    # get desired pixels
+    # we will need two tuples of (x,y), that will be:
+    # s6: x_1
+    # s7: y_1
+    # s8: x_2
+    # s9: y_2
 
-#CAN_LOLO_MOVE_PROCEED:
-    ## get value for (X,Y) coordinates in MAP_1_MATRIX
-    #la t0,MAP_1_MATRIX
-    #add t0,t0,a1
-    #li t1,20 # our map has width = 20
-    #mul t1,t1,a2
-    #add t0,t0,t1
-    #lb t0,(t0) # read value in (X,Y)
-    #beqz t0,CAN_LOLO_MOVE_RETURN_0
-    #j CAN_LOLO_MOVE_RETURN_1
+    # conditional get pixels
+    j CAN_LOLO_MOVE_PROCEED
+    beqz a3,CAN_LOLO_MOVE_GET_PIXELS_UP
+    li t0, 1
+    beq a3,t0,CAN_LOLO_MOVE_GET_PIXELS_LEFT
+    li t0, 2
+    beq a3,t0,CAN_LOLO_MOVE_GET_PIXELS_DOWN
+    li t0, 3
+    beq a3,t0,CAN_LOLO_MOVE_GET_PIXELS_RIGHT
+
+    # get edge pixels
+CAN_LOLO_MOVE_GET_PIXELS_UP:
+    can_lolo_move_get_pixel_upper_left(s6,s7,t1)
+    can_lolo_move_get_pixel_upper_right(s8,s9,t1)
+    j CAN_LOLO_MOVE_PROCEED
+
+CAN_LOLO_MOVE_GET_PIXELS_LEFT:
+    can_lolo_move_get_pixel_upper_left(s6,s7,t1)
+    can_lolo_move_get_pixel_lower_left(s8,s9,t1)
+    j CAN_LOLO_MOVE_PROCEED
+
+CAN_LOLO_MOVE_GET_PIXELS_DOWN:
+    can_lolo_move_get_pixel_lower_left(s6,s7,t1)
+    can_lolo_move_get_pixel_lower_right(s8,s9,t1)
+    j CAN_LOLO_MOVE_PROCEED
+
+CAN_LOLO_MOVE_GET_PIXELS_RIGHT:
+    can_lolo_move_get_pixel_upper_right(s6,s7,t1)
+    can_lolo_move_get_pixel_lower_right(s8,s9,t1)
+    j CAN_LOLO_MOVE_PROCEED
+
 
 CAN_LOLO_MOVE_PROCEED:
     # get value for (X,Y) coordinates in MAP_1_MATRIX
+    # check for both (s6,s7) or (s8,s9)
     la t0,MAP_1_MATRIX
-    add t0,t0,a1
-    li t1,20 # our map has width = 320
-    mul t1,t1,a2
+    add t0,t0,s6
+    li t1,1 # our map has width = 320
+    mul t1,t1,s7
+    add t0,t0,t1
+    lb t0,(t0) # read value in (X,Y)
+    beqz t0,CAN_LOLO_MOVE_RETURN_0
+    la t0,MAP_1_MATRIX
+    add t0,t0,s8
+    li t1,320 # our map has width = 320
+    mul t1,t1,s9
     add t0,t0,t1
     lb t0,(t0) # read value in (X,Y)
     beqz t0,CAN_LOLO_MOVE_RETURN_0
@@ -76,6 +97,7 @@ CAN_LOLO_MOVE_RETURN_0:
 CAN_LOLO_MOVE_RETURN_1:
     li a1,1
 CAN_LOLO_MOVE_EXIT:
+    li a1,1
     la t0,RETURN_ADDRESS_CAN_LOLO_MOVE
     lw ra,(t0)
     ret
