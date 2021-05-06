@@ -23,6 +23,7 @@
 .include "../sprites/lolo_u_4.data"
 .include "../sprites/map/map.data"
 .include "../sprites/map_1.data"
+.include "../sprites/heart.data"
 .include "../sprites/blocks/ground.data"
 .include "constants.data"
 .include "map_matrix_320x240.data"
@@ -30,7 +31,7 @@
 .text
 MAIN:
     init()
-
+    init_map_1()
     keyboard_input()
     exit()
 
