@@ -48,6 +48,7 @@ DYN_BLOCK_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
 
+#==============================
 # this variable is responsible to store the pointer to the
 # struct_array, struct_array's lenght and also it's capacity
 # a similar aproach is used by Rust, and is the reference used
@@ -58,10 +59,12 @@ DYN_VECT_STRUCT:
     .space 4 # pointer to struct_array
     .space 4 # length
     .space 4 # capacity
+#==============================
 
 #==============================
 RETURN_ADDRESS_INITIALIZE_LOLO:
     .space 4
+#==============================
 
 #==============================
 MOVE_DYNAMIC_SPRITE_ARG_A0: .space 4

@@ -8,5 +8,13 @@ lolo = {
     'sprite_image': range(200)
 }
 
+heart = {
+    'current_position': (60, 30),
+    'next_position': (60, 30),
+    'sprite_image': range(200)
+}
+
 ds.append(lolo)
-pprint(ds)
+ds.append(heart)
+print(len(ds))
+print(ds)
