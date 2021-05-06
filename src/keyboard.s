@@ -39,50 +39,10 @@ KEYBOARD_INPUT_EXIT:
     lw ra,(t0)
     ret
 KEYBOARD_INPUT_KEY_W:
-    li a1,0
-    li a2,-4
-    li a3,0
-    jal CAN_LOLO_MOVE
-    beqz a1,KEYBOARD_INPUT_LOOP_POOL
-
-    la a0,lolo_u
-    li a1,0
-    li a2,-4
-    jal MOVE_LOLO
-    j KEYBOARD_INPUT_LOOP_POOL
+    keyboard_input_key(0,-4,0,lolo_u)
 KEYBOARD_INPUT_KEY_A:
-    li a1,-4
-    li a2,0
-    li a3,1
-    jal CAN_LOLO_MOVE
-    beqz a1,KEYBOARD_INPUT_LOOP_POOL
-
-    la a0,lolo_l
-    li a1,-4
-    li a2,0
-    jal MOVE_LOLO
-    j KEYBOARD_INPUT_LOOP_POOL
+    keyboard_input_key(-4,0,1,lolo_l)
 KEYBOARD_INPUT_KEY_S:
-    li a1,0
-    li a2,4
-    li a3,2
-    jal CAN_LOLO_MOVE
-    beqz a1,KEYBOARD_INPUT_LOOP_POOL
-
-    la a0,lolo_n
-    li a1,0
-    li a2,4
-    jal MOVE_LOLO
-    j KEYBOARD_INPUT_LOOP_POOL
+    keyboard_input_key(0,4,2,lolo_n)
 KEYBOARD_INPUT_KEY_D:
-    li a1,4
-    li a2,0
-    li a3,3
-    jal CAN_LOLO_MOVE
-    beqz a1,KEYBOARD_INPUT_LOOP_POOL
-
-    la a0,lolo_r
-    li a1,4
-    li a2,0
-    jal MOVE_LOLO
-    j KEYBOARD_INPUT_LOOP_POOL
+    keyboard_input_key(4,0,3,lolo_r)

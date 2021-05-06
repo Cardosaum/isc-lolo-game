@@ -41,7 +41,6 @@ CAN_LOLO_MOVE:
     # s9: y_2
 
     # conditional get pixels
-    j CAN_LOLO_MOVE_PROCEED
     beqz a3,CAN_LOLO_MOVE_GET_PIXELS_UP
     li t0, 1
     beq a3,t0,CAN_LOLO_MOVE_GET_PIXELS_LEFT
@@ -77,7 +76,7 @@ CAN_LOLO_MOVE_PROCEED:
     # check for both (s6,s7) or (s8,s9)
     la t0,MAP_1_MATRIX
     add t0,t0,s6
-    li t1,1 # our map has width = 320
+    li t1,320 # our map has width = 320
     mul t1,t1,s7
     add t0,t0,t1
     lb t0,(t0) # read value in (X,Y)
@@ -97,7 +96,6 @@ CAN_LOLO_MOVE_RETURN_0:
 CAN_LOLO_MOVE_RETURN_1:
     li a1,1
 CAN_LOLO_MOVE_EXIT:
-    li a1,1
     la t0,RETURN_ADDRESS_CAN_LOLO_MOVE
     lw ra,(t0)
     ret
