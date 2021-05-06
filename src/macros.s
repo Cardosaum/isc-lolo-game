@@ -166,7 +166,7 @@
     mv %reg_y,a2
 .end_macro
 
-.macro keyboard_input_key(%x_rel,%y_rel,%key_code,%sprite)
+.macro keyboard_input_key(%x_rel,%y_rel,%key_code,%sprite,%sprite_movement)
     la a0,%sprite
     li a1,0
     li a2,0
@@ -178,6 +178,7 @@
     jal CAN_LOLO_MOVE
     beqz a1,KEYBOARD_INPUT_LOOP_POOL
 
+    #la a0,%sprite_movement
     la a0,%sprite
     li a1,%x_rel
     li a2,%y_rel

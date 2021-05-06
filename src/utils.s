@@ -303,3 +303,21 @@ UPDATE_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP:
 UPDATE_STRUCT_TO_VECTOR_EXIT:
     ret
 #=====================================================================================================
+
+#=====================================================================================================
+UPDATE_SPRITE_ANIMATION:
+    # update variable that store the next sprite animation to be printed
+
+    # a0: address_pointer_to_sprite // something similar to LOLO_U
+    # a1: address_to_BASE_sprite_to_be_printed // something similar to lolo_u
+    # a2: sprite index // must be a number in [0,1,2,3]
+
+    li t0,308 # size of an sprite 16x16 plus the the two words
+    add a1,a1,t0 # go to first sprite movement // something similar to lolo_u_1. Note that this only works if the import sequence is correct. ie: include the files in this order: lolo_u,lolo_u_1,lolo_u_2...
+    mul t0,t0,a2
+    add a1,a1,t0
+    sw a1,(a0)
+    addi a2,a2,1 # update next index
+    sw a2,4(a0)
+    ret
+#=====================================================================================================

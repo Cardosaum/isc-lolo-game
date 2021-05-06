@@ -107,3 +107,15 @@ RETURN_ADDRESS_CAN_LOLO_MOVE:  .space 4
 #==============================
 RETURN_ADDRESS_CAN_LOLO_MOVE_GLITCH:    .space 4
 #==============================
+
+#==============================
+    # each of this variables store the address for the next sprite and the ID of the last printed sprite
+LOLO_U: .space 4
+.space 4
+LOLO_L: .space 4
+.space 4
+LOLO_N: .space 4
+.space 4
+LOLO_R: .space 4
+.space 4
+#==============================
