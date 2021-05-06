@@ -39,21 +39,21 @@ KEYBOARD_INPUT_EXIT:
     lw ra,(t0)
     ret
 KEYBOARD_INPUT_KEY_W:
-    #li t0,0 # we will reset all the other position movements
-    #la t1,LOLO_L
-    #sw t0,4(t1)
-    #la t1,LOLO_N
-    #sw t0,4(t1)
-    #la t1,LOLO_R
-    #sw t0,4(t1)
-#
-    #la t1,LOLO_U
-    #lw t0,4(t1)
-    #li t2,4 # we have only 4 states for dynamic move
-    #rem a2,t0,t2
-    #la a0,LOLO_U
-    #la a1,lolo_u
-    #jal UPDATE_SPRITE_ANIMATION
+    li t0,0 # we will reset all the other position movements
+    la t1,LOLO_L
+    sw t0,4(t1)
+    la t1,LOLO_N
+    sw t0,4(t1)
+    la t1,LOLO_R
+    sw t0,4(t1)
+
+    la t1,LOLO_U
+    lw t0,4(t1)
+    li t2,4 # we have only 4 states for dynamic move
+    rem a2,t0,t2
+    la a0,LOLO_U
+    la a1,lolo_u
+    jal UPDATE_SPRITE_ANIMATION
 
     keyboard_input_key(0,-4,0,lolo_u,LOLO_U)
 KEYBOARD_INPUT_KEY_A:

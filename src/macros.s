@@ -178,8 +178,8 @@
     jal CAN_LOLO_MOVE
     beqz a1,KEYBOARD_INPUT_LOOP_POOL
 
-    #la a0,%sprite_movement
-    la a0,%sprite
+    la a0,%sprite_movement
+    #la a0,%sprite
     li a1,%x_rel
     li a2,%y_rel
     jal MOVE_LOLO
