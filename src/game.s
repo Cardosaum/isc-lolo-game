@@ -24,6 +24,8 @@
 .include "../sprites/map/map.data"
 .include "../sprites/map_1.data"
 .include "../sprites/heart.data"
+.include "../sprites/snake_left_1.png"
+.include "../sprites/snake_left_2.png"
 .include "../sprites/blocks/ground.data"
 .include "constants.data"
 .include "map_matrix_320x240.data"
