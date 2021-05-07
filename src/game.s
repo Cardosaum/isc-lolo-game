@@ -37,7 +37,7 @@
 .include "../sprites/life_number_1.data"
 .include "../sprites/life_number_0.data"
 .include "constants.data"
-.include "map_matrix_320x240.data"
+.include "map_matrix_1x1.data"
 
 .text
 MAIN:
@@ -55,3 +55,4 @@ MAIN:
 .include "print_sprites.s"
 .include "proc_life_lolo.s"
 .include "initialize_dynamic_sprites.s"
+.include "read_map_matrix.s"

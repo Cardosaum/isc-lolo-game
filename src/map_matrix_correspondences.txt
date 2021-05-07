@@ -1,0 +1,5 @@
+0,lolo não anda
+1,lolo anda
+2,coração
+3,baú
+4,cobra
