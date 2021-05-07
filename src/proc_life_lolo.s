@@ -44,22 +44,22 @@ LOLO_LIFE_PRINT:
     beq t1,t6,UM
     beqz t1,ZERO
 CINCO:
-    la a2,cinco_lolo_sprite
+    la a2,life_number_5
     j PRINT_NUMBER
 QUATRO:
-    la a2,quatro_lolo_sprite
+    la a2,life_number_4
     j PRINT_NUMBER
 TRES:
-    la a2,tres_lolo_sprite
+    la a2,life_number_3
     j PRINT_NUMBER
 DOIS:
-    la a2,dois_lolo_sprite
+    la a2,life_number_2
     j PRINT_NUMBER
 UM:
-    la a2,um_lolo_sprite
+    la a2,life_number_1
     j PRINT_NUMBER
 ZERO:
-    la a2,zero_lolo_sprite
+    la a2,life_number_0
     j PRINT_NUMBER
     
 PRINT_NUMBER:
