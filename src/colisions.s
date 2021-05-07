@@ -101,6 +101,48 @@ CAN_LOLO_MOVE_EXIT:
     ret
 #====================================================================================================
 
+#====================================================================================================
+WILL_COLLIDE_WITH_DYNAMIC_SPRITE:
+    # check if dynamic sprite with index 'a0' will collide with other dynamic sprite
+    # return 0 if will not collide, 1 otherwise
+
+    # a0: array_struct_index
+
+    # save return address for later use
+    la t0,RETURN_ADDRESS_WILL_COLLIDE_WITH_DYNAMIC_SPRITE
+    sw ra,(t0)
+    la t0,WILL_COLLIDE_WITH_DYNAMIC_SPRITE_A0
+    sw a0,(t0)
+
+    # get how many items thereis on array
+    la t0,DYN_VECT_STRUCT
+    lw s1,4(t0)
+
+LOOP_THROUGH_DYNAMIC_SPRITES_LOOP:
+    blez s1,LOOP_THROUGH_DYNAMIC_SPRITES_EXIT
+
+LOOP_THROUGH_DYNAMIC_SPRITES_EXIT:
+    la t0,RETURN_ADDRESS_LOOP_THROUGH_DYNAMIC_SPRITES
+    lw ra,(t0)
+    ret
+#
+
+    # jump necessary structs
+    jal HOW_MANY_BYTES_SKIP_TO_REACH_ITH
+    la t0,DYN_VECT_STRUCT
+    lw t0,(t0)
+    add t0,t0,a0
+
+    # get struct's 'collide' field
+    addi t0,t0,612 # jump necessary fields
+    lw a0,(t0)
+
+
+WILL_COLLIDE_WITH_DYNAMIC_SPRITE_EXIT:
+    la t0,RETURN_ADDRESS_WILL_COLLIDE_WITH_DYNAMIC_SPRITE
+    lw ra,(t0)
+    ret
+#====================================================================================================
 
 #====================================================================================================
 CAN_LOLO_MOVE_GLITCH:

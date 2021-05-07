@@ -48,6 +48,7 @@ CREATE_STRUCT_VECTOR:
       #         next_position = 4_bytes // store (X,Y) coordinates for where the sprite wants to go in map. Both X and Y are half (ie. 2 bytes)
       #         hidden_sprite = 300_bytes // store all the pixels that were hidden when the sprite moved to current position. we use it to restore the sprite when the sprite move to elsewhere
       #         next_dyn_sprite = 300_bytes // store all the pixels that we will print for this character/mob/(dyn_sprite)
+      #         collide = 4_bytes // boolean; will this dynamic sprite collide with something else?
       # }
     # taking into account this struct organization, we can see that one struct store a total of 312 bytes.
 
@@ -128,6 +129,7 @@ ADD_STRUCT_TO_VECTOR:
     # a3: next_position
     # // actually, it's not a needed parameter for the function; a4: hidden_sprite // address of first new hidden_sprite pixel
     # a5: next_dyn_sprite // address of first new next_dyn_sprite pixel
+    # a6: collide // boolean to check if dynamic sprite will or not collide with something else
 
     # t3: struct_position // we will use this variable to find the last position in array_address
     lw t3,4(a0) # read the current length of struct_vector
@@ -207,6 +209,8 @@ ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP:
     j ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP
 
 ADD_STRUCT_TO_VECTOR_EXIT:
+    # save collide information and return
+    sw a6,(a0)
     ret
 #=====================================================================================================
 

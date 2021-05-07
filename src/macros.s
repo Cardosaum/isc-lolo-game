@@ -22,10 +22,14 @@
     li a1,120
     initialize_lolo(a0,a1)
 
+    # add snake with index 1
+    initialize_dynamic_sprite(128,192,1,0,chest_closed)
     # add heart with index 2
-    initialize_dynamic_sprite(240,112,2,heart)
+    initialize_dynamic_sprite(240,112,2,0,heart)
     # add heart with index 3
-    initialize_dynamic_sprite(240,112,3,heart)
+    initialize_dynamic_sprite(128,48,3,0,heart)
+    # add snake with index 4
+    initialize_dynamic_sprite(160,144,4,1,snake_r_1)
 .end_macro
 
 .macro exit()
@@ -123,12 +127,13 @@
     jal UPDATE_STRUCT_VECTOR
 .end_macro
 
-.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%next_dyn_sprite)
+.macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%next_dyn_sprite,%collide)
     li a1,%sprite_id
     mv a2,%current_position
     mv a3,%next_position
     mv a5,%next_dyn_sprite
     la a0,%array_address
+    mv a6,%collide
     jal ADD_STRUCT_TO_VECTOR
 .end_macro
 
@@ -188,18 +193,20 @@
     jal CAN_LOLO_MOVE
     beqz a1,KEYBOARD_INPUT_LOOP_POOL
 
-    la a0,%sprite_movement
-    #la a0,%sprite
+    # TODO: fix animations
+    #la a0,%sprite_movement
+    la a0,%sprite
     li a1,%x_rel
     li a2,%y_rel
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
 .end_macro
 
-.macro initialize_dynamic_sprite(%x,%y,%struct_array_index,%address_sprite_data)
+.macro initialize_dynamic_sprite(%x,%y,%struct_array_index,%collide,%address_sprite_data)
     li a0,%x
     li a1,%y
     li a2,%struct_array_index
+    li a3,%collide
     la a5,%address_sprite_data
     jal INITIALIZE_DYNAMIC_SPRITE
 .end_macro

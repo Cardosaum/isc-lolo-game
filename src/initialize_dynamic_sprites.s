@@ -4,7 +4,9 @@ INITIALIZE_DYNAMIC_SPRITE:
     # a0: dynamic_sprite_x
     # a1: dynamic_sprite_y
     # a2: dynamic_sprite_index_in_struct_array
+    # a3: dynamic_sprite_collide
     # a5: address_to_dynamic_sprite.data
+    # a6: collide
 
     la t0,RETURN_ADDRESS_INITIALIZE_DYNAMIC_SPRITE
     sw ra,(t0)
@@ -16,6 +18,8 @@ INITIALIZE_DYNAMIC_SPRITE:
     sh a1,(t0)
     la t0,INITIALIZE_DYNAMIC_SPRITE_DYNAMIC_SPRITE_INDEX_IN_STRUCT_ARRAY
     sw a2,(t0)
+    la t0,INITIALIZE_DYNAMIC_SPRITE_COLLIDE
+    sw a3,(t0)
     la t0,INITIALIZE_DYNAMIC_SPRITE_ADDRESS_TO_DYNAMIC_SPRITE_DATA
     sw a5,(t0)
 
@@ -34,7 +38,7 @@ INITIALIZE_DYNAMIC_SPRITE:
 
     addi a5,a5,8 # skip the first 2 words of dynamic_sprite. we only need the address of the first dynamic_sprite's pixel
 
-    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5)
+    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5,a6)
 
     la t0,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X
     lhu a0,(t0)

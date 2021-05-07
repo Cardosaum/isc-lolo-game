@@ -9,7 +9,7 @@ CANVAS_HEIGHT:
 # 'variables'
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
-.eqv SPRITE_STRUCT_SIZE 612
+.eqv SPRITE_STRUCT_SIZE 616
 .eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
 
 MAP_MATRIX_SIZE:
@@ -119,9 +119,17 @@ LOLO_N: .space 4
 LOLO_R: .space 4
 .space 4
 #==============================
+
+#==============================
 RETURN_ADDRESS_INITIALIZE_DYNAMIC_SPRITE:   .space 4
 INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X:   .space 2
 INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_Y:   .space 2
 INITIALIZE_DYNAMIC_SPRITE_DYNAMIC_SPRITE_INDEX_IN_STRUCT_ARRAY: .space 4
 INITIALIZE_DYNAMIC_SPRITE_ADDRESS_TO_DYNAMIC_SPRITE_DATA:   .space 4
+INITIALIZE_DYNAMIC_SPRITE_COLLIDE:   .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_GET_COLLIDE_FIELD: .space 4
+GET_COLLIDE_FIELD_A0: .space 4
 #==============================
