@@ -16,22 +16,15 @@
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
     # initialize lolo
+    # lolo always has index of 0
     li a0,80
     li a1,120
     initialize_lolo(a0,a1)
 
-    # initialize hearts
-    li a0,240
-    li a1,112
-    la a2,heart
-    li a5,1
-    print_sprite(a0, a1, a2, STC_BLOCK, a5)
-
-    li a0,128
-    li a1,48
-    la a2,heart
-    li a5,1
-    print_sprite(a0, a1, a2, STC_BLOCK, a5)
+    # add heart with index 2
+    initialize_dynamic_sprite(240,112,2,heart)
+    # add heart with index 3
+    initialize_dynamic_sprite(240,112,3,heart)
 .end_macro
 
 .macro exit()
@@ -200,4 +193,12 @@
     li a2,%y_rel
     jal MOVE_LOLO
     j KEYBOARD_INPUT_LOOP_POOL
+.end_macro
+
+.macro initialize_dynamic_sprite(%x,%y,%struct_array_index,%address_sprite_data)
+    li a0,%x
+    li a1,%y
+    li a2,%struct_array_index
+    la a5,%address_sprite_data
+    jal INITIALIZE_DYNAMIC_SPRITE
 .end_macro

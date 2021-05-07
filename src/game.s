@@ -41,3 +41,4 @@ MAIN:
 .include "utils.s"
 .include "colisions.s"
 .include "print_sprites.s"
+.include "initialize_dynamic_sprites.s"
