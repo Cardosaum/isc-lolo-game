@@ -139,7 +139,7 @@ WILL_COLLIDE_WITH_DYNAMIC_SPRITE_A0:  .space 4
 
 #==============================
 # Counter of lolo lifes
-LOLO_LIFE:	.space 4 # Creating a byte space for th variable of lifes
+LOLO_LIFE:    .space 4 # Creating a byte space for th variable of lifes
 .eqv LOLO_LIFE_X 272 # x of where to print the number
 .eqv LOLO_LIFE_Y 64 # Y of where to print the number
 
