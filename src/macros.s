@@ -210,3 +210,9 @@
     la a5,%address_sprite_data
     jal INITIALIZE_DYNAMIC_SPRITE
 .end_macro
+
+.macro lolo_life_print()
+    jal LOLO_LIFE_RESET
+    #jal LOLO_LIFE_DECOUNTER
+    jal LOLO_LIFE_PRINT
+.end_macro

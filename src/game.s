@@ -37,6 +37,7 @@
 MAIN:
     init()
     init_map_1()
+    lolo_life_print()
     keyboard_input()
     exit()
 
