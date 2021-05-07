@@ -38,6 +38,7 @@
 .include "../sprites/zero_lolo_sprite.data"
 .include "constants.data"
 .include "map_matrix_1x1.data"
+.include "../sprites/map_castle.data"
 
 .text
 MAIN:
@@ -56,3 +57,4 @@ MAIN:
 .include "proc_life_lolo.s"
 .include "initialize_dynamic_sprites.s"
 .include "read_map_matrix.s"
+.include "castle.s"
