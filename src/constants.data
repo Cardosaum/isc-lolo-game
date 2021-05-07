@@ -130,6 +130,9 @@ INITIALIZE_DYNAMIC_SPRITE_COLLIDE:   .space 4
 #==============================
 
 #==============================
+RETURN_ADDRESS_WILL_COLLIDE_WITH_DYNAMIC_SPRITE: .space 4
 RETURN_ADDRESS_GET_COLLIDE_FIELD: .space 4
+RETURN_ADDRESS_LOOP_THROUGH_DYNAMIC_SPRITES:    .space 4
 GET_COLLIDE_FIELD_A0: .space 4
+WILL_COLLIDE_WITH_DYNAMIC_SPRITE_A0:  .space 4
 #==============================
