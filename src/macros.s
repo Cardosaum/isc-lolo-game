@@ -15,6 +15,7 @@
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
+
     # initialize lolo
     # lolo always has index of 0
     li a0,80
