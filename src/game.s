@@ -30,6 +30,12 @@
 .include "../sprites/snake_r_1.data"
 .include "../sprites/snake_r_2.data"
 .include "../sprites/blocks/ground.data"
+.include "../sprites/cinco_lolo_sprite.data"
+.include "../sprites/quatro_lolo_sprite.data"
+.include "../sprites/tres_lolo_sprite.data"
+.include "../sprites/dois_lolo_sprite.data"
+.include "../sprites/um_lolo_sprite.data"
+.include "../sprites/zero_lolo_sprite.data"
 .include "constants.data"
 .include "map_matrix_320x240.data"
 
@@ -47,4 +53,5 @@ MAIN:
 .include "utils.s"
 .include "colisions.s"
 .include "print_sprites.s"
+.include "proc_life_lolo.s"
 .include "initialize_dynamic_sprites.s"
