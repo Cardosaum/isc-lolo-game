@@ -136,3 +136,21 @@ RETURN_ADDRESS_LOOP_THROUGH_DYNAMIC_SPRITES:    .space 4
 GET_COLLIDE_FIELD_A0: .space 4
 WILL_COLLIDE_WITH_DYNAMIC_SPRITE_A0:  .space 4
 #==============================
+
+#==============================
+# Counter of lolo lifes
+LOLO_LIFE:	.space 4 # Creating a byte space for th variable of lifes
+.eqv LOLO_LIFE_X 272 # x of where to print the number
+.eqv LOLO_LIFE_Y 64 # Y of where to print the number
+
+# Constant numberss
+.eqv LOLO_LIFE_TOTAL 5
+.eqv LOLO_LIFE_4 4
+.eqv LOLO_LIFE_3 3
+.eqv LOLO_LIFE_2 2
+.eqv LOLO_LIFE_1 1
+.eqv LOLO_LIFE_0 0
+
+RETURN_ADDRESS_LOLO_LIFE_PRINT: .space 4
+
+#==============================
