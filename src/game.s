@@ -55,6 +55,6 @@ MAIN:
 .include "colisions.s"
 .include "print_sprites.s"
 .include "proc_life_lolo.s"
-.include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
+#.include "initialize_dynamic_sprites.s"
 .include "castle.s"
