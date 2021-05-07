@@ -154,3 +154,9 @@ LOLO_LIFE:	.space 4 # Creating a byte space for th variable of lifes
 RETURN_ADDRESS_LOLO_LIFE_PRINT: .space 4
 
 #==============================
+
+#==============================]
+# Variveis para matriz
+.eqv WIDTH_MATRIX 20
+
+RETURN_ADDRESS_MATRIX_MAP_CHANGE_VALUE: .space 4

@@ -216,3 +216,12 @@
     #jal LOLO_LIFE_DECOUNTER
     jal LOLO_LIFE_PRINT
 .end_macro
+
+.macro matrix_map_change_value(%x,%y,%new_value,%base_adress) # base_adress = chosen matrix
+    li a0,%x
+    li a1,%y
+    la a2,%base_adress
+    li a3,%new_value
+    jal MATRIX_MAP_CHANGE_VALUE
+
+.end_macro
