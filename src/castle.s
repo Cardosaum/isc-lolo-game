@@ -5,7 +5,7 @@ READ_CASTLE_DYNAMIC_MAP:
   la t0, RETURN_ADDRESS_READ_CASTLE_DYNAMIC_MAP
   sw ra,(t0)
 
-  li a0,20
+  li a0,0
   li a1,0
   la a2,map_castle
   li a5,0
