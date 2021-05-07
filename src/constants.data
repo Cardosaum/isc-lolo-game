@@ -152,9 +152,14 @@ LOLO_LIFE:	.space 4 # Creating a byte space for th variable of lifes
 .eqv LOLO_LIFE_0 0
 
 RETURN_ADDRESS_LOLO_LIFE_PRINT: .space 4
-
 #==============================
 
 #==============================
 RETURN_ADDRESS_READ_CASTLE_DYNAMIC_MAP: .space 4
+#==============================
+
+#==============================
+READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A0:   .space 4
+READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A1:   .space 4
+RETURN_ADDRESS_READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES:   .space 4
 #==============================
