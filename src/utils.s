@@ -336,9 +336,9 @@ UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED:
     # set first pixel of next sprite to print
     li t0,64 # width of 4 sprites
     mul t0,t0,a0 # go to sprites of direction (ie. one of 'WASD')
-    li t1,16 # width of each sprite
-    mul t1,t1,s3
-    add t0,t0,t1
+    #li t1,0 # width of each sprite
+    #mul t1,t1,s3
+    #add t0,t0,t1
     add s0,s0,t0 # actualy go to desired sprite
 
     # store sprite address to variable and return
