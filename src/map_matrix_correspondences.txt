@@ -3,4 +3,9 @@
 2,coração
 3,baú fechado
 4,cobra
+<<<<<<< Updated upstream
+=======
+7,movable block
+8,statue
+>>>>>>> Stashed changes
 9,porta fechada
