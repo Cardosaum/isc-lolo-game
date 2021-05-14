@@ -314,6 +314,10 @@ UPDATE_SPRITE_ANIMATION:
 
     # a0: direction_identifier // one of [0,1,2,3], indicating direction (ie. WASD)
 
+    # force a0 be in valid range
+    li t0,4
+    rem a0,a0,t0
+
     la s0,lolo_combined
     addi s0,s0,8 # skip first two words that represent widthxheight
     la s1,UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
