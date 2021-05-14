@@ -182,3 +182,14 @@ RETURN_ADDRESS_PRINT_SPRITE:    .space 4
 #==============================
 RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP:   .space 4
 #==============================
+
+#==============================
+GAME_LOLO_INTRO_X:    .space 4
+GAME_LOLO_INTRO_Y:    .space 4
+GAME_LOLO_INTRO_INDEX:  .space 4
+GAME_LOLO_INTRO_STOP_Y: .space 4
+#==============================
+
+#==============================
+INITIALIZE_LOLO_ARGUMENT_A2: .space 4
+#==============================

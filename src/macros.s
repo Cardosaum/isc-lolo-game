@@ -20,7 +20,7 @@
     # lolo always has index of 0
     li a0,80
     li a1,120
-    initialize_lolo(a0,a1)
+    initialize_lolo(a0,a1,lolo_n)
 
     # add snake with index 1
     initialize_dynamic_sprite(128,192,1,0,chest_closed)
@@ -137,9 +137,10 @@
     jal ADD_STRUCT_TO_VECTOR
 .end_macro
 
-.macro initialize_lolo(%x,%y)
+.macro initialize_lolo(%x,%y,%sprite_address)
     mv a0,%x
     mv a1,%y
+    la a2,%sprite_address
     jal INITIALIZE_LOLO
 .end_macro
 
