@@ -19,7 +19,6 @@ READ_CASTLE_DYNAMIC_MAP:
 
 #=====================================================================================================
 # lolo movement
-
 GAME_LOLO_LOOP:
   la t0,RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP
   sw ra,(t0)
@@ -28,7 +27,7 @@ GAME_LOLO_LOOP:
   # a1 = y
   li a0,0
   li a1,0
-  la a2,lolo_castle_up_0
+  la a2,lolo_n
   li a5,0
   
   print_sprite(a0,a1,a2,DYN_BLOCK,a5)
@@ -36,3 +35,4 @@ GAME_LOLO_LOOP:
   la t0,RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP
   lw ra,(t0)
   ret
+#=====================================================================================================
