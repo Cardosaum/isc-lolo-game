@@ -179,6 +179,3 @@ UPDATE_SPRITE_ANIMATION_CURRENT_FRAME:    .word 0 #// current frame is one of [0
 RETURN_ADDRESS_PRINT_SPRITE:    .space 4
 #==============================
 
-#==============================
-RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP:   .space 4
-#==============================
