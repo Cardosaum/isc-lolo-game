@@ -185,6 +185,7 @@
     la a0,%sprite
     li a1,0
     li a2,0
+    li a4,0
     jal MOVE_LOLO
 
     li a1,%x_rel
@@ -198,7 +199,9 @@
     la a0,%sprite
     li a1,%x_rel
     li a2,%y_rel
+    li a4,1
     jal MOVE_LOLO
+    sleep(100)
     j KEYBOARD_INPUT_LOOP_POOL
 .end_macro
 
@@ -215,4 +218,13 @@
     jal LOLO_LIFE_RESET
     #jal LOLO_LIFE_DECOUNTER
     jal LOLO_LIFE_PRINT
+.end_macro
+
+.macro print_sprite_animation(%x, %y, %sprite_address, %is_dynamic, %array_struct_index)
+    mv a0,%x
+    mv a1,%y
+    mv a3,%sprite_address
+    li a4,%is_dynamic
+    mv a5,%array_struct_index
+    jal PRINT_RAW_COMBINED_SPRITE
 .end_macro

@@ -68,6 +68,7 @@ MOVE_DYNAMIC_SPRITE_ARG_A0: .space 4
 MOVE_DYNAMIC_SPRITE_ARG_A1: .space 4
 MOVE_DYNAMIC_SPRITE_ARG_A2: .space 4
 MOVE_DYNAMIC_SPRITE_ARG_A3: .space 4
+MOVE_DYNAMIC_SPRITE_ARG_A4: .space 4
 RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE: .space 4
 #==============================
 
@@ -172,4 +173,12 @@ RETURN_ADDRESS_READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES:   .space 4
 UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS:    .space 4
 UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION:    .word 0
 UPDATE_SPRITE_ANIMATION_CURRENT_FRAME:    .word 0 #// current frame is one of [0,1,2,3] because we have only 4 animated sprites for each direction
+#==============================
+
+#==============================
+RETURN_ADDRESS_PRINT_SPRITE:    .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP:   .space 4
 #==============================
