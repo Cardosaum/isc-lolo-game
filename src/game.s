@@ -44,8 +44,8 @@
 .text
 MAIN:
     init()
-    #jal READ_CASTLE_DYNAMIC_MAP
-    #sleep(20000)
+    jal READ_CASTLE_DYNAMIC_MAP
+    sleep(20000)
     init_map_1()
     lolo_life_print()
     li a0,16
