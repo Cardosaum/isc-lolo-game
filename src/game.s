@@ -44,13 +44,14 @@
 .text
 MAIN:
     init()
-    #jal READ_CASTLE_DYNAMIC_MAP
     #sleep(20000)
     init_map_1()
     lolo_life_print()
 
+    #jal READ_CASTLE_DYNAMIC_MAP
+    #jal GAME_LOLO_LOOP
     keyboard_input()
-    #sleep(200000)
+    sleep(200000)
     exit()
 
 
