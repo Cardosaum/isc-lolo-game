@@ -166,6 +166,6 @@ RETURN_ADDRESS_READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES:   .space 4
 
 #==============================
 UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS:    .space 4
-UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION:    .space 4
+UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION:    .word 0
 UPDATE_SPRITE_ANIMATION_CURRENT_FRAME:    .word 0 #// current frame is one of [0,1,2,3] because we have only 4 animated sprites for each direction
 #==============================

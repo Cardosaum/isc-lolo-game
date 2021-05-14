@@ -315,6 +315,7 @@ UPDATE_SPRITE_ANIMATION:
     # a0: direction_identifier // one of [0,1,2,3], indicating direction (ie. WASD)
 
     la s0,lolo_combined
+    addi s0,s0,8 # skip first two words that represent widthxheight
     la s1,UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
     load_word(s2,UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION)
 
@@ -329,11 +330,16 @@ UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED:
     sw s3,(t0) # save it for later use
 
     # set first pixel of next sprite to print
-
+    li t0,64 # width of 4 sprites
+    mul t0,t0,a0 # go to sprites of direction (ie. one of 'WASD')
     li t1,16 # width of each sprite
-    mul t2,t1,s3
-    add t3,s0,t2
+    mul t1,t1,s3
+    add t0,t0,t1
+    add s0,s0,t0 # actualy go to desired sprite
 
+    # store sprite address to variable and return
+    sw s0,(s1)
+    ret
 
 UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION:
     # update direction variable to same as the variable passed
@@ -344,13 +350,4 @@ UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION:
     li t1,3
     sw t1,(t0)
     j UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED
-
-    li t0,308 # size of an sprite 16x16 plus the the two words
-    add a1,a1,t0 # go to first sprite movement // something similar to lolo_u_1. Note that this only works if the import sequence is correct. ie: include the files in this order: lolo_u,lolo_u_1,lolo_u_2...
-    mul t0,t0,a2
-    add a1,a1,t0
-    sw a1,(a0)
-    addi a2,a2,1 # update next index
-    sw a2,4(a0)
-    ret
 #=====================================================================================================

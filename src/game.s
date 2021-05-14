@@ -44,10 +44,15 @@
 .text
 MAIN:
     init()
-    jal READ_CASTLE_DYNAMIC_MAP
-    sleep(20000)
+    #jal READ_CASTLE_DYNAMIC_MAP
+    #sleep(20000)
     init_map_1()
     lolo_life_print()
+    li a0,16
+    jal UPDATE_SPRITE_ANIMATION
+    li a0,20
+    li a1,20
+    jal PRINT_RAW_COMBINED_SPRITE
     keyboard_input()
     exit()
 
@@ -61,3 +66,4 @@ MAIN:
 .include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
 .include "castle.s"
+.include "print_raw_combined_sprite.s"
