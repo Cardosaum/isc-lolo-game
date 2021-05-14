@@ -40,75 +40,20 @@
 .include "constants.data"
 .include "map_matrix_1x1.data"
 .include "../sprites/map_castle.data"
+.include "../sprites/lolo_castle_up_0.data"
+.include "../sprites/lolo_castle_up_1.data"
+.include "../sprites/lolo_castle_up_2.data"
+.include "../sprites/lolo_castle_up_3.data"
+
+
 
 .text
 MAIN:
     init()
-    #jal READ_CASTLE_DYNAMIC_MAP
-    #sleep(20000)
     init_map_1()
     lolo_life_print()
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,16
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,32
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,48
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,64
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,80
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,16
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,32
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,48
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,64
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,80
-    jal PRINT_RAW_COMBINED_SPRITE
-
+    jal READ_CASTLE_DYNAMIC_MAP
+    jal GAME_LOLO_LOOP
     #keyboard_input()
     sleep(200000)
     exit()

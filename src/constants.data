@@ -159,7 +159,7 @@ RETURN_ADDRESS_READ_CASTLE_DYNAMIC_MAP: .space 4
 #==============================
 
 #==============================
-LOLO_MOVEMENT_DYNAMIC_MAP:  .space 4
+RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP: .space 4
 #==============================
 
 #==============================
