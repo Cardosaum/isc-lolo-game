@@ -20,9 +20,9 @@ PRINT_RAW_COMBINED_SPRITE:
     # compute where in UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS we need to go
     la t5,UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
     lw t5,(t5)
-    li t2,64 # size of 4 sprites in width
-    mul t2,t2,s2
-    add t5,t5,t2
+    #li t2,0 # this value would be the width of 4 sprites, but IT SIMPLY DOES NOT WORK! anyway, messing around with this value I found that 16 works ok, just don't ask me why
+    #mul t2,t2,s2
+    #add t5,t5,t2
     mul t2,t1,s3
     add t5,t5,t2
 
@@ -52,7 +52,7 @@ PRINT_RAW_COMBINED_SPRITE_NEXT_LINE:
     addi t4,t4,-4 # t4 -= 4 (we ignore the last printed address)
     sub t0,t0,t4 # t0 -= t4
 
-    li t6,256 # with of all animation sprites aligned
+    li t6,256 # width of all animation sprites aligned
     add t5,t5,t6
     mv t4,t1
     addi t4,t4,-4
