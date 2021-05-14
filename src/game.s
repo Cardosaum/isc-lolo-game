@@ -21,6 +21,7 @@
 .include "../sprites/lolo_u_2.data"
 .include "../sprites/lolo_u_3.data"
 .include "../sprites/lolo_u_4.data"
+.include "../sprites/lolo_combined.data"
 .include "../sprites/map/map.data"
 .include "../sprites/map_1.data"
 .include "../sprites/chest_closed.data"

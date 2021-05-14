@@ -312,9 +312,38 @@ UPDATE_STRUCT_TO_VECTOR_EXIT:
 UPDATE_SPRITE_ANIMATION:
     # update variable that store the next sprite animation to be printed
 
-    # a0: address_pointer_to_sprite // something similar to LOLO_U
-    # a1: address_to_BASE_sprite_to_be_printed // something similar to lolo_u
-    # a2: sprite index // must be a number in [0,1,2,3]
+    # a0: direction_identifier // one of [0,1,2,3], indicating direction (ie. WASD)
+
+    la s0,lolo_combined
+    la s1,UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
+    load_word(s2,UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION)
+
+    bne a0,s2,UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION
+
+UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED:
+    load_word(s3,UPDATE_SPRITE_ANIMATION_CURRENT_FRAME)
+    li t0,4 # we have 4 animation sprites for each direction
+    addi s3,s3,1 # increment current frame
+    rem s3,s3,t0 # make sure we always have a valid value
+    la t0,UPDATE_SPRITE_ANIMATION_CURRENT_FRAME
+    sw s3,(t0) # save it for later use
+
+    # set first pixel of next sprite to print
+
+    li t1,16 # width of each sprite
+    mul t2,t1,s3
+    add t3,s0,t2
+
+
+UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION:
+    # update direction variable to same as the variable passed
+    la t0,UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION
+    sw a0,(t0)
+    # reset current_frame to 3
+    la t0,UPDATE_SPRITE_ANIMATION_CURRENT_FRAME
+    li t1,3
+    sw t1,(t0)
+    j UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED
 
     li t0,308 # size of an sprite 16x16 plus the the two words
     add a1,a1,t0 # go to first sprite movement // something similar to lolo_u_1. Note that this only works if the import sequence is correct. ie: include the files in this order: lolo_u,lolo_u_1,lolo_u_2...
