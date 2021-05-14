@@ -8,3 +8,4 @@
 7,movable block
 8,statue
 9,porta fechada
+10,dragao rosa esquerda
