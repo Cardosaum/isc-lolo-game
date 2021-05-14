@@ -49,68 +49,8 @@ MAIN:
     init_map_1()
     lolo_life_print()
 
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,16
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,32
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,48
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,64
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,0
-    li a1,80
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,16
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,32
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,48
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,64
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-    li a0,17
-    li a1,80
-    jal PRINT_RAW_COMBINED_SPRITE
-
-    #keyboard_input()
-    sleep(200000)
+    keyboard_input()
+    #sleep(200000)
     exit()
 
 
@@ -124,3 +64,63 @@ MAIN:
 #.include "read_map_matrix.s"
 .include "castle.s"
 .include "print_raw_combined_sprite.s"
+
+    #li a0,1
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,0
+    #li a1,16
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,1
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,0
+    #li a1,32
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,1
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,0
+    #li a1,48
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,1
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,0
+    #li a1,64
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,1
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,0
+    #li a1,80
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,3
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,17
+    #li a1,16
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,3
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,17
+    #li a1,32
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,3
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,17
+    #li a1,48
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,3
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,17
+    #li a1,64
+    #jal PRINT_RAW_COMBINED_SPRITE
+#
+    #li a0,3
+    #jal UPDATE_SPRITE_ANIMATION
+    #li a0,17
+    #li a1,80
+    #jal PRINT_RAW_COMBINED_SPRITE

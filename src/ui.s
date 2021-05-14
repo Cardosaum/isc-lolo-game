@@ -58,6 +58,7 @@ MOVE_LOLO:
     # a0: address_to_.data
     # a1: x_relative
     # a2: y_relative
+    # a4: is_animation
 
     # save return address for later use
     la t0,RETURN_ADDRESS_MOVE_LOLO
@@ -134,16 +135,14 @@ MOVE_DYNAMIC_SPRITE:
     # a1: y_new
     # a2: array_struct_index
     # a3: address_to_.data
+    # a4: is_animation
 
     # save arguments for later use
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A0
-    sw a0,(t0)
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A1
-    sw a1,(t0)
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A2
-    sw a2,(t0)
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A3
-    sw a3,(t0)
+    store_word(t0,a0,MOVE_DYNAMIC_SPRITE_ARG_A0)
+    store_word(t0,a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
+    store_word(t0,a2,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    store_word(t0,a3,MOVE_DYNAMIC_SPRITE_ARG_A3)
+    store_word(t0,a4,MOVE_DYNAMIC_SPRITE_ARG_A4)
 
     # save return address for later use
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
@@ -170,8 +169,16 @@ MOVE_DYNAMIC_SPRITE:
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A3)
     load_word(a5,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    load_word(a4,MOVE_DYNAMIC_SPRITE_ARG_A4)
+    # conditional print
+    beqz a4,MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION
+    print_sprite_animation(a0,a1,a2,DYN_BLOCK,a5)
+    j MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION_PROCEED
+
+MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION:
     print_sprite(a0,a1,a2,DYN_BLOCK,a5)
 
+MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION_PROCEED:
     # update current_position
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A0)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A1)
