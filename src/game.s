@@ -44,13 +44,16 @@
 .text
 MAIN:
     init()
-    jal READ_CASTLE_DYNAMIC_MAP
-    sleep(20000)
+    #jal READ_CASTLE_DYNAMIC_MAP
+    #sleep(20000)
     init_map_1()
     lolo_life_print()
-
-    #keyboard_input()
-    sleep(200000)
+    li a0,16
+    jal UPDATE_SPRITE_ANIMATION
+    li a0,20
+    li a1,20
+    jal PRINT_RAW_COMBINED_SPRITE
+    keyboard_input()
     exit()
 
 
@@ -64,65 +67,3 @@ MAIN:
 #.include "read_map_matrix.s"
 .include "castle.s"
 .include "print_raw_combined_sprite.s"
-
-
-
-    #li a0,1
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,0
-    #li a1,16
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,1
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,0
-    #li a1,32
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,1
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,0
-    #li a1,48
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,1
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,0
-    #li a1,64
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,1
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,0
-    #li a1,80
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,3
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,17
-    #li a1,16
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,3
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,17
-    #li a1,32
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,3
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,17
-    #li a1,48
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,3
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,17
-    #li a1,64
-    #jal PRINT_RAW_COMBINED_SPRITE
-#
-    #li a0,3
-    #jal UPDATE_SPRITE_ANIMATION
-    #li a0,17
-    #li a1,80
-    #jal PRINT_RAW_COMBINED_SPRITE
