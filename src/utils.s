@@ -355,3 +355,53 @@ UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION:
     sw t1,(t0)
     j UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED
 #=====================================================================================================
+
+#=====================================================================================================
+RESET_SPRITE_ANIMATION:
+    # update variable that store the next sprite animation to be printed
+
+    # a0: direction_identifier // one of [0,1,2,3], indicating direction (ie. WASD)
+
+    # force a0 be in valid range
+    li t0,4
+    rem a0,a0,t0
+
+    la s0,lolo_combined
+    addi s0,s0,8 # skip first two words that represent widthxheight
+    la s1,RESET_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
+    load_word(s2,RESET_SPRITE_ANIMATION_CURRENT_DIRECTION)
+
+    bne a0,s2,RESET_SPRITE_ANIMATION_UPDATE_DIRECTION
+
+RESET_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED:
+    load_word(s3,RESET_SPRITE_ANIMATION_CURRENT_FRAME)
+    li t0,4 # we have 4 animation sprites for each direction
+    addi s3,s3,1 # increment current frame
+    rem s3,s3,t0 # make sure we always have a valid value
+    la t0,RESET_SPRITE_ANIMATION_CURRENT_FRAME
+    # TODO: CLEAN UP THIS PROCEDURE AS WE ONLY NEED PART OF IT
+    li s3,0
+    sw s3,(t0) # save it for later use
+
+    # set first pixel of next sprite to print
+    li t0,64 # width of 4 sprites
+    mul t0,t0,a0 # go to sprites of direction (ie. one of 'WASD')
+    #li t1,0 # width of each sprite
+    #mul t1,t1,s3
+    #add t0,t0,t1
+    add s0,s0,t0 # actualy go to desired sprite
+
+    # store sprite address to variable and return
+    sw s0,(s1)
+    ret
+
+RESET_SPRITE_ANIMATION_UPDATE_DIRECTION:
+    # update direction variable to same as the variable passed
+    la t0,RESET_SPRITE_ANIMATION_CURRENT_DIRECTION
+    sw a0,(t0)
+    # reset current_frame to 3
+    la t0,RESET_SPRITE_ANIMATION_CURRENT_FRAME
+    li t1,3
+    sw t1,(t0)
+    j RESET_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED
+#=====================================================================================================

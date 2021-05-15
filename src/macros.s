@@ -199,10 +199,9 @@
     la a0,%sprite
     li a1,%x_rel
     li a2,%y_rel
-    li a4,0
+    li a4,1
     jal MOVE_LOLO
     #sleep(100)
-    j KEYBOARD_INPUT_LOOP_POOL
 .end_macro
 
 .macro initialize_dynamic_sprite(%x,%y,%struct_array_index,%collide,%address_sprite_data)
@@ -227,4 +226,14 @@
     li a4,%is_dynamic
     mv a5,%array_struct_index
     jal PRINT_RAW_COMBINED_SPRITE
+.end_macro
+
+.macro keyboard_input_key_v2(%x_rel,%y_rel,%movement_code,%sprite_address,%sleep_time)
+    li a0,%x_rel
+    li a1,%y_rel
+    li a2,%movement_code
+    la a3,%sprite_address
+    li a4,%sleep_time
+    jal KEYBOARD_INPUT_KEY_MOVEMENT
+    j KEYBOARD_INPUT_LOOP_POOL
 .end_macro

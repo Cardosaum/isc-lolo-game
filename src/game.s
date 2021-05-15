@@ -64,6 +64,7 @@ MAIN:
 #.include "read_map_matrix.s"
 .include "castle.s"
 .include "print_raw_combined_sprite.s"
+.include "keyboard_input_key_movement.s"
 
     #li a0,1
     #jal UPDATE_SPRITE_ANIMATION

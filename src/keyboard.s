@@ -39,22 +39,10 @@ KEYBOARD_INPUT_EXIT:
     lw ra,(t0)
     ret
 KEYBOARD_INPUT_KEY_W:
-    li a0,0
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(0,-4,0,lolo_u,LOLO_U)
+    keyboard_input_key_v2(0,-1,0,lolo_u,80)
 KEYBOARD_INPUT_KEY_A:
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(-4,0,1,lolo_l,LOLO_L)
+    keyboard_input_key_v2(-1,0,1,lolo_l,80)
 KEYBOARD_INPUT_KEY_S:
-    li a0,2
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(0,4,2,lolo_n,LOLO_N)
+    keyboard_input_key_v2(0,1,2,lolo_n,80)
 KEYBOARD_INPUT_KEY_D:
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(4,0,3,lolo_r,LOLO_R)
+    keyboard_input_key_v2(1,0,3,lolo_r,80)
