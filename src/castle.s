@@ -25,6 +25,7 @@ GAME_LOLO_INTRO:
   # a1 = y
   li a0,144
   li a1,224
+  la a2,lolo_castle_up_0
   li a5,0
   store_word(t0,a0,GAME_LOLO_INTRO_X)
   store_word(t0,a1,GAME_LOLO_INTRO_Y)
