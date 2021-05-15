@@ -199,9 +199,9 @@
     la a0,%sprite
     li a1,%x_rel
     li a2,%y_rel
-    li a4,1
+    li a4,0
     jal MOVE_LOLO
-    sleep(100)
+    #sleep(100)
     j KEYBOARD_INPUT_LOOP_POOL
 .end_macro
 
