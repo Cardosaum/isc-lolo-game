@@ -1,20 +1,28 @@
+#==============================
 # 'variables' for user interface
-SELECTED_FRAME:
-    .word 0xFF000000
-CANVAS_WIDTH:
-    .half 320
-CANVAS_HEIGHT:
-    .half 240
+SELECTED_FRAME:    .word 0xFF000000
+CANVAS_WIDTH:    .half 320
+CANVAS_HEIGHT:    .half 240
+#==============================
 
+#==============================
 # 'variables'
+.eqv FRAME_SELECTOR 0xFF200604
+.eqv FRAME_0 0xFF000000
+.eqv FRAME_1 0xFF100000
+.eqv FRAME_MASK 0x00100000
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
 .eqv SPRITE_STRUCT_SIZE 616
 .eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
+#==============================
 
+#==============================
 MAP_MATRIX_SIZE:
     .half 300 # area of the map in sprites: width * height (20 * 15)
+#==============================
 
+#==============================
 # we use this two variables to correctly
 # assess which sprites need to be re-rendered
 LOLO_POSITION_CURRENT_X:
@@ -27,13 +35,17 @@ LOLO_POSITION_LAST_Y:
     .half 32
 LOLO_HIDDED_BLOCK:
     .word ground
+#==============================
 
+#==============================
 # we will use this variable to store the sprite that was
 # hidden by lolo when it moved
 HIDDEN_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
+#==============================
 
+#==============================
 DYN_BLOCK_SPRITE_CURR_X:
     .space 16
 DYN_BLOCK_SPRITE_CURR_Y:
@@ -47,7 +59,9 @@ DYN_BLOCK_SPRITE_ADDRESS:
 DYN_BLOCK_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
+#==============================
 
+#==============================
 # this variable is responsible to store the pointer to the
 # struct_array, struct_array's lenght and also it's capacity
 # a similar aproach is used by Rust, and is the reference used
@@ -58,10 +72,12 @@ DYN_VECT_STRUCT:
     .space 4 # pointer to struct_array
     .space 4 # length
     .space 4 # capacity
+#==============================
 
 #==============================
 RETURN_ADDRESS_INITIALIZE_LOLO:
     .space 4
+#==============================
 
 #==============================
 MOVE_DYNAMIC_SPRITE_ARG_A0: .space 4
