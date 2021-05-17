@@ -5,7 +5,6 @@ INITIALIZE_DYNAMIC_SPRITE:
     # a1: dynamic_sprite_y
     # a3: dynamic_sprite_collide
     # a5: address_to_dynamic_sprite.data
-    # a6: collide
 
     la t0,RETURN_ADDRESS_INITIALIZE_DYNAMIC_SPRITE
     sw ra,(t0)
@@ -13,7 +12,6 @@ INITIALIZE_DYNAMIC_SPRITE:
     # save variables to later use
     store_half(t0,a0,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X)
     store_half(t0,a1,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_Y)
-    store_word(t0,a3,INITIALIZE_DYNAMIC_SPRITE_COLLIDE)
     store_word(t0,a5,INITIALIZE_DYNAMIC_SPRITE_ADDRESS_TO_DYNAMIC_SPRITE_DATA)
 
     # we will use the function ADD_STRUCT_TO_VECTOR
@@ -31,7 +29,7 @@ INITIALIZE_DYNAMIC_SPRITE:
 
     addi a5,a5,8 # skip the first 2 words of dynamic_sprite. we only need the address of the first dynamic_sprite's pixel
 
-    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5,a6)
+    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5,a3)
 
     # pick new lenght as index to later use
     la a2,DYN_VECT_STRUCT
