@@ -8,6 +8,8 @@ SWAP_FRAMES:
     or s0,s0,t1
     store_word(t0,s0,SELECTED_FRAME)
     li t0,FRAME_SELECTOR
-    sw s0,(t0)
+    ori s0,s0,0x00F00000
+    srli s0,s0,5
+    sb s0,(t0)
     ret
 #====================================================================================================

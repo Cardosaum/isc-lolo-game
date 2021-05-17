@@ -43,6 +43,8 @@
 
 .text
 MAIN:
+    jal SWAP_FRAMES
+    exit()
     init()
     init_map_1()
     lolo_life_print()
