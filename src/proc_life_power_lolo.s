@@ -9,7 +9,7 @@ LOLO_LIFE_RESET:
 
 #====================================================================================================
 # procedimento para decrementar a vida do lolo
-LOLO_LIFE_DECOUNTER:	
+LOLO_LIFE_DECOUNTER:
     la t0,LOLO_LIFE
     lw t1,(t0)
     addi t1,t1,-1
@@ -81,7 +81,7 @@ LOLO_SHOT_RESET:
 
 #====================================================================================================
 # procedimento para decrementar a quantidade de tiros do lolo
-LOLO_SHOT_DECOUNTER:	
+LOLO_SHOT_DECOUNTER:
     la t0,LOLO_SHOT
     lw t1,(t0)
     addi t1,t1,-1
