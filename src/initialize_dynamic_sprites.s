@@ -3,6 +3,7 @@ INITIALIZE_DYNAMIC_SPRITE:
     # add dynamic_sprite to array of struct and print it to map
     # a0: dynamic_sprite_x
     # a1: dynamic_sprite_y
+    # a2: sprite_id // identifier to know if this sprite is a heart, chest, door, etc... (read map_matrix_correspondences.txt for more information)
     # a3: dynamic_sprite_collide
     # a5: address_to_dynamic_sprite.data
 
@@ -29,7 +30,7 @@ INITIALIZE_DYNAMIC_SPRITE:
 
     addi a5,a5,8 # skip the first 2 words of dynamic_sprite. we only need the address of the first dynamic_sprite's pixel
 
-    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5,a3)
+    add_struct_to_vector(DYN_VECT_STRUCT,a2,a0,a0,a5,a3)
 
     # pick new lenght as index to later use
     la a2,DYN_VECT_STRUCT

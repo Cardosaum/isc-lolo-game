@@ -72,9 +72,13 @@ READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_PRINT_DESIRED_SPRITE_AND_LOOP:
     mul a0,a0,t1
     mul a1,a1,t1
 
+    # set id for dynamic sprite
+    mv a2,t0
+
     # add dynamic_sprite to array of struct and print it to map
     # a0: dynamic_sprite_x
     # a1: dynamic_sprite_y
+    # a2: sprite_id // identifier to know if this sprite is a heart, chest, door, etc... (read map_matrix_correspondences.txt for more information)
     # a3: dynamic_sprite_collide
     # a5: address_to_dynamic_sprite.data
     jal INITIALIZE_DYNAMIC_SPRITE

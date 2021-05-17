@@ -12,7 +12,7 @@
     # print base map on the 2 frames
     li a0,0
     li a1,0
-    la a2,map_1
+    la a2,map_level_1
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
@@ -123,7 +123,7 @@
 .end_macro
 
 .macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%next_dyn_sprite,%collide)
-    li a1,%sprite_id
+    mv a1,%sprite_id
     mv a2,%current_position
     mv a3,%next_position
     mv a5,%next_dyn_sprite
