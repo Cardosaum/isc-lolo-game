@@ -178,4 +178,19 @@ LOLO_SHOT:	.space 4 # Creating a byte space for thE variable of shots
 RETURN_ADDRESS_LOLO_SHOT_PRINT: .space 4
 
 #==============================
+#==============================
+# Corações fase 1
+# counter corações
+LOLO_HEART_MAP_1:    .space 4
+
+# constants
+.eqv MAP_1_INITIAL_TOTAL_HEART 0
+.eqv MAP_1_HEART_1 1
+.eqv MAP_1_HEART_2 2
+
+# return adress for test
+LOLO_MAP_1_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
+
+
+
 
