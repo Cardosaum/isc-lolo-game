@@ -23,7 +23,7 @@
 .include "../sprites/lolo_u_4.data"
 .include "../sprites/lolo_combined.data"
 .include "../sprites/map/map.data"
-.include "../sprites/map_1.data"
+.include "../sprites/map/map_level_1.data"
 .include "../sprites/chest_closed.data"
 .include "../sprites/heart.data"
 .include "../sprites/snake_l_1.data"
