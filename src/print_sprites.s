@@ -22,7 +22,7 @@ PRINT_SPRITE:
     lw t1,0(a3) # t1 = image_width
     lw t2,4(a3) # t2 = image_height
     mul t3,t1,t2 # t3 = t1*t2 (image area)
-    srli t3,t3,2 # t3 /= 4
+    #srli t3,t3,2 # t3 /= 4
     addi t5,a3,8 # t5 = first 4 pixels
     mv t0,s0 # frame address copy
     add t0,t0,a0 # frame_address + x_base_pixel
@@ -34,21 +34,25 @@ PRINT_SPRITE:
 PRINT_SPRITE_LOOP:
     bnez a4,STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP
 PROCEED_SPRITE_LOOP:
-    lw t6,(t5) # load pixel from RAM
-    sw t6,(t0) # print pixel to frame
-    addi t4,t4,4 # actual_column += 4
+    lb t6,(t5) # load pixel from RAM
+    sb t6,(t0) # print pixel to frame
+    #addi t4,t4,4 # actual_column += 4
+    addi t4,t4,1 # actual_column += 1
     addi t3,t3,-1 # image_area -= 1
-    addi t5,t5,4 # pixel_address += 4
+    #addi t5,t5,4 # pixel_address += 4
+    addi t5,t5,1 # pixel_address += 1
     beqz t3,PRINT_SPRITE_LOOP_EXIT # if thereis no more pixel to print, exit.
     bge t4,t1,PRINT_SPRITE_NEXT_LINE # if actual_column >= image_width: goto PRINT_SPRITE_NEXT_LINE
-    addi t0,t0,4 # frame_address += 4
+    #addi t0,t0,4 # frame_address += 4
+    addi t0,t0,1 # frame_address += 1
     j PRINT_SPRITE_LOOP
 
 PRINT_SPRITE_NEXT_LINE:
     addi a1,a1,1 # y_base_pixel += 1
     add t0,t0,s1 # frame_address += canvas_width
     mv t4,t1 # t4 = t1
-    addi t4,t4,-4 # t4 -= 4 (we ignore the last printed address)
+    #addi t4,t4,-4 # t4 -= 4 (we ignore the last printed address)
+    addi t4,t4,-1 # t4 -= 1 (we ignore the last printed address)
     sub t0,t0,t4 # t0 -= t4
     li t4,0 # actual_column = 0
     j PRINT_SPRITE_LOOP
@@ -65,9 +69,10 @@ STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT:
     j PRINT_SPRITE_LOOP
 
 STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP:
-    addi s8,s8,4
-    lw s9,(t0)
-    sw s9,(s8)
+    #addi s8,s8,4
+    addi s8,s8,1
+    lb s9,(t0)
+    sb s9,(s8)
     j PROCEED_SPRITE_LOOP
 
 PRINT_SPRITE_LOOP_EXIT:
