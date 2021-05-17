@@ -9,6 +9,9 @@ PRINT_SPRITE:
     # a4: is_dynamic
     # a5: array_struct index // if block is dynamic, we need to know it's index to update the array
 
+    # save return address for later
+    store_word(t0,ra,RETURN_ADDRESS_PRINT_SPRITE)
+
     # first of all, we need to get the
     # canvas width and the frame that
     # need to be used to print the pixels
@@ -68,6 +71,8 @@ STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_LOOP:
     j PROCEED_SPRITE_LOOP
 
 PRINT_SPRITE_LOOP_EXIT:
+    # get return address
+    load_word(ra,RETURN_ADDRESS_PRINT_SPRITE)
     ret
 #====================================================================================================
 
