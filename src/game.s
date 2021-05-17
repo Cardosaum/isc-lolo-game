@@ -57,7 +57,8 @@ MAIN:
     #jal GAME_LOLO_LOOP
     #jal PLAY_MUSIC
     lolo_shot_print()
-    lolo_map_1_print_test_heart()
+    #lolo_map_1_print_test_heart()
+    #lolo_map_1_heart_reset()
     keyboard_input()
     #sleep(200000)
     exit()
@@ -78,3 +79,4 @@ MAIN:
 .include "music.s"
 .include "swap_frames.s"
 .include "read_and_print_map_matrix_dynamic_sprites.s"
+.include "proc_lolo_heart.s"

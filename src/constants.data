@@ -257,11 +257,4 @@ LOLO_HEART_MAP_1:    .space 4
 
 # return adress for test
 LOLO_MAP_1_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
-
 #==============================
-
-
-
-
-
-
