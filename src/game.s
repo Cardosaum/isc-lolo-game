@@ -75,3 +75,4 @@ MAIN:
 .include "keyboard_input_key_movement.s"
 .include "music.s"
 .include "swap_frames.s"
+.include "read_and_print_map_matrix_dynamic_sprites.s"
