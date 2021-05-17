@@ -30,6 +30,12 @@ snake = {
     'collision': True
 }
 
+heart = {
+    'current_position': (60, 30),
+    'next_position': (60, 30),
+    'sprite_image': range(200)
+}
+
 ds.append(lolo)
 ds.append(heart1)
 ds.append(heart2)

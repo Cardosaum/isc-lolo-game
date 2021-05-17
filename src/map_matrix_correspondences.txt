@@ -1,7 +1,7 @@
 0,lolo não anda
 1,lolo anda
 2,coração
-3,baú
+3,baú fechado
 4,cobra
 5,dragao rosa pra baixo
 6,dragao rosa pra direita

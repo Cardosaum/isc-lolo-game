@@ -21,6 +21,7 @@
 .include "../sprites/lolo_u_2.data"
 .include "../sprites/lolo_u_3.data"
 .include "../sprites/lolo_u_4.data"
+.include "../sprites/lolo_combined.data"
 .include "../sprites/map/map.data"
 .include "../sprites/map_1.data"
 .include "../sprites/chest_closed.data"
@@ -37,15 +38,27 @@
 .include "../sprites/life_number_1.data"
 .include "../sprites/life_number_0.data"
 .include "constants.data"
+.include "music.data"
 .include "map_matrix_1x1.data"
+.include "../sprites/map_castle.data"
+.include "../sprites/lolo_castle_up_0.data"
+.include "../sprites/lolo_castle_up_1.data"
+.include "../sprites/lolo_castle_up_2.data"
+.include "../sprites/lolo_castle_up_3.data"
+
+
 
 .text
 MAIN:
     init()
     init_map_1()
     lolo_life_print()
+    #jal READ_CASTLE_DYNAMIC_MAP
+    #jal GAME_LOLO_LOOP
+    #jal PLAY_MUSIC
     lolo_shot_print()
     keyboard_input()
+    #sleep(200000)
     exit()
 
 
@@ -56,4 +69,10 @@ MAIN:
 .include "print_sprites.s"
 .include "proc_life_power_lolo.s"
 .include "initialize_dynamic_sprites.s"
-.include "read_map_matrix.s"
+#.include "read_map_matrix.s"
+.include "castle.s"
+.include "print_raw_combined_sprite.s"
+.include "keyboard_input_key_movement.s"
+.include "music.s"
+.include "swap_frames.s"
+.include "read_and_print_map_matrix_dynamic_sprites.s"
