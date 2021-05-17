@@ -27,7 +27,7 @@
     # lolo always has index of 0
     li a0,64
     li a1,112
-    initialize_lolo(a0,a1)
+    initialize_lolo(a0,a1,lolo_n)
 
     # add snake with index 1
     initialize_dynamic_sprite(128,192,1,0,chest_closed)

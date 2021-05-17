@@ -15,7 +15,7 @@ PLAY_MUSIC_LOOP:
     ecall                # REPRODUZ A NOTA
     mv a0,a1             # DURACAO DA NOTA PRA PAUSA
     li a7,32
-    ecall                # PAUSA DE a0 ms
+    #ecall                # PAUSA DE a0 ms
     addi s0,s0,8         # INCREMENTA PARA O ENDEREÇO DA PROXIMA NOTA
     addi t0,t0,1         # ADICIONA MAIS UM AO CONTADOR DE NOTAS
     j PLAY_MUSIC_LOOP               # VOLTA AO LOOP

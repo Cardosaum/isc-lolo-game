@@ -38,6 +38,7 @@
 .include "../sprites/life_number_1.data"
 .include "../sprites/life_number_0.data"
 .include "constants.data"
+.include "music.data"
 .include "map_matrix_1x1.data"
 .include "../sprites/map_castle.data"
 .include "../sprites/lolo_castle_up_0.data"
@@ -55,6 +56,7 @@ MAIN:
 
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
+    jal PLAY_MUSIC
     keyboard_input()
     #sleep(200000)
     exit()
