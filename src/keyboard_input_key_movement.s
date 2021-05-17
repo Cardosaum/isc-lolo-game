@@ -18,13 +18,63 @@ KEYBOARD_INPUT_KEY_MOVEMENT:
     store_word(t0,a3,KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A3)
     store_word(t0,a4,KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A4)
 
-    # init counter to zero
+    # init counters to zero
     li t1,0
     store_word(t0,t1,KEYBOARD_INPUT_KEY_MOVEMENT_COUNTER)
+    store_word(t0,t1,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_COUNTER)
 
     # reset its animation sprite
     load_word(a0,KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A2)
     jal RESET_SPRITE_ANIMATION
+
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP:
+    # check if we performed all needed loops
+    load_word(t0,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_COUNTER)
+    li t1,3 # we will loop 4 times: 0,1,2,3
+    bgt t0,t1,KEYBOARD_INPUT_KEY_MOVEMENT_LOOP
+
+    # increment counter
+    addi t0,t0,1
+    store_word(t1,t0,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_COUNTER)
+
+    ## check if dynamic sprite can actualy move
+    # multiply x_rel and y_rel acording to intended movement direction
+    load_word(a1,KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A0)
+    load_word(a2,KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A1)
+    load_word(a3,KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A2)
+    slli t0,t0,1 # t0 *= 2
+    beqz a3,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_W
+    li t2,1
+    beq a3,t2,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_A
+    li t2,2
+    beq a3,t2,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_S
+    li t2,3
+    beq a3,t2,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_D
+
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_W:
+    #li t3,-1
+    #mul t0,t0,t3 # make t0 be a negative number
+    add a2,a2,t0
+    j KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_PROCEED
+
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_A:
+    #li t3,-1
+    #mul t0,t0,t3 # make t0 be a negative number
+    add a1,a1,t0
+    j KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_PROCEED
+
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_S:
+    add a2,a2,t0
+    j KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_PROCEED
+
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_KEY_D:
+    add a1,a1,t0
+    j KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_PROCEED
+
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP_PROCEED:
+    jal CAN_LOLO_MOVE
+    beqz a1,KEYBOARD_INPUT_KEY_MOVEMENT_EXIT
+    j KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP
 
 KEYBOARD_INPUT_KEY_MOVEMENT_LOOP:
     # increment counter
