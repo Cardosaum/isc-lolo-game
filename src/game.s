@@ -44,6 +44,7 @@ MAIN:
     init()
     init_map_1()
     lolo_life_print()
+    lolo_shot_print()
     keyboard_input()
     exit()
 
@@ -53,6 +54,6 @@ MAIN:
 .include "utils.s"
 .include "colisions.s"
 .include "print_sprites.s"
-.include "proc_life_lolo.s"
+.include "proc_life_power_lolo.s"
 .include "initialize_dynamic_sprites.s"
 .include "read_map_matrix.s"

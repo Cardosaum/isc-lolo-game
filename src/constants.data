@@ -155,8 +155,27 @@ RETURN_ADDRESS_LOLO_LIFE_PRINT: .space 4
 
 #==============================
 
-#==============================]
+#==============================
 # Variveis para matriz
 .eqv WIDTH_MATRIX 20
 
 RETURN_ADDRESS_MATRIX_MAP_CHANGE_VALUE: .space 4
+
+#==============================
+
+#==============================
+# Counter of lolo shots
+LOLO_SHOT:	.space 4 # Creating a byte space for thE variable of shots
+.eqv LOLO_SHOT_X 272 # x of where to print the number
+.eqv LOLO_SHOT_Y 112 # Y of where to print the number
+
+# Constants numbers
+.eqv LOLO_SHOT_TOTAL 2
+.eqv LOLO_SHOT_2 2
+.eqv LOLO_SHOT_1 1
+.eqv LOLO_SHOT_0 0
+
+RETURN_ADDRESS_LOLO_SHOT_PRINT: .space 4
+
+#==============================
+
