@@ -72,3 +72,4 @@ MAIN:
 .include "print_raw_combined_sprite.s"
 .include "keyboard_input_key_movement.s"
 .include "music.s"
+.include "swap_frames.s"
