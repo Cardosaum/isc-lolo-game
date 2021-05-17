@@ -1,11 +1,21 @@
+.data
+#==============================
+TOTAL_NOTES: .word 112
+#nota - duração, nota - duração........
+NOTE_AND_DURATION: .word 60,267,55,133,59,133,57,133,59,133,60,267,55,133,59,133,57,133,59,133,60,267,55,133,60,267,64,133,67,400,69,400,70,267,65,133,69,133,67,133,69,133,70,267,65,133,69,133,67,133,69,133,70,267,70,133,69,133,67,133,65,133,67,667,55,133,60,267,55,133,59,133,57,133,59,133,60,267,55,133,59,133,57,133,59,133,60,267,55,133,60,267,64,133,67,400,69,400,70,267,65,133,69,133,67,133,69,133,70,267,65,133,69,133,67,133,69,133,70,267,70,133,71,133,67,133,71,133,72,400,60,133,64,133,67,133,69,267,68,133,69,267,68,133,69,400,71,400,67,267,66,133,67,801,60,133,62,133,64,133,65,267,64,133,65,267,64,133,65,400,67,267,65,133,64,267,63,133,64,267,65,133,67,667,60,133,68,267,67,133,68,267,72,133,70,400,68,400,67,267,66,133,67,801,65,267,64,133,62,267,61,133,62,267,68,133,69,400,71,400,67,1468,55,133
+#==============================
+
 #=====================================================================================================
+#define os valores essenciais
 PLAY_MUSIC:
-    la s0,NUMBER_OF_NOTES
-    lw s1,0(s0)         
-    la s0,NOTE_AND_DURATION  #QNT DE NOTAS
-    li t0,0                  #CONTADOR
-    li a2,45                 #INSTRUMENTAL
-    li a3,140                #VOLUME
+    la s0,TOTAL_NOTES    # ENDERECO DO TOTAL DE NOTAS
+    lw s1,0(s0)              # TOTAL DE NOTAS
+    la s0,NOTE_AND_DURATION  # QNT DE NOTAS
+    li t0,0                  # CONTADOR DE NOTAS
+    
+    li a2,45                 # INSTRUMENTO
+    li a3,140                # VOLUME
+    jr a0                    # VOLTA A QUEM CHAMOU
 
 PLAY_MUSIC_LOOP:
     beq t0,s1,PLAY_MUSIC_END
@@ -13,12 +23,13 @@ PLAY_MUSIC_LOOP:
     lw a1,4(s0)          # DURACAO DA NOTA
     li a7,31             # SYSCALL
     ecall                # REPRODUZ A NOTA
+    
     mv a0,a1             # DURACAO DA NOTA PRA PAUSA
     li a7,32
     ecall                # PAUSA DE a0 ms
     addi s0,s0,8         # INCREMENTA PARA O ENDEREÇO DA PROXIMA NOTA
     addi t0,t0,1         # ADICIONA MAIS UM AO CONTADOR DE NOTAS
-    j PLAY_MUSIC_LOOP               # VOLTA AO LOOP
+    j PLAY_MUSIC_LOOP    # VOLTA AO LOOP
     
 PLAY_MUSIC_END:
     ret

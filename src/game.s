@@ -51,7 +51,7 @@
 MAIN:
     init()
     
-    jal READ_CASTLE_DYNAMIC_MAP
+    #jal READ_CASTLE_DYNAMIC_MAP
     jal GAME_LOLO_LOOP
     sleep(10000)
     
