@@ -3,6 +3,7 @@ INITIALIZE_LOLO:
     # add lolo to array of struct and print it to map
     # a0: lolo_x
     # a1: lolo_y
+    # a2: addres_to_.data
 
     la t0,RETURN_ADDRESS_INITIALIZE_LOLO
     sw ra,(t0)
@@ -17,6 +18,8 @@ INITIALIZE_LOLO:
     la t0,LOLO_POSITION_LAST_Y
     sh a1,(t0)
 
+    store_word(t0,a2,INITIALIZE_LOLO_ARGUMENT_A2)
+
     # we will use the function ADD_STRUCT_TO_VECTOR
     # to add lolo into the array of structs, but
     # the coordinates X and Y must be in the same
@@ -30,7 +33,8 @@ INITIALIZE_LOLO:
     and a1,a1,t0 # mask Y
     add a0,a0,a1 # merge X and Y
 
-    la a5,lolo_n
+    #la a5,lolo_n
+    mv a5,a2
     addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
 
     li a6,1 # lolo can collide with other dynamic sprites
@@ -40,7 +44,7 @@ INITIALIZE_LOLO:
     lhu a0,(t0)
     la t0,LOLO_POSITION_CURRENT_Y
     lhu a1,(t0)
-    la a2,lolo_n
+    load_word(a2,INITIALIZE_LOLO_ARGUMENT_A2)
     li a5,0
     print_sprite(a0,a1,a2,DYN_BLOCK,a5)
 

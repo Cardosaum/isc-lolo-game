@@ -40,6 +40,12 @@
 .include "constants.data"
 .include "map_matrix_1x1.data"
 .include "../sprites/map_castle.data"
+.include "../sprites/lolo_castle_up_0.data"
+.include "../sprites/lolo_castle_up_1.data"
+.include "../sprites/lolo_castle_up_2.data"
+.include "../sprites/lolo_castle_up_3.data"
+
+
 
 .text
 MAIN:
@@ -65,3 +71,4 @@ MAIN:
 .include "castle.s"
 .include "print_raw_combined_sprite.s"
 .include "keyboard_input_key_movement.s"
+.include "music.s"

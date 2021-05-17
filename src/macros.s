@@ -137,9 +137,10 @@
     jal ADD_STRUCT_TO_VECTOR
 .end_macro
 
-.macro initialize_lolo(%x,%y)
+.macro initialize_lolo(%x,%y,%sprite_address)
     mv a0,%x
     mv a1,%y
+    la a2,%sprite_address
     jal INITIALIZE_LOLO
 .end_macro
 
