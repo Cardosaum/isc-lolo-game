@@ -39,10 +39,10 @@ KEYBOARD_INPUT_EXIT:
     lw ra,(t0)
     ret
 KEYBOARD_INPUT_KEY_W:
-    keyboard_input_key_v2(0,-4,0,lolo_u,70)
+    keyboard_input_key_v2(0,-4,0,lolo_u,50)
 KEYBOARD_INPUT_KEY_A:
-    keyboard_input_key_v2(-4,0,1,lolo_l,70)
+    keyboard_input_key_v2(-4,0,1,lolo_l,50)
 KEYBOARD_INPUT_KEY_S:
-    keyboard_input_key_v2(0,4,2,lolo_n,70)
+    keyboard_input_key_v2(0,4,2,lolo_n,50)
 KEYBOARD_INPUT_KEY_D:
-    keyboard_input_key_v2(4,0,3,lolo_r,70)
+    keyboard_input_key_v2(4,0,3,lolo_r,50)

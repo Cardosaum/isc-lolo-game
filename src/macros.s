@@ -19,7 +19,7 @@
     # initialize lolo
     # lolo always has index of 0
     li a0,64
-    li a1,116
+    li a1,112
     initialize_lolo(a0,a1)
 
     # add snake with index 1

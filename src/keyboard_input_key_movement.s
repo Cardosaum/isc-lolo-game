@@ -30,7 +30,7 @@ KEYBOARD_INPUT_KEY_MOVEMENT:
 KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_LOOP:
     # check if we performed all needed loops
     load_word(t0,KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_COUNTER)
-    li t1,3 # we will loop 4 times: 0,1,2,3
+    li t1,1 # we will loop 4 times: 0,1,2,3
     bgt t0,t1,KEYBOARD_INPUT_KEY_MOVEMENT_LOOP
 
     # increment counter
@@ -79,7 +79,7 @@ KEYBOARD_INPUT_KEY_MOVEMENT_LOOP:
     store_word(t1,t0,KEYBOARD_INPUT_KEY_MOVEMENT_COUNTER)
 
     # check if we performed all needed loops
-    li t1,4 # this is how many times we will loop
+    li t1,2 # this is how many times we will loop
     bgt t0,t1,KEYBOARD_INPUT_KEY_MOVEMENT_EXIT
 
     # check if dynamic sprite can actualy move
