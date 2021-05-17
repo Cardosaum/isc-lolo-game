@@ -3,7 +3,6 @@ INITIALIZE_DYNAMIC_SPRITE:
     # add dynamic_sprite to array of struct and print it to map
     # a0: dynamic_sprite_x
     # a1: dynamic_sprite_y
-    # a2: dynamic_sprite_index_in_struct_array
     # a3: dynamic_sprite_collide
     # a5: address_to_dynamic_sprite.data
     # a6: collide
@@ -12,16 +11,10 @@ INITIALIZE_DYNAMIC_SPRITE:
     sw ra,(t0)
 
     # save variables to later use
-    la t0,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X
-    sh a0,(t0)
-    la t0,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_Y
-    sh a1,(t0)
-    la t0,INITIALIZE_DYNAMIC_SPRITE_DYNAMIC_SPRITE_INDEX_IN_STRUCT_ARRAY
-    sw a2,(t0)
-    la t0,INITIALIZE_DYNAMIC_SPRITE_COLLIDE
-    sw a3,(t0)
-    la t0,INITIALIZE_DYNAMIC_SPRITE_ADDRESS_TO_DYNAMIC_SPRITE_DATA
-    sw a5,(t0)
+    store_half(t0,a0,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X)
+    store_half(t0,a1,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_Y)
+    store_word(t0,a3,INITIALIZE_DYNAMIC_SPRITE_COLLIDE)
+    store_word(t0,a5,INITIALIZE_DYNAMIC_SPRITE_ADDRESS_TO_DYNAMIC_SPRITE_DATA)
 
     # we will use the function ADD_STRUCT_TO_VECTOR
     # to add dynamic_sprite into the array of structs, but
@@ -39,6 +32,11 @@ INITIALIZE_DYNAMIC_SPRITE:
     addi a5,a5,8 # skip the first 2 words of dynamic_sprite. we only need the address of the first dynamic_sprite's pixel
 
     add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5,a6)
+
+    # pick new lenght as index to later use
+    la a2,DYN_VECT_STRUCT
+    lw a2,4(a2)
+    store_word(t0,a2,INITIALIZE_DYNAMIC_SPRITE_DYNAMIC_SPRITE_INDEX_IN_STRUCT_ARRAY)
 
     la t0,INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X
     lhu a0,(t0)
