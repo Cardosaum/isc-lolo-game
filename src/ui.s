@@ -3,6 +3,7 @@ INITIALIZE_LOLO:
     # add lolo to array of struct and print it to map
     # a0: lolo_x
     # a1: lolo_y
+    # a2: addres_to_.data
 
     la t0,RETURN_ADDRESS_INITIALIZE_LOLO
     sw ra,(t0)
@@ -17,6 +18,8 @@ INITIALIZE_LOLO:
     la t0,LOLO_POSITION_LAST_Y
     sh a1,(t0)
 
+    store_word(t0,a2,INITIALIZE_LOLO_ARGUMENT_A2)
+
     # we will use the function ADD_STRUCT_TO_VECTOR
     # to add lolo into the array of structs, but
     # the coordinates X and Y must be in the same
@@ -30,16 +33,18 @@ INITIALIZE_LOLO:
     and a1,a1,t0 # mask Y
     add a0,a0,a1 # merge X and Y
 
-    la a5,lolo_n
+    #la a5,lolo_n
+    mv a5,a2
     addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
 
-    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5)
+    li a6,1 # lolo can collide with other dynamic sprites
+    add_struct_to_vector(DYN_VECT_STRUCT,0,a0,a0,a5,a6)
 
     la t0,LOLO_POSITION_CURRENT_X
     lhu a0,(t0)
     la t0,LOLO_POSITION_CURRENT_Y
     lhu a1,(t0)
-    la a2,lolo_n
+    load_word(a2,INITIALIZE_LOLO_ARGUMENT_A2)
     li a5,0
     print_sprite(a0,a1,a2,DYN_BLOCK,a5)
 
@@ -57,6 +62,7 @@ MOVE_LOLO:
     # a0: address_to_.data
     # a1: x_relative
     # a2: y_relative
+    # a4: is_animation
 
     # save return address for later use
     la t0,RETURN_ADDRESS_MOVE_LOLO
@@ -133,16 +139,14 @@ MOVE_DYNAMIC_SPRITE:
     # a1: y_new
     # a2: array_struct_index
     # a3: address_to_.data
+    # a4: is_animation
 
     # save arguments for later use
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A0
-    sw a0,(t0)
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A1
-    sw a1,(t0)
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A2
-    sw a2,(t0)
-    la t0,MOVE_DYNAMIC_SPRITE_ARG_A3
-    sw a3,(t0)
+    store_word(t0,a0,MOVE_DYNAMIC_SPRITE_ARG_A0)
+    store_word(t0,a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
+    store_word(t0,a2,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    store_word(t0,a3,MOVE_DYNAMIC_SPRITE_ARG_A3)
+    store_word(t0,a4,MOVE_DYNAMIC_SPRITE_ARG_A4)
 
     # save return address for later use
     la t0,RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE
@@ -169,8 +173,16 @@ MOVE_DYNAMIC_SPRITE:
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A1)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A3)
     load_word(a5,MOVE_DYNAMIC_SPRITE_ARG_A2)
+    load_word(a4,MOVE_DYNAMIC_SPRITE_ARG_A4)
+    # conditional print
+    beqz a4,MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION
+    print_sprite_animation(a0,a1,a2,DYN_BLOCK,a5)
+    j MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION_PROCEED
+
+MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION:
     print_sprite(a0,a1,a2,DYN_BLOCK,a5)
 
+MOVE_DYNAMIC_SPRITE_IF_IS_ANIMATION_PROCEED:
     # update current_position
     load_word(a1,MOVE_DYNAMIC_SPRITE_ARG_A0)
     load_word(a2,MOVE_DYNAMIC_SPRITE_ARG_A1)

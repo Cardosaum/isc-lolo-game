@@ -48,6 +48,7 @@ CREATE_STRUCT_VECTOR:
       #         next_position = 4_bytes // store (X,Y) coordinates for where the sprite wants to go in map. Both X and Y are half (ie. 2 bytes)
       #         hidden_sprite = 300_bytes // store all the pixels that were hidden when the sprite moved to current position. we use it to restore the sprite when the sprite move to elsewhere
       #         next_dyn_sprite = 300_bytes // store all the pixels that we will print for this character/mob/(dyn_sprite)
+      #         collide = 4_bytes // boolean; will this dynamic sprite collide with something else?
       # }
     # taking into account this struct organization, we can see that one struct store a total of 312 bytes.
 
@@ -128,6 +129,7 @@ ADD_STRUCT_TO_VECTOR:
     # a3: next_position
     # // actually, it's not a needed parameter for the function; a4: hidden_sprite // address of first new hidden_sprite pixel
     # a5: next_dyn_sprite // address of first new next_dyn_sprite pixel
+    # a6: collide // boolean to check if dynamic sprite will or not collide with something else
 
     # t3: struct_position // we will use this variable to find the last position in array_address
     lw t3,4(a0) # read the current length of struct_vector
@@ -207,6 +209,8 @@ ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP:
     j ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP
 
 ADD_STRUCT_TO_VECTOR_EXIT:
+    # save collide information and return
+    sw a6,(a0)
     ret
 #=====================================================================================================
 
@@ -308,16 +312,96 @@ UPDATE_STRUCT_TO_VECTOR_EXIT:
 UPDATE_SPRITE_ANIMATION:
     # update variable that store the next sprite animation to be printed
 
-    # a0: address_pointer_to_sprite // something similar to LOLO_U
-    # a1: address_to_BASE_sprite_to_be_printed // something similar to lolo_u
-    # a2: sprite index // must be a number in [0,1,2,3]
+    # a0: direction_identifier // one of [0,1,2,3], indicating direction (ie. WASD)
 
-    li t0,308 # size of an sprite 16x16 plus the the two words
-    add a1,a1,t0 # go to first sprite movement // something similar to lolo_u_1. Note that this only works if the import sequence is correct. ie: include the files in this order: lolo_u,lolo_u_1,lolo_u_2...
-    mul t0,t0,a2
-    add a1,a1,t0
-    sw a1,(a0)
-    addi a2,a2,1 # update next index
-    sw a2,4(a0)
+    # force a0 be in valid range
+    li t0,4
+    rem a0,a0,t0
+
+    la s0,lolo_combined
+    addi s0,s0,8 # skip first two words that represent widthxheight
+    la s1,UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
+    load_word(s2,UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION)
+
+    bne a0,s2,UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION
+
+UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED:
+    load_word(s3,UPDATE_SPRITE_ANIMATION_CURRENT_FRAME)
+    li t0,4 # we have 4 animation sprites for each direction
+    addi s3,s3,1 # increment current frame
+    rem s3,s3,t0 # make sure we always have a valid value
+    la t0,UPDATE_SPRITE_ANIMATION_CURRENT_FRAME
+    sw s3,(t0) # save it for later use
+
+    # set first pixel of next sprite to print
+    li t0,64 # width of 4 sprites
+    mul t0,t0,a0 # go to sprites of direction (ie. one of 'WASD')
+    #li t1,0 # width of each sprite
+    #mul t1,t1,s3
+    #add t0,t0,t1
+    add s0,s0,t0 # actualy go to desired sprite
+
+    # store sprite address to variable and return
+    sw s0,(s1)
     ret
+
+UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION:
+    # update direction variable to same as the variable passed
+    la t0,UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION
+    sw a0,(t0)
+    # reset current_frame to 3
+    la t0,UPDATE_SPRITE_ANIMATION_CURRENT_FRAME
+    li t1,3
+    sw t1,(t0)
+    j UPDATE_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED
+#=====================================================================================================
+
+#=====================================================================================================
+RESET_SPRITE_ANIMATION:
+    # update variable that store the next sprite animation to be printed
+
+    # a0: direction_identifier // one of [0,1,2,3], indicating direction (ie. WASD)
+
+    # force a0 be in valid range
+    li t0,4
+    rem a0,a0,t0
+
+    la s0,lolo_combined
+    addi s0,s0,8 # skip first two words that represent widthxheight
+    la s1,RESET_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS
+    load_word(s2,RESET_SPRITE_ANIMATION_CURRENT_DIRECTION)
+
+    bne a0,s2,RESET_SPRITE_ANIMATION_UPDATE_DIRECTION
+
+RESET_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED:
+    load_word(s3,RESET_SPRITE_ANIMATION_CURRENT_FRAME)
+    li t0,4 # we have 4 animation sprites for each direction
+    addi s3,s3,1 # increment current frame
+    rem s3,s3,t0 # make sure we always have a valid value
+    la t0,RESET_SPRITE_ANIMATION_CURRENT_FRAME
+    # TODO: CLEAN UP THIS PROCEDURE AS WE ONLY NEED PART OF IT
+    li s3,0
+    sw s3,(t0) # save it for later use
+
+    # set first pixel of next sprite to print
+    li t0,64 # width of 4 sprites
+    mul t0,t0,a0 # go to sprites of direction (ie. one of 'WASD')
+    #li t1,0 # width of each sprite
+    #mul t1,t1,s3
+    #add t0,t0,t1
+    add s0,s0,t0 # actualy go to desired sprite
+
+    # store sprite address to variable and return
+    sw s0,(s1)
+    ret
+
+RESET_SPRITE_ANIMATION_UPDATE_DIRECTION:
+    # update direction variable to same as the variable passed
+    la t0,RESET_SPRITE_ANIMATION_CURRENT_DIRECTION
+    sw a0,(t0)
+    # reset current_frame to 3
+    la t0,RESET_SPRITE_ANIMATION_CURRENT_FRAME
+    li t1,3
+    sw t1,(t0)
+    j RESET_SPRITE_ANIMATION_UPDATE_DIRECTION_PROCEED
 #=====================================================================================================

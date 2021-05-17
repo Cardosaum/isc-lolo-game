@@ -1,20 +1,28 @@
+#==============================
 # 'variables' for user interface
-SELECTED_FRAME:
-    .word 0xFF000000
-CANVAS_WIDTH:
-    .half 320
-CANVAS_HEIGHT:
-    .half 240
+SELECTED_FRAME:    .word 0xFF000000
+CANVAS_WIDTH:    .half 320
+CANVAS_HEIGHT:    .half 240
+#==============================
 
+#==============================
 # 'variables'
+.eqv FRAME_SELECTOR 0xFF200604
+.eqv FRAME_0 0xFF000000
+.eqv FRAME_1 0xFF100000
+.eqv FRAME_MASK 0x00100000
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
-.eqv SPRITE_STRUCT_SIZE 612
+.eqv SPRITE_STRUCT_SIZE 616
 .eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
+#==============================
 
+#==============================
 MAP_MATRIX_SIZE:
     .half 300 # area of the map in sprites: width * height (20 * 15)
+#==============================
 
+#==============================
 # we use this two variables to correctly
 # assess which sprites need to be re-rendered
 LOLO_POSITION_CURRENT_X:
@@ -27,13 +35,17 @@ LOLO_POSITION_LAST_Y:
     .half 32
 LOLO_HIDDED_BLOCK:
     .word ground
+#==============================
 
+#==============================
 # we will use this variable to store the sprite that was
 # hidden by lolo when it moved
 HIDDEN_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
+#==============================
 
+#==============================
 DYN_BLOCK_SPRITE_CURR_X:
     .space 16
 DYN_BLOCK_SPRITE_CURR_Y:
@@ -47,6 +59,7 @@ DYN_BLOCK_SPRITE_ADDRESS:
 DYN_BLOCK_SPRITE:
     .word 16, 16
     .space 256 # 256 = 16*16 (the size in bytes for one sprite)
+#==============================
 
 #==============================
 # this variable is responsible to store the pointer to the
@@ -71,6 +84,7 @@ MOVE_DYNAMIC_SPRITE_ARG_A0: .space 4
 MOVE_DYNAMIC_SPRITE_ARG_A1: .space 4
 MOVE_DYNAMIC_SPRITE_ARG_A2: .space 4
 MOVE_DYNAMIC_SPRITE_ARG_A3: .space 4
+MOVE_DYNAMIC_SPRITE_ARG_A4: .space 4
 RETURN_ADDRESS_MOVE_DYNAMIC_SPRITE: .space 4
 #==============================
 
@@ -121,4 +135,111 @@ LOLO_N: .space 4
 .space 4
 LOLO_R: .space 4
 .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_INITIALIZE_DYNAMIC_SPRITE:   .space 4
+INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_X:   .space 2
+INITIALIZE_DYNAMIC_SPRITE_POSITION_CURRENT_Y:   .space 2
+INITIALIZE_DYNAMIC_SPRITE_DYNAMIC_SPRITE_INDEX_IN_STRUCT_ARRAY: .space 4
+INITIALIZE_DYNAMIC_SPRITE_ADDRESS_TO_DYNAMIC_SPRITE_DATA:   .space 4
+INITIALIZE_DYNAMIC_SPRITE_COLLIDE:   .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_WILL_COLLIDE_WITH_DYNAMIC_SPRITE: .space 4
+RETURN_ADDRESS_GET_COLLIDE_FIELD: .space 4
+RETURN_ADDRESS_LOOP_THROUGH_DYNAMIC_SPRITES:    .space 4
+GET_COLLIDE_FIELD_A0: .space 4
+WILL_COLLIDE_WITH_DYNAMIC_SPRITE_A0:  .space 4
+#==============================
+
+#==============================
+# Counter of lolo lifes
+LOLO_LIFE:    .space 4 # Creating a byte space for th variable of lifes
+.eqv LOLO_LIFE_X 272 # x of where to print the number
+.eqv LOLO_LIFE_Y 64 # Y of where to print the number
+
+# Constant numberss
+.eqv LOLO_LIFE_TOTAL 5
+.eqv LOLO_LIFE_4 4
+.eqv LOLO_LIFE_3 3
+.eqv LOLO_LIFE_2 2
+.eqv LOLO_LIFE_1 1
+.eqv LOLO_LIFE_0 0
+
+RETURN_ADDRESS_LOLO_LIFE_PRINT: .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_READ_CASTLE_DYNAMIC_MAP: .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP: .space 4
+#==============================
+
+#==============================
+READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A0:   .space 4
+READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A1:   .space 4
+RETURN_ADDRESS_READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES:   .space 4
+#==============================
+
+#==============================
+UPDATE_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS:    .space 4
+UPDATE_SPRITE_ANIMATION_CURRENT_DIRECTION:    .word 0
+UPDATE_SPRITE_ANIMATION_CURRENT_FRAME:    .word 0 #// current frame is one of [0,1,2,3] because we have only 4 animated sprites for each direction
+#==============================
+
+#==============================
+RESET_SPRITE_ANIMATION_NEXT_SPRITE_ADDRESS:    .space 4
+RESET_SPRITE_ANIMATION_CURRENT_DIRECTION:    .word 0
+RESET_SPRITE_ANIMATION_CURRENT_FRAME:    .word 0 #// current frame is one of [0,1,2,3] because we have only 4 animated sprites for each direction
+#==============================
+
+#==============================
+RETURN_ADDRESS_PRINT_SPRITE:    .space 4
+#==============================
+
+#==============================
+GAME_LOLO_INTRO_X:    .space 4
+GAME_LOLO_INTRO_Y:    .space 4
+GAME_LOLO_INTRO_INDEX:  .space 4
+GAME_LOLO_INTRO_STOP_Y: .space 4
+#==============================
+
+#==============================
+INITIALIZE_LOLO_ARGUMENT_A2: .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_KEYBOARD_INPUT_KEY_MOVEMENT:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A0:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A1:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A2:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A3:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_ARG_A4:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_COUNTER:   .space 4
+KEYBOARD_INPUT_KEY_MOVEMENT_CAN_MOVE_COUNTER:   .space 4
+#==============================
+
+#==============================
+# Variveis para matriz
+.eqv WIDTH_MATRIX 20
+RETURN_ADDRESS_MATRIX_MAP_CHANGE_VALUE: .space 4
+#==============================
+
+#==============================
+# Counter of lolo shots
+LOLO_SHOT:    .space 4 # Creating a byte space for thE variable of shots
+.eqv LOLO_SHOT_X 272 # x of where to print the number
+.eqv LOLO_SHOT_Y 112 # Y of where to print the number
+
+# Constants numbers
+.eqv LOLO_SHOT_TOTAL 2
+.eqv LOLO_SHOT_2 2
+.eqv LOLO_SHOT_1 1
+.eqv LOLO_SHOT_0 0
+
+RETURN_ADDRESS_LOLO_SHOT_PRINT: .space 4
 #==============================
