@@ -252,3 +252,18 @@
     li a3,%new_value
     jal MATRIX_MAP_CHANGE_VALUE
 .end_macro
+
+.macro lolo_map_1_heart_reset()
+    jal LOLO_MAP_1_HEART_RESET
+.end_macro
+
+.macro lolo_map_1_heart_counter()
+    jal LOLO_MAP_1_HEART_COUNTER
+.end_macro
+
+.macro lolo_map_1_print_test_heart()
+    jal LOLO_MAP_1_HEART_RESET
+    jal LOLO_MAP_1_HEART_COUNTER
+    jal LOLO_MAP_1_HEART_COUNTER
+    jal LOLO_MAP_1_PRINT_TEST_HEART
+.end_macro

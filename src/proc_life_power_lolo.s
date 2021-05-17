@@ -87,6 +87,7 @@ LOLO_SHOT_DECOUNTER:
     addi t1,t1,-1
     sw t1,(t0)
     ret
+#====================================================================================================
 
 #====================================================================================================
 # Procedimento Para Imprimir A Quantidade De tiros Do Lolo
@@ -103,7 +104,7 @@ LOLO_SHOT_PRINT:
     lw t1,(t1)
     
     # Load SHOT constants
-    li t2,LOLO_LIFE_TOTAL
+    li t2,LOLO_SHOT_TOTAL
     li t5,LOLO_SHOT_2
     li t6,LOLO_SHOT_1 
        
