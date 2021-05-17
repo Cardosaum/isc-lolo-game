@@ -45,6 +45,8 @@
 .include "../sprites/lolo_castle_up_1.data"
 .include "../sprites/lolo_castle_up_2.data"
 .include "../sprites/lolo_castle_up_3.data"
+.include "../sprites/door_open.data"
+.include "../sprites/door_closed.data"
 
 
 
