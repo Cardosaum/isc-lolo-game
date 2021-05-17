@@ -25,15 +25,6 @@
     la a0,MAP_1_MATRIX
     li a1,300
     jal READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES
-
-    # add snake with index 1
-    #initialize_dynamic_sprite(128,192,1,0,chest_closed)
-    # add heart with index 2
-    #initialize_dynamic_sprite(240,112,2,0,heart)
-    # add heart with index 3
-    #initialize_dynamic_sprite(128,48,3,0,heart)
-    # add snake with index 4
-    initialize_dynamic_sprite(160,144,4,1,snake_r_1)
 .end_macro
 
 .macro exit()
