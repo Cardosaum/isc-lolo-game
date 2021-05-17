@@ -9,18 +9,19 @@
 .end_macro
 
 .macro init_map_1()
+    # print base map on the 2 frames
     li a0,0
     li a1,0
     la a2,map_1
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
     swap_frames()
-    sleep(1000)
     li a0,0
     li a1,0
     la a2,map_1
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
+    swap_frames()
 
     # initialize lolo
     # lolo always has index of 0
