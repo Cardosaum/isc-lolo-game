@@ -53,10 +53,10 @@ MAIN:
     init()
     init_map_1()
     lolo_life_print()
-
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
-    jal PLAY_MUSIC
+    #jal PLAY_MUSIC
+    lolo_shot_print()
     keyboard_input()
     #sleep(200000)
     exit()
@@ -67,7 +67,7 @@ MAIN:
 .include "utils.s"
 .include "colisions.s"
 .include "print_sprites.s"
-.include "proc_life_lolo.s"
+.include "proc_life_power_lolo.s"
 .include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
 .include "castle.s"

@@ -1,11 +1,11 @@
 0,lolo não anda
 1,lolo anda
 2,coração
-3,baú fechado
+3,baú
 4,cobra
-<<<<<<< Updated upstream
-=======
+5,dragao rosa pra baixo
+6,dragao rosa pra direita
 7,movable block
 8,statue
->>>>>>> Stashed changes
 9,porta fechada
+10,dragao rosa esquerda

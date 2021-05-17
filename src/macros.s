@@ -250,6 +250,13 @@
     jal SWAP_FRAMES
 .end_macro
 
+.macro lolo_shot_print()
+    jal LOLO_SHOT_RESET
+    jal LOLO_SHOT_DECOUNTER
+    jal LOLO_SHOT_DECOUNTER
+    jal LOLO_SHOT_PRINT
+.end_macro
+
 .macro matrix_map_change_value(%x,%y,%new_value,%base_adress) # base_adress = chosen matrix
     li a0,%x
     li a1,%y
