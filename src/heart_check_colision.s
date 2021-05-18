@@ -52,9 +52,21 @@ HEART_CHECK_COLISION_LOOP:
 
     # and update 'used' struct field
     li t1,STRUCT_OFFSET__USED
-    add t1,t1,s2
+    load_word(s2,HEART_CHECK_COLISION_CURRENT_STRUCT)
+    add t1,s2,t1
     li t0,1
     sw t0,(t1)
+
+    # update hidden sprite for lolo (we must replace the saved heart by a ground)
+    # a1: address for lolo hidden_sprite
+    la a1,DYN_VECT_STRUCT
+    lw a1,(a1)
+    addi a1,a1,STRUCT_OFFSET__HIDDEN_SPRITE
+    # a0: address for heart hidden_sprite
+    load_word(a0,HEART_CHECK_COLISION_CURRENT_STRUCT)
+    addi a0,a0,STRUCT_OFFSET__HIDDEN_SPRITE
+    li a2,SPRITE_IMAGE_SIZE_STRUCT_SIZE
+    jal COPY_VECTOR
 
 HEART_CHECK_COLISION_LOOP_PREP_NEXT:
     # update counter

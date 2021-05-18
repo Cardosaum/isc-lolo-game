@@ -280,8 +280,8 @@ DYNAMIC_SPRITE_SAVE_NEXT_DYN_SPRITE:
     lw s3,8(t0)
     and s3,s3,t2 # mask (X,Y) to get Y value
 
-    # skip the first 4 struct fields in order to reach hidden_sprite
-    addi t0,t0,312
+    # skip the first 4 struct fields in order to reach next_dyn_sprite
+    addi t0,t0,STRUCT_OFFSET__NEXT_DYN_SPRITE
 
     # print sprite
     load_word(s0,SELECTED_FRAME)
