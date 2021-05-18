@@ -68,6 +68,12 @@ HEART_CHECK_COLISION_LOOP:
     li a2,SPRITE_IMAGE_SIZE_STRUCT_SIZE
     jal COPY_VECTOR
 
+    # TODO:
+    # variável pra mapa
+    # procedimento de checagem de número de mapa
+    # procedimento checagem coração para dar tiro
+    # contadores
+
 HEART_CHECK_COLISION_LOOP_PREP_NEXT:
     # update counter
     load_word(s1,HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT)
