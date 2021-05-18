@@ -3,6 +3,7 @@
 SELECTED_FRAME:    .word 0xFF000000
 CANVAS_WIDTH:    .half 320
 CANVAS_HEIGHT:    .half 240
+MAP_MATRIX_IN_USE:    .space 4 #// something like MAP_1_MATRIX
 #==============================
 
 #==============================

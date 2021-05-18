@@ -8,6 +8,24 @@
     create_struct_vector(40,DYN_VECT_STRUCT)
 .end_macro
 
+.macro init_map(%map_level,%map_matrix)
+    li a0,0
+    li a1,0
+    la a2,%map_level
+    li a5,0
+    print_sprite(a0, a1, a2, STC_BLOCK, a5)
+
+    # initialize lolo
+    # lolo always has index of 0
+    li a0,64
+    li a1,144
+    initialize_lolo(a0,a1,lolo_n)
+
+    la a0,%map_matrix
+    li a1,300
+    jal READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES
+.end_macro
+
 .macro init_map_1()
     li a0,0
     li a1,0
@@ -266,4 +284,8 @@
     jal LOLO_MAP_1_HEART_COUNTER
     jal LOLO_MAP_1_HEART_COUNTER
     jal LOLO_MAP_1_PRINT_TEST_HEART
+.end_macro
+
+.macro select_map_matrix(%address_to_matrix)
+    jal SELECT_MAP_MATRIX
 .end_macro
