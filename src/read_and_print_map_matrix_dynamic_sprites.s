@@ -64,6 +64,9 @@ READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_PRINT__DOOR_CLOSED:
     j READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_PRINT_DESIRED_SPRITE_AND_LOOP
 
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_PRINT_DESIRED_SPRITE_AND_LOOP:
+    # set id for dynamic sprite
+    mv a2,t0
+
     # get absolute X and Y values
     li t0,WIDTH_MATRIX
     rem a0,s0,t0
@@ -71,9 +74,6 @@ READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_PRINT_DESIRED_SPRITE_AND_LOOP:
     li t1,16
     mul a0,a0,t1
     mul a1,a1,t1
-
-    # set id for dynamic sprite
-    mv a2,t0
 
     # add dynamic_sprite to array of struct and print it to map
     # a0: dynamic_sprite_x

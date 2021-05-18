@@ -30,7 +30,11 @@ INITIALIZE_DYNAMIC_SPRITE:
 
     addi a5,a5,8 # skip the first 2 words of dynamic_sprite. we only need the address of the first dynamic_sprite's pixel
 
-    add_struct_to_vector(DYN_VECT_STRUCT,a2,a0,a0,a5,a3)
+    mv t0,a0
+    mv t2,a2
+    mv t3,a3
+    mv t5,a5
+    add_struct_to_vector(DYN_VECT_STRUCT,t2,t0,t0,t5,t3)
 
     # pick new lenght as index to later use
     la a2,DYN_VECT_STRUCT

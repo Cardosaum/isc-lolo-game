@@ -37,9 +37,11 @@ INITIALIZE_LOLO:
     mv a5,a2
     addi a5,a5,8 # skip the first 2 words of lolo_n. we only need the address of the first lolo_n's pixel
 
-    li a6,1 # lolo can collide with other dynamic sprites
-    li t5,255
-    add_struct_to_vector(DYN_VECT_STRUCT,t5,a0,a0,a5,a6)
+    li t6,1 # lolo can collide with other dynamic sprites
+    mv t0,a0
+    li t2,255
+    mv t5,a5
+    add_struct_to_vector(DYN_VECT_STRUCT,t2,t0,t0,t5,t6)
 
     la t0,LOLO_POSITION_CURRENT_X
     lhu a0,(t0)
