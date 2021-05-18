@@ -9,7 +9,6 @@
 .end_macro
 
 .macro init_map_1()
-    # print base map on the 2 frames
     li a0,0
     li a1,0
     la a2,map_level_1
@@ -19,7 +18,7 @@
     # initialize lolo
     # lolo always has index of 0
     li a0,64
-    li a1,112
+    li a1,144
     initialize_lolo(a0,a1,lolo_n)
 
     la a0,MAP_1_MATRIX
