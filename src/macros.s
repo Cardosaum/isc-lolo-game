@@ -15,6 +15,9 @@
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
+    la a0,%map_matrix
+    jal SELECT_MAP_MATRIX
+
     # initialize lolo
     # lolo always has index of 0
     li a0,64

@@ -80,14 +80,14 @@ CAN_LOLO_MOVE_PROCEED:
     div s7,s7,t2
     div s8,s8,t2
     div s9,s9,t2
-    la t0,MAP_1_MATRIX
+    load_word(t0,MAP_1_MATRIX)
     add t0,t0,s6
     li t1,20 # our map has width = 20
     mul t1,t1,s7
     add t0,t0,t1
     lb t0,(t0) # read value in (X,Y)
     beqz t0,CAN_LOLO_MOVE_RETURN_0
-    la t0,MAP_1_MATRIX
+    load_word(t0,MAP_1_MATRIX)
     add t0,t0,s8
     li t1,20 # our map has width = 20
     mul t1,t1,s9

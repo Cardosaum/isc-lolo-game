@@ -55,6 +55,7 @@
 MAIN:
     init()
     init_map_1()
+    #init_map(map_level_1,MAP_1_MATRIX)
     #lolo_life_print()
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
@@ -90,3 +91,4 @@ MAIN:
 .include "swap_frames.s"
 .include "read_and_print_map_matrix_dynamic_sprites.s"
 .include "heart_check_colision.s"
+.include "select_map_matrix.s"
