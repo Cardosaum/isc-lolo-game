@@ -14,13 +14,13 @@ KEYBOARD_INPUT:
 
 KEYBOARD_INPUT_LOOP_POOL:
     li t0,MMIO_set # t0 = keyboard_flag
+    lb t1,(t0)
+    beqz t1,KEYBOARD_INPUT_LOOP_POOL
     li t2,EXIT_KEY # t2 = ascii('q')
     li s4,KEY_W
     li s5,KEY_A
     li s6,KEY_S
     li s7,KEY_D
-    lb t1,(t0)
-    beqz t1,KEYBOARD_INPUT_LOOP_POOL
     li a0,MMIO_add
     lw a0,(a0)
     beq a0,t2,KEYBOARD_INPUT_EXIT
