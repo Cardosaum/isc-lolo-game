@@ -258,3 +258,10 @@ LOLO_HEART_MAP_1:    .space 4
 # return adress for test
 LOLO_MAP_1_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
 #==============================
+
+#==============================
+HEART_CHECK_COLISION_LOOP_COUNTER_TOTAL:   .space 4
+HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT:   .space 4
+HEART_CHECK_COLISION_CURRENT_STRUCT:   .space 4
+RETURN_ADDRESS_HEART_CHECK_COLISION:    .space 4
+#==============================
