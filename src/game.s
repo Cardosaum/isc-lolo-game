@@ -44,23 +44,30 @@
 .include "../sprites/lolo_castle_up_1.data"
 .include "../sprites/lolo_castle_up_2.data"
 .include "../sprites/lolo_castle_up_3.data"
+.include "../sprites/start_game_1.data"
+.include "../sprites/start_game_2.data"
+
 
 
 
 .text
 MAIN:
     init()
-    
+    jal READ_MENU_1
+    sleep(2000)
+    jal KEY2
+    #sleep(2000)
     #jal READ_CASTLE_DYNAMIC_MAP
-    jal GAME_LOLO_LOOP
-    sleep(10000)
+    #sleep(10000)
+    #jal GAME_LOLO_LOOP
+    #sleep(10000)
     
     init_map_1()
     lolo_life_print()
-    jal READ_CASTLE_DYNAMIC_MAP
-    jal GAME_LOLO_INTRO
-    #keyboard_input()
-    sleep(200000)
+    #jal READ_CASTLE_DYNAMIC_MAP
+    #jal GAME_LOLO_INTRO
+    keyboard_input()
+    #sleep(200000)
     exit()
 
 
@@ -73,5 +80,6 @@ MAIN:
 .include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
 .include "castle.s"
+.include "start.s"
 .include "print_raw_combined_sprite.s"
 .include "music.s"

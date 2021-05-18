@@ -164,6 +164,18 @@ RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP: .space 4
 #==============================
 
 #==============================
+RETURN_ADRESS_READ_START_OPTIONS_1: .space 4
+#==============================
+
+#==============================
+RETURN_ADRESS_READ_START_OPTIONS_2: .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_KEY2: .space 4
+#==============================
+
+#==============================
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A0:   .space 4
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A1:   .space 4
 RETURN_ADDRESS_READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES:   .space 4
