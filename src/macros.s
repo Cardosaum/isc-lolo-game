@@ -8,32 +8,43 @@
     create_struct_vector(40,DYN_VECT_STRUCT)
 .end_macro
 
-.macro init_map_1()
-    # print base map on the 2 frames
+.macro init_map(%map_level,%map_matrix)
     li a0,0
     li a1,0
-    la a2,map_1
+    la a2,%map_level
+    li a5,0
+    print_sprite(a0, a1, a2, STC_BLOCK, a5)
+
+    la a0,%map_matrix
+    jal SELECT_MAP_MATRIX
+
+    # initialize lolo
+    # lolo always has index of 0
+    li a0,64
+    li a1,144
+    initialize_lolo(a0,a1,lolo_n)
+
+    la a0,%map_matrix
+    li a1,300
+    jal READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES
+.end_macro
+
+.macro init_map_1()
+    li a0,0
+    li a1,0
+    la a2,map_level_1
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
     # initialize lolo
     # lolo always has index of 0
     li a0,64
-    li a1,112
+    li a1,144
     initialize_lolo(a0,a1,lolo_n)
 
     la a0,MAP_1_MATRIX
     li a1,300
     jal READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES
-
-    # add snake with index 1
-    #initialize_dynamic_sprite(128,192,1,0,chest_closed)
-    # add heart with index 2
-    #initialize_dynamic_sprite(240,112,2,0,heart)
-    # add heart with index 3
-    #initialize_dynamic_sprite(128,48,3,0,heart)
-    # add snake with index 4
-    initialize_dynamic_sprite(160,144,4,1,snake_r_1)
 .end_macro
 
 .macro exit()
@@ -132,7 +143,7 @@
 .end_macro
 
 .macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%next_dyn_sprite,%collide)
-    li a1,%sprite_id
+    mv a1,%sprite_id
     mv a2,%current_position
     mv a3,%next_position
     mv a5,%next_dyn_sprite
@@ -240,6 +251,7 @@
     la a3,%sprite_address
     li a4,%sleep_time
     jal KEYBOARD_INPUT_KEY_MOVEMENT
+    jal HEART_CHECK_COLISION
     j KEYBOARD_INPUT_LOOP_POOL
 .end_macro
 
@@ -281,4 +293,8 @@
 
 .macro lolo_map_print_test_heart()
     jal LOLO_MAP_PRINT_TEST_HEART
+.end_macro
+
+.macro select_map_matrix(%address_to_matrix)
+    jal SELECT_MAP_MATRIX
 .end_macro

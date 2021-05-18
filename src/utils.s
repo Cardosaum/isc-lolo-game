@@ -46,11 +46,12 @@ CREATE_STRUCT_VECTOR:
       #         sprite_id = 4_bytes // used to identify if the sprite is lolo, a specific mob, a shoot, etc... (need to be 4 bytes in order to avoid alignment errors)
       #         current_position = 4_bytes // store (X,Y) coordinates for where the sprite is current in on map. Both X and Y are half (ie. 2 bytes)
       #         next_position = 4_bytes // store (X,Y) coordinates for where the sprite wants to go in map. Both X and Y are half (ie. 2 bytes)
-      #         hidden_sprite = 300_bytes // store all the pixels that were hidden when the sprite moved to current position. we use it to restore the sprite when the sprite move to elsewhere
-      #         next_dyn_sprite = 300_bytes // store all the pixels that we will print for this character/mob/(dyn_sprite)
+      #         hidden_sprite = 256_bytes // store all the pixels that were hidden when the sprite moved to current position. we use it to restore the sprite when the sprite move to elsewhere
+      #         next_dyn_sprite = 256_bytes // store all the pixels that we will print for this character/mob/(dyn_sprite)
       #         collide = 4_bytes // boolean; will this dynamic sprite collide with something else?
+      #         used = 4_bytes // boolean; used to check if this sprite was already used and must not be used anymore (hidden heart for instance)
       # }
-    # taking into account this struct organization, we can see that one struct store a total of 312 bytes.
+    # taking into account this struct organization, we can see that one struct store a total of 'SPRITE_STRUCT_SIZE' bytes (see constants.data for the exact value).
 
     # a0: how_many_structs
     # a1: dest_var to store pointer to allocated memory
@@ -209,8 +210,13 @@ ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP:
     j ADD_STRUCT_TO_VECTOR_NEXT_DYN_SPRITE_LOOP
 
 ADD_STRUCT_TO_VECTOR_EXIT:
-    # save collide information and return
+    # save collide information
     sw a6,(a0)
+    addi a0,a0,4
+    # save used information
+    li t0,0
+    sw t0,(a0)
+    # return
     ret
 #=====================================================================================================
 

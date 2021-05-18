@@ -3,6 +3,7 @@
 SELECTED_FRAME:    .word 0xFF000000
 CANVAS_WIDTH:    .half 320
 CANVAS_HEIGHT:    .half 240
+MAP_MATRIX_IN_USE:    .space 4 #// something like MAP_1_MATRIX
 #==============================
 
 #==============================
@@ -13,8 +14,11 @@ CANVAS_HEIGHT:    .half 240
 .eqv FRAME_MASK 0x00100000
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
-.eqv SPRITE_STRUCT_SIZE 616
-.eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
+.eqv SPRITE_STRUCT_SIZE 532
+.eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 256
+.eqv STRUCT_OFFSET__HIDDEN_SPRITE 12
+.eqv STRUCT_OFFSET__NEXT_DYN_SPRITE 268
+.eqv STRUCT_OFFSET__USED 528
 #==============================
 
 #==============================
@@ -271,6 +275,11 @@ LOLO_MAP_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
 .eqv MAP_ID_3 3
 .eqv MAP_ID_4 4
 .eqv MAP_ID_5 5
-
 #==============================
 
+#==============================
+HEART_CHECK_COLISION_LOOP_COUNTER_TOTAL:   .space 4
+HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT:   .space 4
+HEART_CHECK_COLISION_CURRENT_STRUCT:   .space 4
+RETURN_ADDRESS_HEART_CHECK_COLISION:    .space 4
+#==============================
