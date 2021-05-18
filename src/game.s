@@ -67,7 +67,8 @@ MAIN:
     #sleep(1000)
     #lolo_map_1_heart_reset()
     #jal LOLO_MAP_1_PRINT_TEST_HEART
-    jal HEART_CHECK_COLISION
+    #lolo_map_1_heart_reset()
+    #jal LOLO_MAP_1_PRINT_TEST_HEART
     keyboard_input()
     #sleep(200000)
     exit()
