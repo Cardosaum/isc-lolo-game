@@ -31,14 +31,34 @@ HEART_CHECK_COLISION_LOOP:
     lw t1,(s2) # read sprite_id
     bne t0,t1,HEART_CHECK_COLISION_LOOP_PREP_NEXT
 
-    # if it's a heart, print a debug
-    lolo_map_1_heart_reset()
+    # check if heart was already computed
+    li t1,STRUCT_OFFSET__USED
+    add t1,t1,s2
+    lw t1,(t1)
+    bnez t1,HEART_CHECK_COLISION_LOOP_PREP_NEXT
+
+    # if it's a heart, check if lolo has the same (X,Y)
+    lw t1,4(s2) # get current (X,Y) for the heart
+    la t2,DYN_VECT_STRUCT # we assume Lolo will always be in index 0 of array
+    lw t2,(t2) # go to index 0 of the array
+    lw t3,4(t2) # get current (X,Y) for lolo
+    bne t1,t3,HEART_CHECK_COLISION_LOOP_PREP_NEXT # if they are different, go to next iteration
+
+    # they have the same (X,Y), so we now print heart's hidden sprite
+    load_word(a0,HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT)
+    jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
     lolo_map_1_heart_counter()
     jal LOLO_MAP_1_PRINT_TEST_HEART
-    sleep(2000)
+
+    # and update 'used' struct field
+    li t1,STRUCT_OFFSET__USED
+    add t1,t1,s2
+    li t0,1
+    sw t0,(t1)
 
 HEART_CHECK_COLISION_LOOP_PREP_NEXT:
     # update counter
+    load_word(s1,HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT)
     addi s1,s1,1
     store_word(t0,s1,HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT)
 

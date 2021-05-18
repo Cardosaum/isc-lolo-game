@@ -231,6 +231,7 @@
     la a3,%sprite_address
     li a4,%sleep_time
     jal KEYBOARD_INPUT_KEY_MOVEMENT
+    jal HEART_CHECK_COLISION
     j KEYBOARD_INPUT_LOOP_POOL
 .end_macro
 
