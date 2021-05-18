@@ -24,6 +24,9 @@
 .include "../sprites/lolo_combined.data"
 .include "../sprites/map/map.data"
 .include "../sprites/map_level_1.data"
+.include "../sprites/map_level_2.data"
+.include "../sprites/map_level_3.data"
+.include "../sprites/map_level_4.data"
 .include "../sprites/chest_closed.data"
 .include "../sprites/heart.data"
 .include "../sprites/snake_l_1.data"
@@ -54,8 +57,8 @@
 .text
 MAIN:
     init()
-    init_map_1()
-    #init_map(map_level_1,MAP_1_MATRIX)
+    #init_map_1()
+    init_map(map_level_3,MAP_3_MATRIX)
     #lolo_life_print()
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
@@ -70,7 +73,9 @@ MAIN:
     #jal LOLO_MAP_1_PRINT_TEST_HEART
     #lolo_map_1_heart_reset()
     #jal LOLO_MAP_1_PRINT_TEST_HEART
+
     keyboard_input()
+
     #sleep(200000)
     exit()
 
