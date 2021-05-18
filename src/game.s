@@ -38,6 +38,7 @@
 .include "../sprites/life_number_1.data"
 .include "../sprites/life_number_0.data"
 .include "constants.data"
+.include "sprites_correspondences.data"
 .include "music.data"
 .include "map_matrix_1x1.data"
 .include "../sprites/map_castle.data"
@@ -54,13 +55,19 @@
 MAIN:
     init()
     init_map_1()
-    lolo_life_print()
+    #lolo_life_print()
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
     #jal PLAY_MUSIC
-    lolo_shot_print()
-    lolo_map_1_print_test_heart()
+    #lolo_shot_print()
+    #lolo_map_1_print_test_heart()
     #lolo_map_1_heart_reset()
+    #lolo_map_1_heart_counter()
+    #jal LOLO_MAP_1_PRINT_TEST_HEART
+    #sleep(1000)
+    #lolo_map_1_heart_reset()
+    #jal LOLO_MAP_1_PRINT_TEST_HEART
+    jal HEART_CHECK_COLISION
     keyboard_input()
     #sleep(200000)
     exit()
@@ -81,3 +88,4 @@ MAIN:
 .include "music.s"
 .include "swap_frames.s"
 .include "read_and_print_map_matrix_dynamic_sprites.s"
+.include "heart_check_colision.s"
