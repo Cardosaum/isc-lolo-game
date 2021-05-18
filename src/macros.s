@@ -248,10 +248,19 @@
 .end_macro
 
 .macro lolo_shot_print()
-    jal LOLO_SHOT_RESET
-    jal LOLO_SHOT_DECOUNTER
-    jal LOLO_SHOT_DECOUNTER
     jal LOLO_SHOT_PRINT
+.end_macro
+
+.macro lolo_shot_reset()
+    jal LOLO_SHOT_RESET
+.end_macro
+
+.macro lolo_shot_set_two_shot()
+    jal LOLO_SHOT_SET_TWO_SHOT
+.end_macro
+
+.macro lolo_shot_decounter()
+    jal LOLO_SHOT_DECOUNTER
 .end_macro
 
 .macro matrix_map_change_value(%x,%y,%new_value,%base_adress) # base_adress = chosen matrix
@@ -262,17 +271,14 @@
     jal MATRIX_MAP_CHANGE_VALUE
 .end_macro
 
-.macro lolo_map_1_heart_reset()
-    jal LOLO_MAP_1_HEART_RESET
+.macro lolo_map_heart_reset()
+    jal LOLO_MAP_HEART_RESET
 .end_macro
 
-.macro lolo_map_1_heart_counter()
-    jal LOLO_MAP_1_HEART_COUNTER
+.macro lolo_map_heart_counter()
+    jal LOLO_MAP_HEART_COUNTER
 .end_macro
 
-.macro lolo_map_1_print_test_heart()
-    jal LOLO_MAP_1_HEART_RESET
-    jal LOLO_MAP_1_HEART_COUNTER
-    jal LOLO_MAP_1_HEART_COUNTER
-    jal LOLO_MAP_1_PRINT_TEST_HEART
+.macro lolo_map_print_test_heart()
+    jal LOLO_MAP_PRINT_TEST_HEART
 .end_macro

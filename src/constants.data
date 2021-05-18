@@ -237,7 +237,6 @@ LOLO_SHOT:    .space 4 # Creating a byte space for thE variable of shots
 .eqv LOLO_SHOT_Y 112 # Y of where to print the number
 
 # Constants numbers
-.eqv LOLO_SHOT_TOTAL 2
 .eqv LOLO_SHOT_2 2
 .eqv LOLO_SHOT_1 1
 .eqv LOLO_SHOT_0 0
@@ -246,15 +245,32 @@ RETURN_ADDRESS_LOLO_SHOT_PRINT: .space 4
 #==============================
 
 #==============================
-# Corações fase 1
+# Corações fases
 # counter corações
-LOLO_HEART_MAP_1:    .space 4
+LOLO_HEART_MAP:    .space 4
 
 # constants
-.eqv MAP_1_INITIAL_TOTAL_HEART 0
-.eqv MAP_1_HEART_1 1
-.eqv MAP_1_HEART_2 2
+.eqv MAP_INITIAL_TOTAL_HEART 0
+.eqv MAP_HEART_1 1
+.eqv MAP_HEART_2 2
+.eqv MAP_HEART_3 3
+.eqv MAP_HEART_4 4
+.eqv MAP_HEART_5 5
+.eqv MAP_HEART_6 6
+.eqv MAP_HEART_7 7
+
 
 # return adress for test
-LOLO_MAP_1_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
+LOLO_MAP_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
 #==============================
+
+#==============================
+# Constantes dos mapa/ numero dele. ID
+.eqv MAP_ID_1 1
+.eqv MAP_ID_2 2
+.eqv MAP_ID_3 3
+.eqv MAP_ID_4 4
+.eqv MAP_ID_5 5
+
+#==============================
+

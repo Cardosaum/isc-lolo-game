@@ -53,11 +53,15 @@ MAIN:
     init()
     init_map_1()
     lolo_life_print()
+    #lolo_shot_reset()
+    #lolo_shot_set_two_shot()
+    #lolo_shot_decounter()
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
     #jal PLAY_MUSIC
     lolo_shot_print()
-    lolo_map_1_print_test_heart()
+    #lolo_map_heart_counter()
+    lolo_map_print_test_heart()
     #lolo_map_1_heart_reset()
     keyboard_input()
     #sleep(200000)

@@ -71,10 +71,19 @@ PRINT_NUMBER:
 #====================================================================================================
     
 #====================================================================================================
-#procedimento para resetar a qtd de tiros do lolo
+#procedimento para resetar a qtd de tiros do lolo pra 0, principalmente em troca de mapa
 LOLO_SHOT_RESET:
     la t0,LOLO_SHOT
-    li t1,LOLO_SHOT_TOTAL
+    li t1,LOLO_SHOT_0
+    sw t1,(t0)
+    ret
+#====================================================================================================
+
+#====================================================================================================
+#procedimento para coloc a qtd de tiros como 2
+LOLO_SHOT_SET_TWO_SHOT:
+    la t0,LOLO_SHOT
+    li t1,LOLO_SHOT_2
     sw t1,(t0)
     ret
 #====================================================================================================
@@ -104,7 +113,7 @@ LOLO_SHOT_PRINT:
     lw t1,(t1)
     
     # Load SHOT constants
-    li t2,LOLO_SHOT_TOTAL
+    li t2,MAP_INITIAL_TOTAL_HEART
     li t5,LOLO_SHOT_2
     li t6,LOLO_SHOT_1 
        
