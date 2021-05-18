@@ -13,8 +13,9 @@ CANVAS_HEIGHT:    .half 240
 .eqv FRAME_MASK 0x00100000
 .eqv STC_BLOCK 0
 .eqv DYN_BLOCK 1
-.eqv SPRITE_STRUCT_SIZE 616
-.eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 300
+.eqv SPRITE_STRUCT_SIZE 532
+.eqv SPRITE_IMAGE_SIZE_STRUCT_SIZE 256
+.eqv STRUCT_OFFSET__USED 528
 #==============================
 
 #==============================
