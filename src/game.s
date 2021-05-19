@@ -59,6 +59,8 @@
 .include "../sprites/lolo_castle_up_1.data"
 .include "../sprites/lolo_castle_up_2.data"
 .include "../sprites/lolo_castle_up_3.data"
+.include "../sprites/menu_option_1.data"
+.include "../sprites/menu_option_2.data"
 .include "../sprites/door_open.data"
 .include "../sprites/door_closed.data"
 
@@ -67,6 +69,7 @@
 .text
 MAIN:
     # TODO: print LOLO ADVENTURES MENU
+    jal MENU_INTERFACE
     sleep(5000)
     jal PLAY_MAP_LEVEL_1
     # TODO: PRINT CREDITS
@@ -86,6 +89,7 @@ MAIN:
 .include "print_raw_combined_sprite.s"
 .include "keyboard_input_key_movement.s"
 #.include "castle.s"
+.include "start.s"
 .include "music.s"
 .include "swap_frames.s"
 .include "read_and_print_map_matrix_dynamic_sprites.s"

@@ -184,6 +184,19 @@ RETURN_ADDRESS_LOLO_MOVEMENT_DYNAMIC_MAP: .space 4
 #==============================
 
 #==============================
+RETURN_ADRESS_READ_MENU_OPTIONS_1: .space 4
+#==============================
+
+#==============================
+RETURN_ADRESS_READ_MENU_OPTIONS_2: .space 4
+#==============================
+
+#==============================
+RETURN_ADDRESS_MENU_INTERFACE: .space 4
+#==============================
+
+
+#==============================
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A0:   .space 4
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A1:   .space 4
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_COUNTER:   .space 4
@@ -249,8 +262,8 @@ RETURN_ADDRESS_LOLO_SHOT_PRINT: .space 4
 #==============================
 
 #==============================
-# Corações fases
-# counter corações
+# Coraï¿½ï¿½es fases
+# counter coraï¿½ï¿½es
 LOLO_HEART_MAP:    .space 4
 
 # constants
