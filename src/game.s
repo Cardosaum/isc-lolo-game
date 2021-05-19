@@ -67,26 +67,6 @@
 .text
 MAIN:
     jal PLAY_MAP_LEVEL_1
-    #init_map_1()
-    #lolo_life_print()
-    #lolo_shot_print()
-    #lolo_map_print_test_heart()
-    #lolo_life_print()
-    #jal READ_CASTLE_DYNAMIC_MAP
-    #jal GAME_LOLO_LOOP
-    #jal PLAY_MUSIC
-    #lolo_shot_print()
-    #lolo_map_1_print_test_heart()
-    #lolo_map_1_heart_reset()
-    #lolo_map_1_heart_counter()
-    #jal LOLO_MAP_1_PRINT_TEST_HEART
-    #sleep(1000)
-    #lolo_map_1_heart_reset()
-    #jal LOLO_MAP_1_PRINT_TEST_HEART
-    #lolo_map_1_heart_reset()
-    #jal LOLO_MAP_1_PRINT_TEST_HEART
-    #keyboard_input()
-    #lolo_map_print_test_heart()
     exit()
 
 
