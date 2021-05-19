@@ -66,7 +66,11 @@
 
 .text
 MAIN:
+    # TODO: print LOLO ADVENTURES MENU
+    sleep(5000)
     jal PLAY_MAP_LEVEL_1
+    # TODO: PRINT CREDITS
+    sleep(5000)
     exit()
 
 
