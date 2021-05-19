@@ -27,13 +27,23 @@
 .include "../sprites/map_level_2.data"
 .include "../sprites/map_level_3.data"
 .include "../sprites/map_level_4.data"
+.include "../sprites/map_level_maze.data"
 .include "../sprites/chest_closed.data"
 .include "../sprites/heart.data"
+.include "../sprites/dragon_normal_0.data"
+.include "../sprites/dragon_normal_1.data"
+.include "../sprites/dragon_right_0.data"
+.include "../sprites/dragon_right_1.data"
+.include "../sprites/dragon_left_0.data"
+.include "../sprites/dragon_left_1.data"
 .include "../sprites/snake_l_1.data"
 .include "../sprites/snake_l_2.data"
 .include "../sprites/snake_r_1.data"
 .include "../sprites/snake_r_2.data"
+.include "../sprites/skull_normal_0.data"
 .include "../sprites/blocks/ground.data"
+.include "../sprites/movable_block.data"
+.include "../sprites/statue_0.data"
 .include "../sprites/life_number_5.data"
 .include "../sprites/life_number_4.data"
 .include "../sprites/life_number_3.data"
@@ -56,9 +66,8 @@
 
 .text
 MAIN:
-    init()
+    jal PLAY_MAP_LEVEL_1
     #init_map_1()
-    init_map(map_level_3,MAP_3_MATRIX)
     #lolo_life_print()
     #lolo_shot_print()
     #lolo_map_print_test_heart()
@@ -77,9 +86,6 @@ MAIN:
     #lolo_map_1_heart_reset()
     #jal LOLO_MAP_1_PRINT_TEST_HEART
     #keyboard_input()
-    jal GAME_LOOP_WITH_SOUND
-    #lolo_life_print()
-    #lolo_shot_print()
     #lolo_map_print_test_heart()
     exit()
 
@@ -103,3 +109,4 @@ MAIN:
 .include "select_map_matrix.s"
 .include "game_loop_with_sound.s"
 .include "heart_check_collected_all.s"
+.include "play_map_levels.s"

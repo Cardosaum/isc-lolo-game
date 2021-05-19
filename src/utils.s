@@ -37,6 +37,36 @@ ALLOCATE_STRUCT_VECTOR:
 #=====================================================================================================
 
 #=====================================================================================================
+DELETE_STRUCT_VECTOR:
+    # this function just resets all the bytes of struct vector to 0
+
+    # get array capacity
+    la t0,DYN_VECT_STRUCT
+    lw t1,8(t0)
+    li t2,SPRITE_STRUCT_SIZE
+    mul t1,t1,t2
+
+    # go to first byte in struct
+    lw t0,(t0)
+
+    # init counter to 0
+    li t2,0
+
+DELETE_STRUCT_VECTOR_LOOP:
+    sw zero,(t0)
+    addi t0,t0,4
+    addi t2,t2,4
+    bgt t1,t2,DELETE_STRUCT_VECTOR_LOOP
+
+    # set address, length and capacity to 0 again
+    la t0,DYN_VECT_STRUCT
+    sw zero,(t0)
+    sw zero,4(t0)
+    sw zero,8(t0)
+    ret
+#=====================================================================================================
+
+#=====================================================================================================
 CREATE_STRUCT_VECTOR:
     # in this function we calculate how many bytes will be needed to store N
     # sprite structs in a vector

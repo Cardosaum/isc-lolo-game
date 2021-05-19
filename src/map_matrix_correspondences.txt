@@ -9,4 +9,5 @@
 8,statue
 9,porta fechada
 10,dragao rosa esquerda
+11,skull
 255,lolo itself

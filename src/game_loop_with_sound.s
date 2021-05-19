@@ -10,7 +10,7 @@ GAME_LOOP_WITH_SOUND:
 
 GAME_LOOP_WITH_SOUND_LOOP:
     # play sound
-    jal PLAY_MUSIC
+    #jal PLAY_MUSIC
 
     # keyboard loop
     jal KEYBOARD_INPUT
