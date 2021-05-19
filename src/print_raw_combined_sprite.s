@@ -35,6 +35,7 @@ PRINT_RAW_COMBINED_SPRITE:
     mul t4,s1,a1 # t4 = canvas_width * y_base_pixel
     add t0,t0,t4 # frame_address += t4
     li t4,0 # (t4) actual_column = 0
+    j PRINT_RAW_COMBINED_SPRITE_STORE_SPRITE_HIDDEN_BY_DYN_BLOCK_INIT
 
 
 PRINT_RAW_COMBINED_SPRITE_LOOP:

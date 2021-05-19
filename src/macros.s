@@ -8,28 +8,43 @@
     create_struct_vector(40,DYN_VECT_STRUCT)
 .end_macro
 
-.macro init_map_1()
+.macro init_map(%map_level,%map_matrix)
     li a0,0
     li a1,0
-    la a2,map_1
+    la a2,%map_level
     li a5,0
     print_sprite(a0, a1, a2, STC_BLOCK, a5)
 
+    la a0,%map_matrix
+    jal SELECT_MAP_MATRIX
 
     # initialize lolo
     # lolo always has index of 0
-    li a0,80
-    li a1,120
+    li a0,64
+    li a1,144
     initialize_lolo(a0,a1,lolo_n)
 
-    # add snake with index 1
-    initialize_dynamic_sprite(128,192,1,0,chest_closed)
-    # add heart with index 2
-    initialize_dynamic_sprite(240,112,2,0,heart)
-    # add heart with index 3
-    initialize_dynamic_sprite(128,48,3,0,heart)
-    # add snake with index 4
-    initialize_dynamic_sprite(160,144,4,1,snake_r_1)
+    la a0,%map_matrix
+    li a1,300
+    jal READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES
+.end_macro
+
+.macro init_map_1()
+    li a0,0
+    li a1,0
+    la a2,map_level_1
+    li a5,0
+    print_sprite(a0, a1, a2, STC_BLOCK, a5)
+
+    # initialize lolo
+    # lolo always has index of 0
+    li a0,64
+    li a1,144
+    initialize_lolo(a0,a1,lolo_n)
+
+    la a0,MAP_1_MATRIX
+    li a1,300
+    jal READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES
 .end_macro
 
 .macro exit()
@@ -128,7 +143,7 @@
 .end_macro
 
 .macro add_struct_to_vector(%array_address,%sprite_id,%current_position,%next_position,%next_dyn_sprite,%collide)
-    li a1,%sprite_id
+    mv a1,%sprite_id
     mv a2,%current_position
     mv a3,%next_position
     mv a5,%next_dyn_sprite
@@ -202,8 +217,7 @@
     li a2,%y_rel
     li a4,1
     jal MOVE_LOLO
-    sleep(100)
-    j KEYBOARD_INPUT_LOOP_POOL
+    #sleep(100)
 .end_macro
 
 .macro initialize_dynamic_sprite(%x,%y,%struct_array_index,%collide,%address_sprite_data)
@@ -228,4 +242,59 @@
     li a4,%is_dynamic
     mv a5,%array_struct_index
     jal PRINT_RAW_COMBINED_SPRITE
+.end_macro
+
+.macro keyboard_input_key_v2(%x_rel,%y_rel,%movement_code,%sprite_address,%sleep_time)
+    li a0,%x_rel
+    li a1,%y_rel
+    li a2,%movement_code
+    la a3,%sprite_address
+    li a4,%sleep_time
+    jal KEYBOARD_INPUT_KEY_MOVEMENT
+    jal HEART_CHECK_COLISION
+    j KEYBOARD_INPUT_LOOP_POOL
+.end_macro
+
+.macro swap_frames()
+    jal SWAP_FRAMES
+.end_macro
+
+.macro lolo_shot_print()
+    jal LOLO_SHOT_PRINT
+.end_macro
+
+.macro lolo_shot_reset()
+    jal LOLO_SHOT_RESET
+.end_macro
+
+.macro lolo_shot_set_two_shot()
+    jal LOLO_SHOT_SET_TWO_SHOT
+.end_macro
+
+.macro lolo_shot_decounter()
+    jal LOLO_SHOT_DECOUNTER
+.end_macro
+
+.macro matrix_map_change_value(%x,%y,%new_value,%base_adress) # base_adress = chosen matrix
+    li a0,%x
+    li a1,%y
+    la a2,%base_adress
+    li a3,%new_value
+    jal MATRIX_MAP_CHANGE_VALUE
+.end_macro
+
+.macro lolo_map_heart_reset()
+    jal LOLO_MAP_HEART_RESET
+.end_macro
+
+.macro lolo_map_heart_counter()
+    jal LOLO_MAP_HEART_COUNTER
+.end_macro
+
+.macro lolo_map_print_test_heart()
+    jal LOLO_MAP_PRINT_TEST_HEART
+.end_macro
+
+.macro select_map_matrix(%address_to_matrix)
+    jal SELECT_MAP_MATRIX
 .end_macro

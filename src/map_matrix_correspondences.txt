@@ -1,5 +1,12 @@
-0,lolo não anda
-1,lolo anda
+0,black sprite
+1,ground
 2,coração
-3,baú
+3,baú fechado
 4,cobra
+5,dragao rosa pra baixo
+6,dragao rosa pra direita
+7,movable block
+8,statue
+9,porta fechada
+10,dragao rosa esquerda
+255,lolo itself

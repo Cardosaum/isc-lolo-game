@@ -23,7 +23,10 @@
 .include "../sprites/lolo_u_4.data"
 .include "../sprites/lolo_combined.data"
 .include "../sprites/map/map.data"
-.include "../sprites/map_1.data"
+.include "../sprites/map_level_1.data"
+.include "../sprites/map_level_2.data"
+.include "../sprites/map_level_3.data"
+.include "../sprites/map_level_4.data"
 .include "../sprites/chest_closed.data"
 .include "../sprites/heart.data"
 .include "../sprites/snake_l_1.data"
@@ -38,6 +41,8 @@
 .include "../sprites/life_number_1.data"
 .include "../sprites/life_number_0.data"
 .include "constants.data"
+.include "sprites_correspondences.data"
+.include "music.data"
 .include "map_matrix_1x1.data"
 .include "../sprites/map_castle.data"
 .include "../sprites/lolo_castle_up_0.data"
@@ -46,22 +51,36 @@
 .include "../sprites/lolo_castle_up_3.data"
 .include "../sprites/menu_option_1.data"
 .include "../sprites/menu_option_2.data"
+.include "../sprites/door_open.data"
+.include "../sprites/door_closed.data"
+
 
 .text
 MAIN:
     init()
     jal MENU_INTERFACE
-    #sleep(2000)
-    #jal READ_CASTLE_DYNAMIC_MAP
-    #sleep(10000)
-    #jal GAME_LOLO_LOOP
-    #sleep(10000)
-    
-    init_map_1()
+    #init_map_1()
+    init_map(map_level_3,MAP_3_MATRIX)
     lolo_life_print()
+    lolo_shot_print()
+    lolo_map_print_test_heart()
+    #lolo_life_print()
     #jal READ_CASTLE_DYNAMIC_MAP
-    #jal GAME_LOLO_INTRO
+    #jal GAME_LOLO_LOOP
+    #jal PLAY_MUSIC
+    #lolo_shot_print()
+    #lolo_map_1_print_test_heart()
+    #lolo_map_1_heart_reset()
+    #lolo_map_1_heart_counter()
+    #jal LOLO_MAP_1_PRINT_TEST_HEART
+    #sleep(1000)
+    #lolo_map_1_heart_reset()
+    #jal LOLO_MAP_1_PRINT_TEST_HEART
+    #lolo_map_1_heart_reset()
+    #jal LOLO_MAP_1_PRINT_TEST_HEART
+
     keyboard_input()
+
     #sleep(200000)
     exit()
 
@@ -71,10 +90,16 @@ MAIN:
 .include "utils.s"
 .include "colisions.s"
 .include "print_sprites.s"
-.include "proc_life_lolo.s"
+.include "proc_life_power_lolo.s"
+.include "proc_lolo_heart.s"
 .include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
 .include "castle.s"
 .include "start.s"
 .include "print_raw_combined_sprite.s"
+.include "keyboard_input_key_movement.s"
 .include "music.s"
+.include "swap_frames.s"
+.include "read_and_print_map_matrix_dynamic_sprites.s"
+.include "heart_check_colision.s"
+.include "select_map_matrix.s"

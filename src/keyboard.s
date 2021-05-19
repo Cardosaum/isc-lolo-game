@@ -14,20 +14,16 @@ KEYBOARD_INPUT:
 
 KEYBOARD_INPUT_LOOP_POOL:
     li t0,MMIO_set # t0 = keyboard_flag
+    lb t1,(t0)
+    beqz t1,KEYBOARD_INPUT_LOOP_POOL
     li t2,EXIT_KEY # t2 = ascii('q')
     li s4,KEY_W
     li s5,KEY_A
     li s6,KEY_S
     li s7,KEY_D
-    lb t1,(t0)
-    beqz t1,KEYBOARD_INPUT_LOOP_POOL
     li a0,MMIO_add
     lw a0,(a0)
     beq a0,t2,KEYBOARD_INPUT_EXIT
-    li a7, 1
-    ecall
-    li a7, 11
-    ecall
     beq a0,s4,KEYBOARD_INPUT_KEY_W
     beq a0,s5,KEYBOARD_INPUT_KEY_A
     beq a0,s6,KEYBOARD_INPUT_KEY_S
@@ -39,22 +35,10 @@ KEYBOARD_INPUT_EXIT:
     lw ra,(t0)
     ret
 KEYBOARD_INPUT_KEY_W:
-    li a0,0
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(0,-4,0,lolo_u,LOLO_U)
+    keyboard_input_key_v2(0,-4,0,lolo_u,90)
 KEYBOARD_INPUT_KEY_A:
-    li a0,1
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(-4,0,1,lolo_l,LOLO_L)
+    keyboard_input_key_v2(-4,0,1,lolo_l,90)
 KEYBOARD_INPUT_KEY_S:
-    li a0,2
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(0,4,2,lolo_n,LOLO_N)
+    keyboard_input_key_v2(0,4,2,lolo_n,90)
 KEYBOARD_INPUT_KEY_D:
-    li a0,3
-    jal UPDATE_SPRITE_ANIMATION
-
-    keyboard_input_key(4,0,3,lolo_r,LOLO_R)
+    keyboard_input_key_v2(4,0,3,lolo_r,90)
