@@ -59,9 +59,9 @@ MAIN:
     init()
     #init_map_1()
     init_map(map_level_3,MAP_3_MATRIX)
-    lolo_life_print()
-    lolo_shot_print()
-    lolo_map_print_test_heart()
+    #lolo_life_print()
+    #lolo_shot_print()
+    #lolo_map_print_test_heart()
     #lolo_life_print()
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
@@ -78,6 +78,9 @@ MAIN:
     #jal LOLO_MAP_1_PRINT_TEST_HEART
     #keyboard_input()
     jal GAME_LOOP_WITH_SOUND
+    #lolo_life_print()
+    #lolo_shot_print()
+    #lolo_map_print_test_heart()
     exit()
 
 
@@ -99,3 +102,4 @@ MAIN:
 .include "heart_check_colision.s"
 .include "select_map_matrix.s"
 .include "game_loop_with_sound.s"
+.include "heart_check_collected_all.s"

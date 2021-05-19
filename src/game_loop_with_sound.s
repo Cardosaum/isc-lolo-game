@@ -15,6 +15,11 @@ GAME_LOOP_WITH_SOUND_LOOP:
     # keyboard loop
     jal KEYBOARD_INPUT
     bnez a0,GAME_LOOP_WITH_SOUND_EXIT
+
+    # check if lolo collected all needed hears
+    jal HEART_CHECK_COLLECTED_ALL
+    bnez a0,GAME_LOOP_WITH_SOUND_EXIT
+
     j GAME_LOOP_WITH_SOUND_LOOP
 
 GAME_LOOP_WITH_SOUND_EXIT:

@@ -299,3 +299,7 @@ RETURN_ADDRESS_HEART_CHECK_COLISION:    .space 4
 #==============================
 RETURN_ADDRESS_GAME_LOOP_WITH_SOUND:    .space 4
 #==============================
+
+#==============================
+RETURN_ADDRESS_HEART_CHECK_COLLECTED_ALL:   .space 4
+#==============================
