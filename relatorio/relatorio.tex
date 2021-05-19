@@ -54,14 +54,24 @@ Email: {costa.aquila@aluno.unb.br, marques.eduardo@aluno.unb.br, matheus-cardoso
 
 % Abstract section.
 \begin{abstract}
-  It will be described in this article the process of the remake of the game The
-  adventures of Lolo, developed pela HAL Laboratory para o Nintendo
-  Entertainment System (NES) in 1989, using the low level programming language
-  Assembly, fllowing the rules of the ISA (Instruction Set Architecture) RISC-V,
-  assembled and executed in RARS. It will be detailed how the knowledge learned
-  in Introduction to Computer Systems course, such as using the Bitmap Display
-  and KDMMIOS, were implemented for the recreation of a customized game. Será
-  descrito neste artigo o processo de recriação do jogo The adventures of
+  In this article we describe the process of recreation for the game \textit{The
+    Adventures of Lolo}, originaly developed by HAL Laboratory for the Nintendo
+  Entertainment System (NES) in 1989. We implemented the game using RISC-V
+  assembly. Among other tools used to create this project, we used RARS to
+  assemble and execute the RISC-V instructions. We detail the knowledge learned
+  in Introduction to Computer Systems (ISC) course, such as the use of Bitmap
+  Display and KDMMIOS for the implementation of the customized game. We also
+  briefly share our dificulties during this project and some lessons learned
+  during this hands-on project.
+
+  % It will be described in this article the process of the remake of the game The
+  % adventures of Lolo, developed pela HAL Laboratory para o Nintendo
+  % Entertainment System (NES) in 1989, using the low level programming language
+  % Assembly, fllowing the rules of the ISA (Instruction Set Architecture) RISC-V,
+  % assembled and executed in RARS. It will be detailed how the knowledge learned
+  % in Introduction to Computer Systems course, such as using the Bitmap Display
+  % and KDMMIOS, were implemented for the recreation of a customized game. Será
+  % descrito neste artigo o processo de recriação do jogo The adventures of
 
   % Lolo, desenvolvido pela HAL Laboratory para o Nintendo Entertainment System
   % (NES) em 1989, utilizando a linguagem de baixo nível Assembly, seguindo as
@@ -79,9 +89,10 @@ Assembly; RISC-V; The Adventures of Lolo; Bitmap Display; RARS
 
 
 \section{Introdução}
-O jogo \textit{The Adventures of Lolo} foi lançado em 1989 voltado,
-principalmente, para crianças, como um jogo de puzzle e raciocínio lógico, em
-que se deve solucionar variados problemas para passar de fase e resgatar a
+
+O jogo \textit{The Adventures of Lolo} foi lançado em 1989, voltado,
+principalmente, para crianças, como um jogo de puzzle e raciocínio lógico em que
+se deve solucionar variados problemas para passar de fase e resgatar a
 companheira de Lolo, Lala. O jogador controla Lolo, um ser azul, que possui
 poderes úteis para derrotar inimigos e solucionar os desafios de cada nível.
 
@@ -99,7 +110,7 @@ planejamento, além de introduzir os alunos à linguagem de baixo nível Assembl
   \label{fig:01}
 \end{figure}
 
-\section{Metodologia}
+\section{Metodologia}{
 \label{sec:Metodologia}
 
 Para implementação do jogo no RARS, utilizaram-se principalmente as ferramentas
@@ -115,7 +126,6 @@ implementação da impressão de sprites no bitmap display. Para tal, precisamos
 formular uma estratégia para renderização dos sprites.
 
 \subsection{Blocos 16x16}{
-\label{sec:MIPS}
 
 Percebemos no jogo original que os espaços por onde
 o jogador e inimigos se movimentavam, como o espaço
@@ -124,54 +134,52 @@ como um bloco com 16 pixels de largura por 16 pixels de altura, assim implementa
 que cada elemento possuía como base um bloco 16x16
 pixels.
 
-}
 
 \begin{figure}[htb]
   \begin{center}
    \includegraphics[width=0.7\linewidth]{./Figures/image_2e3e4.png}
   \end{center}
   \caption{Sprites de 16x16 pixels}
-  \label{fig:02}
 \end{figure}
 
 \begin{figure}[htb]
   \begin{center}
-   \includegraphics[width=0.9\linewidth]{./Figures/image_5.png}
+   \includegraphics[width=1\linewidth]{./Figures/maps_16_by_16.png}
   \end{center}
+  \caption{Mapa criado por nós e visualização dos
+blocos 16x16 no mapa jogável respectivamente}
   \label{fig:01}
 \end{figure}
 
 Isso nos permitiu tratar as posições das imagens no bitmap display de forma mais
 automática e fácil de visualizar e modificar, assim criamos os mapas de tal
 forma que os blocos assumiam posições que eram divisíveis por 16, assim fizemos
-mapa feitos com blocos 16x16. Devido a essa estratégia, o mapa de jogo não ocupa
-completamente o bitmap display, sendo possível jogar em parte limitada apenas.
-Por questões de estética, o mapa implementado é maior que o mapa do jogo
+mapas feitos com blocos 16x16. Devido a essa estratégia, o mapa de jogo não
+ocupa completamente o bitmap display, sendo possível jogar em parte limitada
+apenas. Por questões de estética, o mapa implementado é maior que o mapa do jogo
 original, possuindo mais uma linha e colunas de blocos 16x16, caracterizando o
 mapa jogável (paredes, chão, árvores) com 210 blocos 16x16, e o Bitmap Display
 inteiro por 300 blocos 16x16.
 
-\begin{figure}[htb]
-  \begin{center}
-   \includegraphics[width=0.9\linewidth]{./Figures/image_6.png}
-  \end{center}
-  \caption{ mapa criado por nós e visualização dos
-blocos 16x16 no mapa jogável respectivamente}
-  \label{fig:01}
-\end{figure}
+}
+
+
+% \begin{figure}[htb]
+%   \begin{center}
+%    \includegraphics[width=0.9\linewidth]{./Figures/image_5.png}
+%   \end{center}
+% \end{figure}
 
 
 \subsection{Colisão e matriz do mapa}{
 \label{sec:Mars}
 Como estratégia de colisão, decidimos fazer uso de
 uma matriz para representar o Bitmap display, como
-a tabela quadriculada na parte direita da figura 3.
-
-}
+a tabela quadriculada na parte direita da figura 4.
 
 \begin{figure}[htb]
   \begin{center}
-   \includegraphics[width=0.9\linewidth]{./Figures/image_7.png}
+   \includegraphics[width=0.5\linewidth]{./Figures/image_7.png}
   \end{center}
   \caption{Matriz de posições representando o mapa 1}
   \label{fig:01}
@@ -202,6 +210,7 @@ estática ou podem se modificar quando o Lolo agir sobre algum bloco ou sprite.
 Portanto, tivemos que implementar algo parecido com uma struct, junto com
 alocamento de memória, como pode ser feita em linguagens de programação de mais
 alto nível, como C.
+}
 
 \subsection{Blocos dinâmicos}{
 \label{sec:MIPS}
@@ -228,13 +237,12 @@ com maior flexibilidade, o que possibilitou a movimentação do Lolo pelo mapa, 
 forma que as impressões, dos movimentos do Lolo, passados pudessem ser pagadas
 sem modificar o bloco por onde o Lolo se movimenta, como o bloco do chão de
 tijolo.
-
+}
 
 \section{Resultados obtidos}
 \label{sec:Resultados}
 
 \subsection{Desafios}{
-\label{sec:MIPS}
 De início, encontramos um problema na colisão do
 Lolo, em que dependendo do dado do teclado, em que
 o jogador tentasse se mover diagonalmente, ele podia
@@ -253,8 +261,8 @@ onde o Lolo se moveu }
   \begin{center}
    \includegraphics[width=0.9\linewidth]{./Figures/image_newest.png}
   \end{center}
-  \caption{}
-  \label{fig:01}
+  \caption{Colisão defeituosa e impressão
+de animação defeituosa respectivamente}
 \end{figure}
 
 
