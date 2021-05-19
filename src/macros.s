@@ -301,3 +301,17 @@
 .macro select_map_matrix(%address_to_matrix)
     jal SELECT_MAP_MATRIX
 .end_macro
+
+.macro init_map_hub()
+    lolo_life_print()
+    jal LOLO_SHOT_RESET
+    jal LOLO_SHOT_PRINT
+.end_macro
+
+.macro map(%map_level,%map_matrix)
+    init()
+    init_map(%map_level,%map_matrix)
+    init_map_hub()
+    jal GAME_LOOP_WITH_SOUND
+    jal DELETE_STRUCT_VECTOR
+.end_macro

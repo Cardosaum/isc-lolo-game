@@ -47,8 +47,8 @@ HEART_CHECK_COLISION_LOOP:
     # they have the same (X,Y), so we now print heart's hidden sprite
     load_word(a0,HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT)
     jal DYNAMIC_SPRITE_PRINT_HIDDEN_SPRITE
-    lolo_map_heart_counter()
-    jal LOLO_MAP_PRINT_TEST_HEART
+    jal LOLO_SHOT_SET_TWO_SHOT
+    jal LOLO_SHOT_PRINT
 
     # and update 'used' struct field
     li t1,STRUCT_OFFSET__USED
