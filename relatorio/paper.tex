@@ -2,8 +2,8 @@
 %%  Versão final do IEEExplore
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\documentclass[10pt, conference, compsocconf]{IEEEtran}
-\documentclass[a4paper]{sbgames}               
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+% \documentclass[a4paper]{sbgames}
 
 \usepackage{times}
 \usepackage{graphicx}
@@ -22,21 +22,21 @@
 \begin{document}
 
 %% Paper title.
-\title{Título do Artigo}
+\title{The Adventures of Lolo}
 
 
-% \author{\IEEEauthorblockN{Autor1, Autor2, and Autor3}
-% \IEEEauthorblockA{Dept. of Computer Science\\
-% University of Brasilia\\ Brasilia, Brazil\\
-% Email: \{autor1, autor2\}@gmail.com autor3@hotmail.com}
-% }
+\author{\IEEEauthorblockN{Aquila Macedo Costa, Eduardo Ferreira Marques Cavalcante, and Matheus Cardoso de Souza}
+\IEEEauthorblockA{Dept. of Computer Science\\
+University of Brasilia\\ Brasilia, Brazil\\
+Email: {costa.aquila@aluno.unb.br, marques.eduardo@aluno.unb.br, matheus-cardoso.mc@aluno.unb.br}}
+}
 
- \author{ Autor1 
-         \hspace{28pt} Autor2 \\
-         \vspace{0pt} \\
-         {University of Brasília, Dept. of Computer Science, Brazil} }
-        
- \contactinfo{autor1@gmail.com \\ autor2@hotmail.br }
+ % \author{ Autor1
+ %         \hspace{28pt} Autor2 \\
+ %         \vspace{0pt} \\
+ %         {University of Brasília, Dept. of Computer Science, Brazil} }
+
+ % \contactinfo{autor1@gmail.com \\ autor2@hotmail.br }
 
 
 
@@ -53,53 +53,59 @@
 
 % Abstract section.
 \begin{abstract}
-Escreva aqui um resumo do projeto.
-Este trabalho apresenta o desenvolvimento de ....
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+  It will be described in this article the process of the remake of the game The
+  adventures of Lolo, developed pela HAL Laboratory para o Nintendo
+  Entertainment System (NES) in 1989, using the low level programming language
+  Assembly, fllowing the rules of the ISA (Instruction Set Architecture) RISC-V,
+  assembled and executed in RARS. It will be detailed how the knowledge learned
+  in Introduction to Computer Systems course, such as using the Bitmap Display
+  and KDMMIOS, were implemented for the recreation of a customized game. Será
+  descrito neste artigo o processo de recriação do jogo The adventures of
 
+  % Lolo, desenvolvido pela HAL Laboratory para o Nintendo Entertainment System
+  % (NES) em 1989, utilizando a linguagem de baixo nível Assembly, seguindo as
+  % normas da ISA (Instruction Set Architecture) RISC-V, montado e executado no
+  % RARS. Será detalhado como os conhecimentos aprendidos na disciplina Introdução
+  % a Sistemas Computacionais, como o Bitmap Display e KDMMIOS, foram
+  % implementados para a recriação do jogo de forma personalizada.
 \end{abstract}
 
 %% Keywords that describe your work.
-\keywords{Robot, Guitar Hero, FPGA, Artificial Intelligence}
-% \begin{IEEEkeywords}
-% Jogos; Processador MIPS; FPGA;
-% \end{IEEEkeywords}
+% \keywords{Assembly, RISC-V, The Adventures of Lolo, Bitmap Display, RARS}
+\begin{IEEEkeywords}
+Assembly; RISC-V; The Adventures of Lolo; Bitmap Display; RARS
+\end{IEEEkeywords}
 
 
 \section{Introdução}
 \label{sec:introducao}
 
-Jogos digitais tem sido amplamente usados para...
+O jogo \textit{The Adventures of Lolo} foi lançado em 1989 voltado, principalmente, para crianças, como um jogo de puzzle e raciocínio lógico, em que se deve solucionar variados problemas para passar de fase e resgatar a companheira de Lolo, Lala. O jogador controla Lolo, um ser azul, que possui poderes úteis para derrotar inimigos e solucionar os desafios de cada nível.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut at dapibus arcu, id semper enim. Duis at dui pharetra, luctus lectus a, consectetur arcu. Maecenas lacinia tristique nisl sed rhoncus. Integer et sem eros. Phasellus tempor dapibus augue quis lacinia. Quisque leo justo, porta ac porttitor sed, consequat ut dui. Cras commodo mollis sagittis. Quisque maximus odio at leo ornare, sed malesuada augue dictum. Nunc vitae feugiat nisi, in aliquam nisi. Nullam dictum, nibh nec ornare faucibus, sapien nibh pulvinar mauris, ut maximus eros dolor quis nunc.
-
-Este trabalho apresenta ...
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse condimentum id erat nec bibendum. Proin placerat arcu sed cursus viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean venenatis, est a porta lobortis, ligula ante ultrices ligula, eget porta purus elit eu justo. Suspendisse fringilla efficitur tortor, ac sollicitudin erat fringilla quis. In hac habitasse platea dictumst. Pellentesque placerat erat sed orci malesuada ultrices. Praesent vulputate tellus risus, at suscipit neque volutpat in. Duis volutpat mattis lacus, vel gravida est. Nulla tincidunt interdum auctor. Etiam non viverra est.
-
+Como forma de aprendizado na disciplina Introdução a Sistemas Computacionais, foi proposto para os alunos a recriação do jogo The Adventures of Lolo, utilizando o RARS (RISC-V Assembler and Runtime Simulator). O projeto foi criado com o propósito de ensinar métodos de programação, raciocínio lógico e planejamento, além de introduzir os alunos à linguagem de baixo nível Assembly.
 
 \begin{figure}[htb]
   \begin{center}
-   \includegraphics[width=1.0\linewidth]{./Figures/Fig1b.png}
+   \includegraphics[width=0.3\linewidth]{./Figures/capa_lolo_nes.png}
   \end{center}
-  \caption{O que é a figura}
+  \caption{Capa do jogo no NES}
   \label{fig:01}
 \end{figure}
-
-A Figura \ref{fig:01} mostra o kit de desenvolvimento DE2-70  ~\cite{Alt}.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-Na seção \ref{sec:Metodologia} será apresentada a metodologia utilizada. A seção \ref{sec:Resultados} apresenta os resultados obtidos. A seção \ref{sec:Conclusao} conclui este trabalho.
 
 \section{Metodologia}
 \label{sec:Metodologia}
 
-Apresentar aqui como o projeto foi desenvolvido e quais as ferramentas usadas.
+Para implementação do jogo no RARS, utilizaram-se principalmente as ferramentas
+\textit{bitmap display}, o que permite imprimir as imagens (sprites) dos personagens,
+blocos, inimigos entre outros, criando uma interface visual para o jogador, e o
+KDMMIOS (Keyboard and Display MMIO Simulator), o qual possibilita enviar um dado
+do teclado para o RARS, viabilizando a movimentação do Lolo por meio do teclado
+do jogador.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-
+De início, o projeto começou com a criação de um repositório no GitHub para fins
+de organização do grupo e melhor versionamento de código, assim, partimos para
+implementação da impressão de sprites no bitmap display. Para tal, precisamos
+formular uma estratégia para renderização dos sprites.
 
 \subsection{Arquitetura MIPS}{
 \label{sec:MIPS}
