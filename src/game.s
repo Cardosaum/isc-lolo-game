@@ -58,7 +58,8 @@
 .text
 MAIN:
     init()
-    jal MENU_INTERFACE
+#    jal PLAY_MUSIC
+#    jal MENU_INTERFACE
     #init_map_1()
     init_map(map_level_3,MAP_3_MATRIX)
     lolo_life_print()
@@ -67,7 +68,6 @@ MAIN:
     #lolo_life_print()
     #jal READ_CASTLE_DYNAMIC_MAP
     #jal GAME_LOLO_LOOP
-    #jal PLAY_MUSIC
     #lolo_shot_print()
     #lolo_map_1_print_test_heart()
     #lolo_map_1_heart_reset()
@@ -94,11 +94,11 @@ MAIN:
 .include "proc_lolo_heart.s"
 .include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
-.include "castle.s"
-.include "start.s"
+#.include "castle.s"
+#.include "start.s"
 .include "print_raw_combined_sprite.s"
 .include "keyboard_input_key_movement.s"
-.include "music.s"
+#.include "music.s"
 .include "swap_frames.s"
 .include "read_and_print_map_matrix_dynamic_sprites.s"
 .include "heart_check_colision.s"
