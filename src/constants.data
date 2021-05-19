@@ -270,6 +270,8 @@ LOLO_MAP_PRINT_TEST_HEART_RETURN_ADDRESS:   .space 4
 
 #==============================
 # Constantes dos mapa/ numero dele. ID
+MAP_LOLO_ID:    .space 4
+
 .eqv MAP_ID_1 1
 .eqv MAP_ID_2 2
 .eqv MAP_ID_3 3
