@@ -44,18 +44,13 @@
 .include "../sprites/lolo_castle_up_1.data"
 .include "../sprites/lolo_castle_up_2.data"
 .include "../sprites/lolo_castle_up_3.data"
-.include "../sprites/start_game_1.data"
-.include "../sprites/start_game_2.data"
-
-
-
+.include "../sprites/menu_option_1.data"
+.include "../sprites/menu_option_2.data"
 
 .text
 MAIN:
     init()
-    jal READ_MENU_1
-    sleep(2000)
-    jal KEY2
+    jal MENU_INTERFACE
     #sleep(2000)
     #jal READ_CASTLE_DYNAMIC_MAP
     #sleep(10000)
