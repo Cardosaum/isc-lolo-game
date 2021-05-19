@@ -6,11 +6,9 @@ PLAY_MUSIC:
     # check if we need to reproduce next note
     load_word(t0,PLAY_MUSIC_TIME_OF_LAST_REPRODUCED_NOTE)
     load_word(t2,PLAY_MUSIC_CURRENT_NOTE)
-    li t3,2
-    mul t2,t2,t3
+    slli t2,t2,3
     la t3,PLAY_MUSIC_NOTE_AND_DURATION
     add t2,t2,t3
-    slli t0,t0,2
     lw t1,4(t2)
     add t0,t0,t1
     li a7,30
@@ -31,9 +29,7 @@ PLAY_MUSIC:
 
     # get address of current note
     la t1,PLAY_MUSIC_NOTE_AND_DURATION
-    li t2,2
-    mul t0,t0,t2
-    slli t0,t0,2
+    slli t0,t0,3
     add t0,t0,t1
 
     # play desired note
@@ -42,6 +38,7 @@ PLAY_MUSIC:
     li a2,45    # instrument
     li a3,140   # volume
     li a7,31    # syscall to play sound
+    ecall
 
 PLAY_MUSIC_END:
     # return to caller
