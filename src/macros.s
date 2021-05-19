@@ -252,7 +252,10 @@
     li a4,%sleep_time
     jal KEYBOARD_INPUT_KEY_MOVEMENT
     jal HEART_CHECK_COLISION
-    j KEYBOARD_INPUT_LOOP_POOL
+    # if we reached this point, the user didn't ask to quit the program,
+    # so we set a0 to 0
+    li a0,0
+    j KEYBOARD_INPUT_EXIT
 .end_macro
 
 .macro swap_frames()

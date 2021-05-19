@@ -76,10 +76,8 @@ MAIN:
     #jal LOLO_MAP_1_PRINT_TEST_HEART
     #lolo_map_1_heart_reset()
     #jal LOLO_MAP_1_PRINT_TEST_HEART
-
-    keyboard_input()
-
-    #sleep(200000)
+    #keyboard_input()
+    jal GAME_LOOP_WITH_SOUND
     exit()
 
 
@@ -92,11 +90,12 @@ MAIN:
 .include "proc_lolo_heart.s"
 .include "initialize_dynamic_sprites.s"
 #.include "read_map_matrix.s"
-.include "castle.s"
 .include "print_raw_combined_sprite.s"
 .include "keyboard_input_key_movement.s"
+#.include "castle.s"
 .include "music.s"
 .include "swap_frames.s"
 .include "read_and_print_map_matrix_dynamic_sprites.s"
 .include "heart_check_colision.s"
 .include "select_map_matrix.s"
+.include "game_loop_with_sound.s"

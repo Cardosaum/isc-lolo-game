@@ -1,25 +1,50 @@
 #=====================================================================================================
 PLAY_MUSIC:
-    la s0,NUMBER_OF_NOTES
-    lw s1,0(s0)         
-    la s0,NOTE_AND_DURATION  #QNT DE NOTAS
-    li t0,0                  #CONTADOR
-    li a2,45                 #INSTRUMENTAL
-    li a3,140                #VOLUME
+    # save return address for later
+    store_word(t0,ra,RETURN_ADDRESS_PLAY_MUSIC)
 
-PLAY_MUSIC_LOOP:
-    beq t0,s1,PLAY_MUSIC_END
-    lw a0,0(s0)          # VALOR DA NOTA
-    lw a1,4(s0)          # DURACAO DA NOTA
-    li a7,31             # SYSCALL
-    ecall                # REPRODUZ A NOTA
-    mv a0,a1             # DURACAO DA NOTA PRA PAUSA
-    li a7,32
-    #ecall                # PAUSA DE a0 ms
-    addi s0,s0,8         # INCREMENTA PARA O ENDEREÇO DA PROXIMA NOTA
-    addi t0,t0,1         # ADICIONA MAIS UM AO CONTADOR DE NOTAS
-    j PLAY_MUSIC_LOOP               # VOLTA AO LOOP
-    
+    # check if we need to reproduce next note
+    load_word(t0,PLAY_MUSIC_TIME_OF_LAST_REPRODUCED_NOTE)
+    load_word(t2,PLAY_MUSIC_CURRENT_NOTE)
+    li t3,2
+    mul t2,t2,t3
+    la t3,PLAY_MUSIC_NOTE_AND_DURATION
+    add t2,t2,t3
+    slli t0,t0,2
+    lw t1,4(t2)
+    add t0,t0,t1
+    li a7,30
+    ecall
+    blt a0,t0,PLAY_MUSIC_END
+
+    # update current note
+    load_word(t0,PLAY_MUSIC_CURRENT_NOTE)
+    load_word(t1,PLAY_MUSIC_NUMBER_OF_NOTES)
+    addi t0,t0,1 # new current note
+    rem t0,t0,t1 # make sure we always have a valid note
+    store_word(t1,t0,PLAY_MUSIC_CURRENT_NOTE)
+
+    # update reproduced time
+    li a7,30
+    ecall
+    store_word(t1,a0,PLAY_MUSIC_TIME_OF_LAST_REPRODUCED_NOTE)
+
+    # get address of current note
+    la t1,PLAY_MUSIC_NOTE_AND_DURATION
+    li t2,2
+    mul t0,t0,t2
+    slli t0,t0,2
+    add t0,t0,t1
+
+    # play desired note
+    lw a0,0(t0) # read note value
+    lw a1,4(t0) # read note duration
+    li a2,45    # instrument
+    li a3,140   # volume
+    li a7,31    # syscall to play sound
+
 PLAY_MUSIC_END:
+    # return to caller
+    load_word(ra,RETURN_ADDRESS_PLAY_MUSIC)
     ret
 #=====================================================================================================

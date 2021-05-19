@@ -283,3 +283,19 @@ HEART_CHECK_COLISION_LOOP_COUNTER_CURRENT:   .space 4
 HEART_CHECK_COLISION_CURRENT_STRUCT:   .space 4
 RETURN_ADDRESS_HEART_CHECK_COLISION:    .space 4
 #==============================
+
+
+#==============================
+.eqv MMIO_set 0xff200000
+.eqv MMIO_add 0xff200004
+.eqv EXIT_KEY 113 # ascii value for 'q' (ie. if you press 'q' the program exits)
+# ascii code for the controller keys 'wasd'
+.eqv KEY_W 119
+.eqv KEY_A 97
+.eqv KEY_S 115
+.eqv KEY_D 100
+#==============================
+
+#==============================
+RETURN_ADDRESS_GAME_LOOP_WITH_SOUND:    .space 4
+#==============================
