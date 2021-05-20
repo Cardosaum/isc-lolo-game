@@ -24,7 +24,7 @@ MENU_INTERFACE_LOOP:
   beq t2,t0,READ_MENU_OPTIONS_2
   
   li t0,10         # enter
-  beq t2,t0,FIM
+  beq t2,t0,MENU_INTERFACE_EXIT
 
   j MENU_INTERFACE_LOOP
   
@@ -45,7 +45,7 @@ READ_MENU_OPTIONS_2:
   print_sprite(a0, a1, a2, STC_BLOCK, a5)
   j MENU_INTERFACE_LOOP
 
-FIM:
+MENU_INTERFACE_EXIT:
   load_word(ra,RETURN_ADDRESS_MENU_INTERFACE)
   ret
 #=====================================================================================================

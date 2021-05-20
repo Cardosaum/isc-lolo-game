@@ -64,15 +64,17 @@
 .include "../sprites/menu_option_2.data"
 .include "../sprites/door_open.data"
 .include "../sprites/door_closed.data"
+.include "../sprites/credits.data"
 
 
 
 .text
 MAIN:
-    # TODO: print LOLO ADVENTURES MENU
     jal MENU_INTERFACE
     jal PLAY_MAP_LEVEL_1
-    # TODO: PRINT CREDITS
+    #print_credits()
+    jal SHOW_CREDITS
+    #sleep(5000)
     exit()
 
 
@@ -97,3 +99,4 @@ MAIN:
 .include "game_loop_with_sound.s"
 .include "heart_check_collected_all.s"
 .include "play_map_levels.s"
+.include "credits.s"

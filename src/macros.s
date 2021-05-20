@@ -315,3 +315,11 @@
     jal GAME_LOOP_WITH_SOUND
     jal DELETE_STRUCT_VECTOR
 .end_macro
+
+.macro print_credits()
+    li t0,0
+    li t1,0
+    la t2,credits
+    li t3,0
+    print_sprite(t0,t1,t2,STC_BLOCK,t3)
+.end_macro
