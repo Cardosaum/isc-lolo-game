@@ -71,9 +71,7 @@
 MAIN:
     jal MENU_INTERFACE
     jal PLAY_MAP_LEVEL_1
-    #print_credits()
     jal SHOW_CREDITS
-    #sleep(5000)
     exit()
 
 
