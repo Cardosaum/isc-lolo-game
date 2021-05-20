@@ -1,4 +1,5 @@
 #=====================================================================================================
+#define os valores essenciais
 PLAY_MUSIC:
     # save return address for later
     store_word(t0,ra,RETURN_ADDRESS_PLAY_MUSIC)

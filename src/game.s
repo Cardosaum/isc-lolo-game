@@ -67,7 +67,6 @@
 .include "../sprites/credits.data"
 
 
-
 .text
 MAIN:
     jal MENU_INTERFACE

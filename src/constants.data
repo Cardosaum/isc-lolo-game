@@ -195,7 +195,6 @@ RETURN_ADRESS_READ_MENU_OPTIONS_2: .space 4
 RETURN_ADDRESS_MENU_INTERFACE: .space 4
 #==============================
 
-
 #==============================
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A0:   .space 4
 READ_AND_PRINT_MAP_MATRIX_DYNAMIC_SPRITES_A1:   .space 4
@@ -262,8 +261,6 @@ RETURN_ADDRESS_LOLO_SHOT_PRINT: .space 4
 #==============================
 
 #==============================
-# Cora��es fases
-# counter cora��es
 LOLO_HEART_MAP:    .space 4
 
 # constants

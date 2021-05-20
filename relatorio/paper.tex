@@ -78,15 +78,18 @@ Assembly; RISC-V; The Adventures of Lolo; Bitmap Display; RARS
 
 
 \section{Introdução}
-\label{sec:introducao}
-
 O jogo \textit{The Adventures of Lolo} foi lançado em 1989 voltado, principalmente, para crianças, como um jogo de puzzle e raciocínio lógico, em que se deve solucionar variados problemas para passar de fase e resgatar a companheira de Lolo, Lala. O jogador controla Lolo, um ser azul, que possui poderes úteis para derrotar inimigos e solucionar os desafios de cada nível.
 
+<<<<<<< HEAD
+O jogo \textit{The Adventures of Lolo} foi lançado em 1989 voltado, principalmente, para crianças, como um jogo de puzzle e raciocínio lógico, em que se deve solucionar variados problemas para passar de fase e resgatar a companheira de Lolo, Lala. O jogador controla Lolo, um ser azul, que possui poderes úteis para derrotar inimigos e solucionar os desafios de cada nível.
+
+Como forma de aprendizado na disciplina Introdução a Sistemas Computacionais, foi proposto para os alunos a recriação do jogo The Adventures of Lolo, utilizando o RARS (RISC-V Assembler and Runtime Simulator). O projeto foi criado com o propósito de ensinar métodos de programação, raciocínio lógico e planejamento, além de introduzir os alunos à linguagem de baixo nível Assembly.
+=======
 Como forma de aprendizado na disciplina Introdução a Sistemas Computacionais, foi proposto para os alunos a recriação do jogo The Adventures of Lolo, utilizando o RARS (RISC-V Assembler and Runtime Simulator). O projeto foi criado com o propósito de ensinar métodos de programação, raciocínio lógico e planejamento, além de introduzir os alunos à linguagem de baixo nível Assembly.
 
 \begin{figure}[htb]
   \begin{center}
-   \includegraphics[width=0.3\linewidth]{./Figures/capa_lolo_nes.png}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_1.png}
   \end{center}
   \caption{Capa do jogo no NES}
   \label{fig:01}
@@ -107,51 +110,237 @@ de organização do grupo e melhor versionamento de código, assim, partimos par
 implementação da impressão de sprites no bitmap display. Para tal, precisamos
 formular uma estratégia para renderização dos sprites.
 
-\subsection{Arquitetura MIPS}{
+\subsection{Blocos 16x16}{
 \label{sec:MIPS}
-Exemplo de subseção. A arquitetura MIPS \cite{patterson2005organizaccao} foi desenvolvida por ....
+Percebemos no jogo original que os espaços por onde
+o jogador e inimigos se movimentavam, como o espaço
+em que os mesmos ocupavam, podia ser interpretado
+como um bloco com 16 pixels de largura por 16 pixels de altura, assim implementamos o jogo assumindo
+que cada elemento possuía como base um bloco 16x16
+pixels.
+>>>>>>> aqu1la
 
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec magna lectus. Donec egestas risus quis mollis venenatis. Nullam vel tellus enim. Aliquam erat volutpat. Phasellus a urna et tellus venenatis aliquet. Integer sit amet condimentum leo. Etiam massa nisi, rhoncus eget condimentum pharetra, imperdiet vitae eros. Nunc porta nisi facilisis, feugiat odio sit amet, ullamcorper tortor. Cras et urna cursus, mollis nibh quis, blandit risus.
-
-Pellentesque tincidunt ultrices ex at varius. Pellentesque sit amet sapien in enim vehicula tincidunt vel ac augue. Integer ultricies vulputate massa at scelerisque. Curabitur ut quam porttitor, rhoncus felis eget, semper sapien. Integer accumsan nisi et leo suscipit iaculis. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean pretium lacus sed quam volutpat congue. Ut sapien erat, dictum nec faucibus vel, finibus tempor nisl. 
 }
+\begin{figure}[htb]
+  \begin{center}
+<<<<<<< HEAD
+   \includegraphics[width=0.3\linewidth]{./Figures/capa_lolo_nes.png}
+=======
+   \includegraphics[width=0.3\linewidth]{./Figures/image_2.png}
+>>>>>>> aqu1la
+  \end{center}
+  \caption{Capa do jogo no NES}
+  \label{fig:01}
+\end{figure}
+
+<<<<<<< HEAD
+\section{Metodologia}
+\label{sec:Metodologia}
+
+Para implementação do jogo no RARS, utilizaram-se principalmente as ferramentas
+\textit{bitmap display}, o que permite imprimir as imagens (sprites) dos personagens,
+blocos, inimigos entre outros, criando uma interface visual para o jogador, e o
+KDMMIOS (Keyboard and Display MMIO Simulator), o qual possibilita enviar um dado
+do teclado para o RARS, viabilizando a movimentação do Lolo por meio do teclado
+do jogador.
+
+De início, o projeto começou com a criação de um repositório no GitHub para fins
+de organização do grupo e melhor versionamento de código, assim, partimos para
+implementação da impressão de sprites no bitmap display. Para tal, precisamos
+formular uma estratégia para renderização dos sprites.
+=======
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_3.png}
+  \end{center}
+  \caption{Capa do jogo no NES}
+  \label{fig:01}
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_4.png}
+  \end{center}
+  \caption{Capa do jogo no NES}
+  \label{fig:01}
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_5.png}
+  \end{center}
+  \label{fig:01}
+\end{figure}
+
+Isso nos permitiu tratar as posições das imagens no
+bitmap display de forma mais automática e fácil de
+visualizar e modificar, assim criamos os mapas de tal
+forma que os blocos assumiam posições que eram divisíveis por 16, assim fizemos mapa feitos com blocos
+16x16. Devido a essa estratégia, o mapa de jogo não
+ocupa completamente o bitmap display, sendo possível jogar em parte limitada apenas. Por questões de
+estética, o mapa implementado é maior que o mapa
+do jogo original, possuindo mais uma linha e colunas de blocos 16x16, caracterizando o mapa jogável
+(paredes, chão, árvores) com 210 blocos 16x16, e o
+Bitmap Display inteiro por 300 blocos 16x16.
+
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_6.png}
+  \end{center}
+  \caption{ mapa criado por nós e visualização dos
+blocos 16x16 no mapa jogável respecttivamente}
+  \label{fig:01}
+\end{figure}
 
 
-\subsection{Simulador/Montador MARS}{
+\subsection{Colisão e matriz do mapa}{
 \label{sec:Mars}
-Exemplo de subseção. O Mars \textit{MIPS Assembler and Runtime Simulator} \cite{Mars1} é um simulador desenvolvido por...
+Como estratégia de colisão, decidimos fazer uso de
+uma matriz para representar o Bitmap display, como
+a tabela quadriculada na parte direita da figura 3.
+>>>>>>> aqu1la
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec magna lectus. Donec egestas risus quis mollis venenatis. Nullam vel tellus enim. Aliquam erat volutpat. Phasellus a urna et tellus venenatis aliquet. Integer sit amet condimentum leo. Etiam massa nisi, rhoncus eget condimentum pharetra, imperdiet vitae eros. Nunc porta nisi facilisis, feugiat odio sit amet, ullamcorper tortor. Cras et urna cursus, mollis nibh quis, blandit risus.
-
-Pellentesque tincidunt ultrices ex at varius. Pellentesque sit amet sapien in enim vehicula tincidunt vel ac augue. Integer ultricies vulputate massa at scelerisque. Curabitur ut quam porttitor, rhoncus felis eget, semper sapien. Integer accumsan nisi et leo suscipit iaculis. Suspendisse potenti. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean pretium lacus sed quam volutpat congue. Ut sapien erat, dictum nec faucibus vel, finibus tempor nisl. 
 }
 
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_7.png}
+  \end{center}
+  \caption{ mapa criado por nós e visualização dos
+blocos 16x16 no mapa jogável respecttivamente}
+  \label{fig:01}
+\end{figure}
 
-\section{Resultados Obtidos}
+Como o bitmap display possui 300 blocos 16x16,
+a matriz possui, também, 300 posições, com cada
+número representando o que o Lolo pode ou não fazer
+em cada posição do mapa. Assim, enquanto movemos
+o Lolo pelo mapa, sua posição na matriz também se
+modifica, sendo possível checar as posições, inimigos,
+paredes, prêmios, entre outros. Colocamos a matriz
+como um array no RARS, sendo possível sua interação. Para checar se o Lolo podia se mover entre os
+blocos, checava-se as extremidades do quadrado em
+que o Lolo ocupava com as extremidades dos outros
+blocos.
+
+
+\begin{itemize}
+    \item 0 - Lolo não pode se mover para além desse bloco
+    \item 1 - Lolo pode se movimentar por entre esses blocos livremente
+    \item 2 - Coração
+    \item 3 - Baú
+    \item 9 - Porta
+\end{itemize}
+
+Com isso, é possível checar as posições dos elementos
+estáticos (paredes e chão) do mapa de forma rápida e
+fácil, porém, elementos dinâmicos, como o Lolo e os
+inimigos que se movem, possuem a característica de
+nem sempre terem uma posição estática ou podem
+se modificar quando o Lolo agir sobre algum bloco
+ou sprite. Portanto, tivemos que implementar algo
+parecido com uma struct, junto com alocamento de
+memória, como pode ser feita em linguagens de programação de mais alto nível, como C.
+
+\subsection{Blocos dinâmicos}{
+\label{sec:MIPS}
+O Lolo é o principal elemento dinâmico que ocupa um
+bloco 16x16, já que ele se move em qualquer direção
+que o jogador desejar e interage com os outros blocos
+e inimigos, além do Lolo conseguir modificar alguma
+parte do mapa.
+
+}
+
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_8.png}
+  \end{center}
+  \caption{Exemplificação de um array de structs
+em Assembly. Imagem original de “Programming
+Rust by Jim Blandy and Jason Orendorf}
+  \label{fig:01}
+\end{figure}
+
+A partir dessa implementação, os blocos dinâmicos
+podiam ser tratados no RARS com maior flexibilidade, o que possibilitou a movimentação do Lolo pelo
+mapa, de forma que as impressões, dos movimentos
+do Lolo, passados pudessem ser pagadas sem modificar o bloco por onde o Lolo se movimenta, como o
+bloco do chão de tijolo.
+
+
+\section{Resultados obtidos}
 \label{sec:Resultados}
-Apresentar aqui os resultados obtidos, telas e link para vídeos e comentários.
 
+\subsection{Desafios}{
+\label{sec:MIPS}
+De início, encontramos um problema na colisão do
+Lolo, em que dependendo do dado do teclado, em que
+o jogador tentasse se mover diagonalmente, ele podia
+passar por cima das paredes. Resolvemos ao checar
+as extremidades do bloco em que o Lolo ocupava com
+as extremidades do bloco por onde o jogador queria
+que o Lolo se movimentasse, impedindo a impressão
+ou não.
 
+Outro problema foi a movimentação do Lolo de
+tal forma que suas imagens de movimentações antigas
+fossem apagadas e que o bloco de tijolo fosse restaurado. Resolvemos isso criando uma checagem nas
+struct, salvando o bloco original por onde o Lolo se
+moveu
+}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu mi cursus, pretium lectus vel, commodo neque. Nulla facilisi. Duis in quam non metus lobortis sagittis. Nunc ac auctor mi. Nullam imperdiet orci eget neque accumsan, eget ornare turpis cursus. Sed ut cursus sapien, vel accumsan neque. Donec dignissim maximus sapien non commodo. Praesent a gravida metus. Duis eget nulla luctus, finibus ex sed, ornare velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur placerat efficitur velit, eget auctor eros posuere nec. Morbi pretium purus in libero porttitor interdum.
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_9.png}
+  \end{center}
+  \caption{}
+  \label{fig:01}
+\end{figure}
 
-Ut convallis egestas libero, sit amet tempor sem volutpat pretium. Nam ut libero mattis, interdum purus sit amet, fermentum diam. Integer a mi iaculis, egestas risus in, tempus eros. Donec elementum aliquet ante, nec ultrices lectus iaculis id. Integer pretium, mi id tempor blandit, elit sem viverra mi, sit amet rhoncus nunc sapien et mi. Etiam egestas at nisl non finibus. Mauris interdum elit lorem, sit amet eleifend ex rhoncus ultrices. Donec vulputate leo et velit viverra, sit amet volutpat nulla aliquam. Aenean quis velit sed arcu dapibus sagittis.
+\begin{figure}[htb]
+  \begin{center}
+   \includegraphics[width=0.3\linewidth]{./Figures/image_10.png}
+  \end{center}
+  \caption{Figura 7: colisão defeituosa e impressão
+de animação defeituosa respectivamente.}
+  \label{fig:01}
+\end{figure}
 
-Etiam magna ipsum, eleifend ut egestas ac, varius ac mauris. Praesent non nisl vitae dui fermentum fermentum. Fusce a tortor vitae lorem semper scelerisque sagittis et magna. Aenean tincidunt, lacus nec lacinia tempus, felis urna placerat orci, at facilisis urna quam in nibh. Nam sagittis facilisis libero, non scelerisque leo finibus ac. Nulla neque purus, viverra sit amet elementum vel, iaculis in dui. Praesent sit amet condimentum est. Proin convallis sapien sed semper interdum. Mauris semper laoreet elementum. Nam eu fringilla odio, a rhoncus sapien. Etiam id sem quis sapien bibendum porttitor. Etiam eu luctus odio. Aenean vel imperdiet est, et dignissim mauris. Donec quam massa, accumsan eget tellus quis, accumsan dignissim enim. 
+Ao final conseguimos implementar muito bem a movimentação do Lolo junto com animação e a colisão com
+paredes e outros elementos do mapa
 
 \section{Conclusão}
-\label{sec:Conclusao}
-Este trabalho apresentou...
+Um grande benefício do projeto foi a criação de
+um ambiente de trabalho com o grupo, demandando
+atenção, paciência, tempo e organização, o qual pode
+ser proveitoso para situações futuras do mercado de
+trabalho ou em outros projetos estudantis.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu mi cursus, pretium lectus vel, commodo neque. Nulla facilisi. Duis in quam non metus lobortis sagittis. Nunc ac auctor mi. Nullam imperdiet orci eget neque accumsan, eget ornare turpis cursus. Sed ut cursus sapien, vel accumsan neque. Donec dignissim maximus sapien non commodo. Praesent a gravida metus. Duis eget nulla luctus, finibus ex sed, ornare velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur placerat efficitur velit, eget auctor eros posuere nec. Morbi pretium purus in libero porttitor interdum.
+O Jogo em si teve alguns elementos que
+gostaríamos de ter implementado, mas foram deixados de fora devido à uma certa falta de organização do tempo para poder criá-los, já que a linguagem
+Assembly, apesar de ser simples, demanda uma boa
+quantidade de tempo para poder utiliza-la eficientemente. Entretanto, foi uma ótima oportunidade
+para a interação do grupo e para nossa própria formação acadêmica e profissional, e conseguimos acumular uma ótima experiência que servirá de referência no futuro
+
+
+\section{Referência}
+\label{sec:Conclusao}
+\begin{itemize}
+    \item[--] Aulas gravadas do professor Marcus Vinícius Lamar;
+    \item[--] Aulas gravada de Thales Menezes;
+    % \item[--] The adventures of Lolo, https://en.wikipedia.org/wiki/Adventures_of_Lolo.
+    % \item[--] Acesso em 17/05/2021.
+
+\end{itemize}
+
 
 %{\bf Acknowledgments}
 %[Blind Review]
 
 %\newcommand{\BIBdecl}{\setlength{\itemsep}{-0.5 em}}
 %\bibliographystyle{IEEEtran}
-\bibliographystyle{sbgames}
-\bibliography{bibliography}
+% \bibliographystyle{sbgames}
+% \bibliography{bibliography}
 
 \end{document}
