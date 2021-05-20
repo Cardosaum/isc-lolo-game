@@ -197,7 +197,7 @@ blocos.
 
 \begin{itemize}
     \item 0 - Lolo não pode se mover para além desse bloco
-    \item 1 - Lolo pode se movimentar por entre esses blocos livremente
+    \item 1 - Lolo pode se movimentar entre esses blocos livremente
     \item 2 - Coração
     \item 3 - Baú
     \item 9 - Porta
@@ -207,7 +207,7 @@ Com isso, é possível checar as posições dos elementos estáticos (paredes e 
 do mapa de forma rápida e fácil, porém, elementos dinâmicos, como o Lolo e os
 inimigos que se movem, possuem a característica de nem sempre terem uma posição
 estática ou podem se modificar quando o Lolo agir sobre algum bloco ou sprite.
-Portanto, tivemos que implementar algo parecido com uma struct, junto com
+Portanto, tivemos que implementar algo parecido com uma \textit{struct}, junto com
 alocamento de memória, como pode ser feita em linguagens de programação de mais
 alto nível, como C.
 }
@@ -226,7 +226,7 @@ parte do mapa.
   \begin{center}
    \includegraphics[width=1.0\linewidth]{./Figures/image_8.png}
   \end{center}
-  \caption{Exemplificação de um array de structs
+  \caption{Exemplificação de um array de \textit{structs}
 em Assembly. Imagem original de “Programming
 Rust by Jim Blandy and Jason Orendorf}
   \label{fig:01}
@@ -234,9 +234,10 @@ Rust by Jim Blandy and Jason Orendorf}
 
 A partir dessa implementação, os blocos dinâmicos podiam ser tratados no RARS
 com maior flexibilidade, o que possibilitou a movimentação do Lolo pelo mapa, de
-forma que as impressões, dos movimentos do Lolo, passados pudessem ser pagadas
-sem modificar o bloco por onde o Lolo se movimenta, como o bloco do chão de
-tijolo.
+forma que as impressões anteriores dos sprites do Lolo pudessem ser apagadas sem
+modificar o bloco por onde o Lolo se movimenta, como o bloco do chão de tijolo,
+por exemplo.
+
 }
 
 \section{Resultados obtidos}
@@ -254,8 +255,8 @@ ou não.
 
 Outro problema foi a movimentação do Lolo de tal forma que suas imagens de
 movimentações antigas fossem apagadas e que o bloco de tijolo fosse restaurado.
-Resolvemos isso criando uma checagem nas struct, salvando o bloco original por
-onde o Lolo se moveu }
+Resolvemos isso criando uma checagem nas \textit{struct}, salvando o bloco original por
+onde o Lolo se moveu. }
 
 \begin{figure}[htb]
   \begin{center}
@@ -267,7 +268,7 @@ de animação defeituosa respectivamente}
 
 
 Ao final conseguimos implementar muito bem a movimentação do Lolo junto com
-animação e a colisão com paredes e outros elementos do mapa
+animação e a colisão com paredes e outros elementos do mapa.
 
 \section{Conclusão}
 Um grande benefício do projeto foi a criação de um ambiente de trabalho com o
@@ -281,17 +282,16 @@ poder criá-los, já que a linguagem Assembly, apesar de ser simples, demanda um
 boa quantidade de tempo para poder utiliza-la eficientemente. Entretanto, foi
 uma ótima oportunidade para a interação do grupo e para nossa própria formação
 acadêmica e profissional, e conseguimos acumular uma ótima experiência que
-servirá de referência no futuro
+servirá de referência no futuro.
 
 
 \section{Referência}
 \label{sec:Conclusao}
 \begin{itemize}
     \item[--] Aulas gravadas do professor Marcus Vinícius Lamar;
-    \item[--] Aulas gravada de Thales Menezes;
-    \item[--] The adventures of Lolo, \textit{\url{https://en.wikipedia.org/wiki/Adventures_of_Lolo}}.
-    \item[--] Acesso em 17/05/2021.
-    
+    \item[--] Aulas gravadas de Thales Menezes;
+    \item[--] The adventures of Lolo, \textit{\url{https://en.wikipedia.org/wiki/Adventures_of_Lolo}}, Acesso em 17/05/2021.
+
 \end{itemize}
 
 
