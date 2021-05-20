@@ -24,6 +24,7 @@
 .include "../sprites/lolo_combined.data"
 .include "../sprites/map/map.data"
 .include "../sprites/map_level_1.data"
+.include "../sprites/map_level_2_mock.data"
 .include "../sprites/map_level_2.data"
 .include "../sprites/map_level_3.data"
 .include "../sprites/map_level_4.data"
@@ -70,10 +71,8 @@
 MAIN:
     # TODO: print LOLO ADVENTURES MENU
     jal MENU_INTERFACE
-    sleep(5000)
     jal PLAY_MAP_LEVEL_1
     # TODO: PRINT CREDITS
-    sleep(5000)
     exit()
 
 

@@ -42,7 +42,7 @@ DELETE_STRUCT_VECTOR:
 
     # get array capacity
     la t0,DYN_VECT_STRUCT
-    lw t1,8(t0)
+    lw t1,4(t0)
     li t2,SPRITE_STRUCT_SIZE
     mul t1,t1,t2
 
